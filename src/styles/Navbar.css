@@ -1,0 +1,17 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  background: #3d3b5e;
+  padding: 10px 20px;
+  color: white;
+  font-size: 1rem;
+  border-bottom: 2px solid #6c63ff;
+}
+
+.navbar-user {
+  font-weight: bold;
+}
+
+.navbar-credits {
+  color: #04d9ff;
+}
