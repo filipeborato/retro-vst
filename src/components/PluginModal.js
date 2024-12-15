@@ -81,7 +81,7 @@ function PluginModal({ plugin, onClose }) {
         </div>
         <div className="action-buttons">
           <button className="send-button" onClick={handleSend}>Enviar</button>
-          <button className="close-button" onClick={onClose}>Fechar</button>
+          <button className="close-button" onClick={() => onClose()}>Fechar</button>
         </div>
       </div>
     </div>
