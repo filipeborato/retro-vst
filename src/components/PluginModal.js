@@ -17,6 +17,23 @@ function PluginModal({ plugin, onClose }) {
 
   const handleFileUpload = (event) => {
     const uploadedFile = event.target.files[0];
+    const allowedTypes = ['audio/wav', 'audio/mpeg', 'audio/ogg', 'audio/flac', 'audio/aiff'];
+
+    if (!uploadedFile) {
+      alert('Nenhum arquivo selecionado!');
+      return;
+    }
+
+    if (!allowedTypes.includes(uploadedFile.type)) {
+      alert('Formato de arquivo inválido. Por favor, envie um arquivo de áudio válido (wav, mp3, ogg, flac, aiff).');
+      return;
+    }
+
+    if (uploadedFile.size > 10 * 1024 * 1024) { // Limite de 10MB
+      alert('O arquivo é muito grande. O limite é de 10MB.');
+      return;
+    }
+
     setFile(uploadedFile);
     alert(`Arquivo '${uploadedFile.name}' carregado com sucesso!`);
   };
@@ -35,8 +52,14 @@ function PluginModal({ plugin, onClose }) {
     alert('Parâmetros enviados com sucesso!');
   };
 
+  const handleBackdropClick = (event) => {
+    if (event.target.classList.contains('modal')) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="modal">
+    <div className="modal" onClick={handleBackdropClick}>
       <div className="modal-content">
         <h2>{plugin.name}</h2>
         <p>{plugin.description}</p>
