@@ -1,29 +1,62 @@
 .plugin-controls {
-    margin: 20px 0;
-  }
-  
-  .knobs-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
-  }
-  
-  .knob {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100px;
-    height: 10px;
-    background: #4a4e69;
-    border-radius: 5px;
-    outline: none;
-    margin-bottom: 10px;
-    cursor: pointer;
-  }
-  
+  margin: 20px 0;
+}
+
+.knobs-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.knob {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100px;
+  height: 10px;
+  background: #4a4e69;
+  border-radius: 5px;
+  outline: none;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.upload-input {
+  color: white;
+  background: #6a0572;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.upload-input:hover {
+  background: #50054d;
+}
+
+.send-button {
+  background: #06d6a0;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.send-button:hover {
+  background: #04a67e;
+}

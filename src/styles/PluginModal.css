@@ -8,16 +8,54 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
   }
   
   .modal-content {
     background: #22223b;
     padding: 30px;
-    border-radius: 10px;
-    color: white;
+    border-radius: 15px;
     text-align: center;
-    width: 80%;
+    width: 90%;
     max-width: 600px;
+    color: white;
+  }
+  
+  .plugin-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px 0;
+  }
+  
+  .plugin-slider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .file-upload {
+    margin: 20px 0;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .send-button {
+    background: #06d6a0;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .send-button:hover {
+    background: #04a67e;
   }
   
   .close-button {
@@ -27,6 +65,7 @@
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 1rem;
   }
   
   .close-button:hover {
