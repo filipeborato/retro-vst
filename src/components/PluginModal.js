@@ -49,15 +49,14 @@ function PluginModal({ plugin, onClose }) {
     const formData = new FormData();
     formData.append('audio_file', file);
     const headers = {
-      'Content-Type': 'application/json',
-      'Cookie': '.Tunnels.Relay.WebForwarding.Cookies=CfDJ8E0FHi1JCVNKrny-ARCYWxNRW3_GgQyjpXDAkcVImKGv8bmsNdD56MG6B23uUejNMfgZt6ORTvobWg-5Wl_6ngJNsMv15I_5p4CGimXKgzQiFXgDmyEKKJmXlmbOVfW4tKErSd6MpskVyu6y6BBM7UKJPFqxZ5_Vm4vBHmI5W9pcgBy-jAfjoirUjaMgp38PnEa8hN48BqgfKIkYWtjVt_HiPo7DiennrW7ZLOeJWs_yX75pJS9qezeSeLffGBpkWZ3JQMxIuiCrHhPSTO5W4t3uhZVcUOBF8RrzPe4WpAa389YFkUCtGURKRhEOBsOIUqECTEBvMeDjriZ1L3yavMFQecdQTgv-SZX82MDTOKu2d_JIhYK9clhs1piw9dwTBz_CgEljSxyIVIDtQrb9N0ulf24hNrWbJJlr8UzCndalkr5Lls16q2LsliVMh0AatkPhuR1W7M2QXeaHcinXONcBcPX9Vg6j9Bd4PqzWfJtHyVg2FEZIhpqN3jD30F2utK4C4ocmRaILA3o772Uw2Z1FtZdLVIaJqG5JlBwd6WY33xRCUIcTEwozHHLhqi_r8him9r4PjmACCL1DBlJ83ZpJoGm419k_1E5iSGjCGkZLD8lrnGdDQSNLP4jY6_N9y7A9WUEAXJ5SpLcc67AuXlbXkoextK6TArfxH6caId3HwC6l4Ox8PwBY7gPT3Wcjx--vWJR4eF_6VtF5qtIKNUEFkjA_dcYJtk-nqUJUzTP0rCypx1I3Q5fAIuCUS27750iZDRv5MgjKYrhEj5eH2ZFv1bT8BEOoIKv1W6suMuKhdhfNFe6Ga4ocvIQfFQM9ddHdtMhBjZWSYCxP3-Di8YCwKOMPhm3MuzAtWEzR60FDLqsiBpa9MnSsl1cJpBCsblo_roEM1YYJy2gpP5gQha0xx9fCJY3BclNeDZSher0okLxcQDAgBkcWKND-Zx8BpN_0FF9chLyKacpvcmN2taj69jN76VQH-kfZLiUErIhZbU4HEmJkVrqzglvOonICT_xxODWdXk3W0Mg9aR9qjZUBF06SyEwBtVQ3AFc9AiPZmSmNePheGvevXNd95R25I9v2JcrJeaWNQF0yufvOJwjmEcYNk5pAqRnd3F5ugcDwOQCMuti06H9ytUJQsBmgPiXT2GhlLu1IEficrTI1Q3Ovs-_uQ80wBlI4hwfQiZ3UBPi-6KSDrVutih7w-0FLpvaXDhPyqSgo6ogAih2i-CVJNQ1jpT4c_DKj-Y7bPJAzCW7IluUFt3210gfDcDAs4jAiHJtrdcAHjzXEiSnodJuaI2ODKZcXvBgMlxLEDS3v0yF8gZaqUAcHA0Hu6EhHUIKxHra1z5LSmMWQbBETpxPShc1MGvm0fcW-e5LM3AmPfWIza0t-sppwCUcLPE8h2CZRSZge98Jq0NzfLXMdeTjWegsb6604LB1v1XPORfyXbvt31YP58GHTBN2b3v2si30aeKaWyaSBvQYNWNBki_irE_bxqhsh_MWxtdhTTOoFuCslN6Ei_n3yBG5q86axFOBVBIZTKh58yWcSNoJxypG_E-mMonVIyMVLBvaK2QGqTwVnT_VBJWbt08zcr8mFow' // Truncado por limite de espaço."
+      'Access-Control-Allow-Origin': '*',      
     };
-
+    
     try {
       const response = await fetch(url, {
         method: 'POST',
         body: formData,
-        headers: headers,
+        headers: headers,        
       });
 
       if (!response.ok) {
