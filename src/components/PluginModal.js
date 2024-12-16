@@ -49,14 +49,16 @@ function PluginModal({ plugin, onClose }) {
     const formData = new FormData();
     formData.append('audio_file', file);
     const headers = {
-      'Access-Control-Allow-Origin': '*',      
+      'Access-Control-Allow-Origin': '*',
+      'Cookie': '.Tunnels.Relay.WebForwarding.Cookies=CfDJ8E0FHi1JCVNKrny-ARCYWxOCaU9ah93gm0S-dHy08mCQ0L4eWisO8xZY2iIYd8KyvvxLl9pTP18rHEbRwrZ7LpGLgv0ipn6uc_23MxUEfsmv5SBmuh0l-qZTt0n3wlsQqGriKjgoiBjIAXY83KY6_2AYqiIwc8QJ3ZEyj8pNt5izkxXmkhB_N5YoRBceqWNPNeOZNJSy-GROnwqm1TDbFwVUBPfh5W1gm-EhxjTik2hOmvfQjgb17wnB9bqnRyXf78l_NYDoaJMa41EWYDiddUP9dhOJvkp6B0VkONc1ENlF94KBDHEpwJ-EtJaI4p5YvKUcTW80wt2zYOWScKjw8otB_f00-K8EeslNqXbSavi0Yzm0ABjYa1_rpDS3Bd4PAzWdthR1Gy-kK3ni0Csy9zabyyooTizl8QzlfFGtXqhAoV2LaZ5eVY4HnSdfFLo10tWoU_d5YgG5Jp3UpBVIeCMzDEHLI0ycH5PAEP5FGtUcKLKc_YXTWaBtLcZ2hPsXZKivm4uKVW_s6QLAk8PcfhQE9qbdL45s36BsdlB9QT87LZefvY38dEJlp9azbK2t3M0Wo0rqoYEBn8he8JCb2KzZDGwK3HxbsgpLvxaK1B09SjYkwU8pAr3GfoS0ON1kaRjhnGw2vK9NcC5btxSof9d2YHSEzMHzl12KAC2vyN5tbspUVtTaJ3yU4iTDfR-UlrfIWhCRIF-fvjhQv9sZYpopB47dt0Rr3D1HyYFAQapMJmIgYgZeyTHARTpQ5l-XFMTY6tvMFKXZHZzLvGJ0QEfW4yhZqowgn-7h65AxVlMbHUW5NHaKfgLtze03GqNhUSZvSleYn1mNG_kEnZuW7FOc9dRI4tuWwj5rGfbQSxbuNmkE3dnlu0Z0pdHSlnMGWFfgg4OgW0DrqJ4L-m5lT78saA1kYxfHXoVfn0nIXVEqA8ClViUyEQgwEwcArAb-D9xxndlJdCnrvntqn3V0xE9--nCtbma15NhfSWpJjLworwhpMEzXa1fncywAbsNOwB6wPm4RKXlNg2GW1a1acEtR6Otzc9GfByAcEGwsJUyQ58N9tzkM2Vdpg2Uxzbn8UyQErTgG1MuyaoUTIEl_apfUrXDxjA9OQNzkfU1FR2RIrNNufJbGebaDAsu0XrrZlvXy61TQxwMs4AWNnkUeuJy6_zr-ZaL4bPCp4mAbAAcL3D5PnGynDEvNtKMktq6MIVe729yHhhc0a4GPThbzF7_8H0pLKT6d0h3jclnekkJKm7Ct4H8XCNRHhjtR0ktQqQL-jpEeHxRYz2Ur9Punc1XfwiBZ0vs3HvA3qpbEyl_ejsvTN5LvoXTlFVJe0voZtZvo2C-Ri7OJtHeeI9yT0VPesaVzLR9huJ3Lmw7PXwQETn9fx4x6QDaDVRHalGHFozF5lzyJ7s01fFQ2Jgm0bIjPrYmZPv_DQwhwCZDq7IqX0YK7H50fDhc3l98hqgTCFA2IZxGTgmXQTf62CVSSWVPNxwgzXLpu48D9eoIwuZqi_1d2fs-1HWRsGUnoYW-O__IwCFZB8paEvKi4r5fq64-fs0gsaNPqTGPksxHObOGaiSvuibsUmM9FdTxH_3OmJQ',      
     };
     
     try {
       const response = await fetch(url, {
         method: 'POST',
         body: formData,
-        headers: headers,        
+        headers: headers,
+        credentials: 'include',        
       });
 
       if (!response.ok) {
