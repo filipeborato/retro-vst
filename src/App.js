@@ -28,14 +28,16 @@ function App() {
   };
 
   return (
-    <div className="app retro-theme">
+    <div className="app retro-theme full-height">
       <Navbar user="John Doe" credits={42.50} />
-      <h1 className="title">Retro VST Effects</h1>
-      <PluginGrid plugins={plugins} onPluginClick={openModal} />
+      <div className="main-content">
+        <h1 className="title">Retro VST Effects</h1>
+        <PluginGrid plugins={plugins} onPluginClick={openModal} />
 
-      {selectedPlugin && (
-        <PluginModal plugin={selectedPlugin} onClose={closeModal} />
-      )}
+        {selectedPlugin && (
+          <PluginModal plugin={selectedPlugin} onClose={closeModal} />
+        )}
+      </div>
     </div>
   );
 }
