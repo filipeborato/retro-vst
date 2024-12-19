@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import PluginGrid from './components/PluginGrid';
 import PluginModal from './components/PluginModal';
 import './styles/App.css';
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 // Dados dos plugins
 const plugins = [
@@ -41,6 +42,7 @@ function App() {
     <div className="app retro-theme full-height">
       <Navbar user="John Doe" credits={42.50} />
       <div className="main-content">
+        <SpeedInsights />
         <h1 className="title">Retro VST Effects</h1>
         <PluginGrid plugins={plugins} onPluginClick={openModal} />
 
