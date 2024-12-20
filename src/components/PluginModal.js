@@ -66,7 +66,6 @@ function PluginModal({ plugin, onClose }) {
         return;
       }
 
-      // Recebe o arquivo como Blob
       const processedFile = await response.blob();
       if (processedFile.size === 0) {
         console.error("Arquivo recebido está vazio.");
@@ -74,12 +73,10 @@ function PluginModal({ plugin, onClose }) {
         return;
       }
 
-      // Cria o link para download
       const downloadUrl = URL.createObjectURL(processedFile);
       const link = document.createElement("a");
       link.href = downloadUrl;
 
-      // Define o nome do arquivo com base na operação
       link.download = preview ? "preview_audio.wav" : "processed_audio.wav";
 
       document.body.appendChild(link);
@@ -119,7 +116,7 @@ function PluginModal({ plugin, onClose }) {
                   value={value}
                   onChange={(val) => handleKnobChange(index, val)}
                 />
-                <p>{`p${index}: ${value.toFixed(2)}`}</p>
+                <p>{`${plugin.sliderNames[index]}: ${value.toFixed(2)}`}</p>
               </div>
             ))}
           </div>
