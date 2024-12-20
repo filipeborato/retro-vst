@@ -64,7 +64,7 @@ function PluginModal({ plugin, onClose }) {
         method: "POST",
         body: formData,
         //headers: headers,
-        credentials: "include",
+        //credentials: "include",
       });
 
       if (!response.ok) {
