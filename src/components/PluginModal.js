@@ -25,7 +25,9 @@ function PluginModal({ plugin, onClose }) {
 
     const fileExtension = uploadedFile.name.split(".").pop().toLowerCase();
     if (!allowedExtensions.includes(fileExtension)) {
-      alert("Formato de arquivo inválido. Por favor, envie um arquivo de áudio válido.");
+      alert(
+        "Formato de arquivo inválido. Por favor, envie um arquivo de áudio válido."
+      );
       return;
     }
     if (uploadedFile.size > 10 * 1024 * 1024) {
@@ -43,7 +45,9 @@ function PluginModal({ plugin, onClose }) {
       return;
     }
 
-    const params = knobValues.map((value, index) => `p${index}=${value}`).join("&");
+    const params = knobValues
+      .map((value, index) => `p${index}=${value}`)
+      .join("&");
     const url = `https://ec2-15-228-250-220.sa-east-1.compute.amazonaws.com/process?plugin=${plugin.name}&preview=${preview}&${params}`;
 
     const formData = new FormData();
@@ -62,28 +66,31 @@ function PluginModal({ plugin, onClose }) {
         return;
       }
 
-      if (!preview) {
-        // Recebe o arquivo como Blob
-        const processedFile = await response.blob();
-        if (processedFile.size === 0) {
-          console.error("Arquivo recebido está vazio.");
-          alert("Erro: O arquivo recebido está vazio.");
-          return;
-        }
-
-        // Cria o link para download
-        const downloadUrl = URL.createObjectURL(processedFile);
-        const link = document.createElement("a");
-        link.href = downloadUrl;
-        link.download = "processed_audio.wav";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        alert("Arquivo processado e baixado com sucesso!");
-      } else {
-        alert("Pré-visualização enviada com sucesso!");
+      // Recebe o arquivo como Blob
+      const processedFile = await response.blob();
+      if (processedFile.size === 0) {
+        console.error("Arquivo recebido está vazio.");
+        alert("Erro: O arquivo recebido está vazio.");
+        return;
       }
+
+      // Cria o link para download
+      const downloadUrl = URL.createObjectURL(processedFile);
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+
+      // Define o nome do arquivo com base na operação
+      link.download = preview ? "preview_audio.wav" : "processed_audio.wav";
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      alert(
+        preview
+          ? "Pré-visualização baixada com sucesso!"
+          : "Arquivo processado e baixado com sucesso!"
+      );
     } catch (error) {
       console.error("Erro ao enviar o arquivo:", error);
       alert("Erro ao processar o arquivo. Por favor, tente novamente.");
@@ -91,36 +98,45 @@ function PluginModal({ plugin, onClose }) {
   };
 
   return (
-    <div className="modal" onClick={(e) => e.target.classList.contains("modal") && onClose()}>
-    <div className="modal-content">
-      <button className="close-button" onClick={onClose}>✖</button>
-      <h2>{plugin.name}</h2>
-      <p>{plugin.description}</p>
-      <div className="plugin-controls">
-        <div className="scrollable-section">
-          {knobValues.map((value, index) => (
-            <div key={index} className="plugin-slider">
-            <Slider
-              min={0.01}
-              max={1}
-              step={0.01}
-              value={value}
-              onChange={(val) => handleKnobChange(index, val)}
-            />
-            <p>{`p${index}: ${value.toFixed(2)}`}</p>
+    <div
+      className="modal"
+      onClick={(e) => e.target.classList.contains("modal") && onClose()}
+    >
+      <div className="modal-content">
+        <button className="close-button" onClick={onClose}>
+          ✖
+        </button>
+        <h2>{plugin.name}</h2>
+        <p>{plugin.description}</p>
+        <div className="plugin-controls">
+          <div className="scrollable-section">
+            {knobValues.map((value, index) => (
+              <div key={index} className="plugin-slider">
+                <Slider
+                  min={0.01}
+                  max={1}
+                  step={0.01}
+                  value={value}
+                  onChange={(val) => handleKnobChange(index, val)}
+                />
+                <p>{`p${index}: ${value.toFixed(2)}`}</p>
+              </div>
+            ))}
           </div>
-          ))}
+        </div>
+        <div className="file-upload">
+          <input type="file" onChange={handleFileUpload} />
+        </div>
+        <div className="action-buttons">
+          <button className="preview-button" onClick={() => handleSend(true)}>
+            Preview
+          </button>
+          <button className="process-button" onClick={() => handleSend(false)}>
+            Process
+          </button>
         </div>
       </div>
-      <div className="file-upload">
-        <input type="file" onChange={handleFileUpload} />
-      </div>
-      <div className="action-buttons">
-        <button className="preview-button" onClick={() => handleSend(true)}>Preview</button>
-        <button className="process-button" onClick={() => handleSend(false)}>Process</button>
-      </div>
     </div>
-  </div>  
   );
 }
 
