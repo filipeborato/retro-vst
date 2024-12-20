@@ -50,7 +50,7 @@ function PluginModal({ plugin, onClose }) {
     const params = knobValues
       .map((value, index) => `p${index}=${value}`)
       .join("&");
-    const url = `ec2-15-228-250-220.sa-east-1.compute.amazonaws.com/process?plugin=${plugin.name}&${params}`;
+    const url = `https://ec2-15-228-250-220.sa-east-1.compute.amazonaws.com/process?plugin=${plugin.name}&${params}`;
 
     const formData = new FormData();
     formData.append("audio_file", file);
@@ -67,13 +67,24 @@ function PluginModal({ plugin, onClose }) {
         credentials: "include",
       });
 
-      // if (!response.ok) {
-      //   throw new Error("Erro ao processar o arquivo.");
-      // }
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`Erro do servidor: ${response.status} - ${errorText}`);
+        alert(`Erro ao processar o arquivo: ${response.status}`);
+        return;
+      }
 
+      // Recebe o arquivo como Blob
       const processedFile = await response.blob();
-      const downloadUrl = URL.createObjectURL(processedFile);
 
+      if (processedFile.size === 0) {
+        console.error("Arquivo recebido está vazio.");
+        alert("Erro: O arquivo recebido está vazio.");
+        return;
+      }
+
+      // Cria o link para download
+      const downloadUrl = URL.createObjectURL(processedFile);
       const link = document.createElement("a");
       link.href = downloadUrl;
       link.download = "processed_audio.wav";
