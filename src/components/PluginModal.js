@@ -48,7 +48,9 @@ function PluginModal({ plugin, onClose }) {
     const params = knobValues
       .map((value, index) => `p${index}=${value}`)
       .join("&");
-    const url = `https://ec2-52-67-58-213.sa-east-1.compute.amazonaws.com/process?plugin=${plugin.name}&preview=${preview}&${params}`;
+    const baseUrl =
+      process.env.REACT_APP_API_BASE_URL || "http://localhost:18080";
+    const url = `${baseUrl}/process?plugin=${plugin.name}&preview=${preview}&${params}`;
 
     const formData = new FormData();
     formData.append("audio_file", file);
