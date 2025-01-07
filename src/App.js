@@ -84,7 +84,14 @@ function App() {
 
   return (
     <div className="app retro-theme full-height">
-      <Navbar user="John Doe" credits={42.5} />
+      <Navbar
+        user="John Doe"
+        credits={42.5}
+        notifications={[
+          "Bem-vindo ao Retro VST!",
+          "Atualização disponível para TheFunction",
+        ]}
+      />
       <div className="main-content">
         <SpeedInsights />
         <h1 className="title">Retro VST Effects</h1>
