@@ -49,7 +49,7 @@ function LoginModal({ onClose }) {
 
       if (response.ok) {
         // data.message e data.token vindo do servidor
-        alert(`${data.message} || 'N/A'}`);
+        alert(`${data.message}\nToken: ${data.token || 'N/A'}`);
         onClose();
       } else {
         // Caso de erro, data pode conter { message: 'erro' }
