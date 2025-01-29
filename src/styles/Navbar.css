@@ -1,11 +1,19 @@
+/* Navbar.css */
 .navbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background: #3d3b5e;
   padding: 10px 20px;
-  color: white;
+  color: #fff;
   font-size: 1rem;
   border-bottom: 2px solid #6c63ff;
+}
+
+.navbar-left {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .navbar-user {
@@ -14,4 +22,39 @@
 
 .navbar-credits {
   color: #04d9ff;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.navbar-notifications {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.notification-item {
+  background: #4a4e69;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+.login-btn {
+  background-color: #04d9ff;
+  color: #2b2a44;
+  border: none;
+  padding: 8px 16px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+  background-color: #03c3e0;
 }

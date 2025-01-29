@@ -4,15 +4,8 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import "../styles/PluginModal.css";
 
-function PluginModal({ plugin, onClose }) {
-  const [knobValues, setKnobValues] = useState(Array(plugin.sliders).fill(0.5)); // Inicializa dinamicamente os sliders
+function PluginModal({ plugin, onClose, sliders, onSliderChange }) {
   const [file, setFile] = useState(null);
-
-  const handleKnobChange = (index, value) => {
-    const updatedKnobs = [...knobValues];
-    updatedKnobs[index] = parseFloat(value.toFixed(2)); // Garante precisão de 2 casas decimais
-    setKnobValues(updatedKnobs);
-  };
 
   const handleFileUpload = (event) => {
     const uploadedFile = event.target.files[0];
@@ -25,9 +18,7 @@ function PluginModal({ plugin, onClose }) {
 
     const fileExtension = uploadedFile.name.split(".").pop().toLowerCase();
     if (!allowedExtensions.includes(fileExtension)) {
-      alert(
-        "Formato de arquivo inválido. Por favor, envie um arquivo de áudio válido."
-      );
+      alert("Formato de arquivo inválido. Por favor, envie um arquivo de áudio válido.");
       return;
     }
     if (uploadedFile.size > 10 * 1024 * 1024) {
@@ -45,11 +36,11 @@ function PluginModal({ plugin, onClose }) {
       return;
     }
 
-    const params = knobValues
+    const params = sliders
       .map((value, index) => `p${index}=${value}`)
       .join("&");
-    const baseUrl =
-      process.env.REACT_APP_API_BASE_URL || "http://localhost:18080";
+
+    const baseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:18080";
     const url = `${baseUrl}/process?plugin=${plugin.name}&preview=${preview}&${params}`;
 
     const formData = new FormData();
@@ -78,7 +69,6 @@ function PluginModal({ plugin, onClose }) {
       const downloadUrl = URL.createObjectURL(processedFile);
       const link = document.createElement("a");
       link.href = downloadUrl;
-
       link.download = preview ? "preview_audio.wav" : "processed_audio.wav";
 
       document.body.appendChild(link);
@@ -97,26 +87,24 @@ function PluginModal({ plugin, onClose }) {
   };
 
   return (
-    <div
-      className="modal"
-      onClick={(e) => e.target.classList.contains("modal") && onClose()}
-    >
+    <div className="modal" onClick={(e) => e.target.classList.contains("modal") && onClose()}>
       <div className="modal-content">
-        <button className="close-button" onClick={onClose}>
-          ✖
+        <button className="close-button" onClick={onClose}>          ✖
         </button>
         <h2>{plugin.name}</h2>
         <p>{plugin.description}</p>
         <div className="plugin-controls">
           <div className="scrollable-section">
-            {knobValues.map((value, index) => (
+            {sliders.map((value, index) => (
               <div key={index} className="plugin-slider">
+                {/* Sugestão: trocar o Slider por um botão ON/OFF ou seletores de string, mas ainda enviando float */}
+                {/* Exemplo: Se for um slider normal, manter o <Slider>. Caso queira o ON/OFF, pode ser 0.0 ou 1.0 */}
                 <Slider
                   min={0.01}
                   max={1}
                   step={0.01}
                   value={value}
-                  onChange={(val) => handleKnobChange(index, val)}
+                  onChange={(val) => onSliderChange(index, val)}
                 />
                 <p>{`${plugin.sliderNames[index]}: ${value.toFixed(2)}`}</p>
               </div>

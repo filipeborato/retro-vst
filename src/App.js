@@ -1,9 +1,12 @@
-// Importações necessárias para o React
-import React, { useState } from "react";
+// App.js
+// Aplicação principal do React Audio Plugins com botão de Login na Navbar.
 
+import React, { useState } from "react";
 import Navbar from "./components/Navbar";
 import PluginGrid from "./components/PluginGrid";
 import PluginModal from "./components/PluginModal";
+import LoginModal from "./components/LoginModal";
+
 import "./styles/App.css";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 
@@ -62,24 +65,33 @@ const plugins = [
 ];
 
 function App() {
+  // Estado para plugin selecionado
   const [selectedPlugin, setSelectedPlugin] = useState(null);
-  const [sliderValues, setSliderValues] = useState([]); // Dinâmico com base no plugin
+  const [sliderValues, setSliderValues] = useState([]);
+
+  // Estado para login modal
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   const openModal = (plugin) => {
     setSelectedPlugin(plugin);
-    const sliderCount = plugin.sliders || 6; // Padrão de 6 sliders
-    setSliderValues(Array(sliderCount).fill(0.5)); // Inicializa sliders com valor 0.5
+    const sliderCount = plugin.sliders || 6;
+    setSliderValues(Array(sliderCount).fill(0.5));
   };
 
   const closeModal = () => {
     setSelectedPlugin(null);
-    setSliderValues([]); // Limpa os sliders
+    setSliderValues([]);
   };
 
   const handleSliderChange = (index, value) => {
     const newValues = [...sliderValues];
-    newValues[index] = parseFloat(value.toFixed(2)); // Garante valores entre 0.01 e 1 com 2 casas decimais
+    newValues[index] = parseFloat(value.toFixed(2));
     setSliderValues(newValues);
+  };
+
+  // Alterna a exibição da modal de login
+  const toggleLoginModal = () => {
+    setShowLoginModal((prev) => !prev);
   };
 
   return (
@@ -87,10 +99,8 @@ function App() {
       <Navbar
         user="John Doe"
         credits={42.5}
-        notifications={[
-          "Bem-vindo ao Retro VST!",
-          "Atualização disponível para TheFunction",
-        ]}
+        notifications={["Bem-vindo ao Retro VST!", "Atualização disponível para TheFunction"]}
+        onLoginClick={toggleLoginModal}
       />
       <div className="main-content">
         <SpeedInsights />
@@ -105,6 +115,8 @@ function App() {
             onSliderChange={handleSliderChange}
           />
         )}
+
+        {showLoginModal && <LoginModal onClose={toggleLoginModal} />}
       </div>
     </div>
   );

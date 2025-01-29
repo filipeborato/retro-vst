@@ -1,8 +1,7 @@
-// components/Navbar.js
 import React from "react";
 import "../styles/Navbar.css";
 
-function Navbar({ user, credits, notifications }) {
+function Navbar({ user, credits, notifications = [], onLoginClick }) {
   return (
     <div className="navbar">
       <div className="navbar-left">
@@ -17,6 +16,9 @@ function Navbar({ user, credits, notifications }) {
             </div>
           ))}
         </div>
+        <button className="login-btn" onClick={onLoginClick}>
+          Login
+        </button>
       </div>
     </div>
   );
