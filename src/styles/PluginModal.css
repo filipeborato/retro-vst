@@ -1,3 +1,5 @@
+/* PluginModal.css - Estilização aprimorada para uma aparência mais consistente e clean. */
+
 .modal {
   position: fixed;
   top: 0;
@@ -15,15 +17,20 @@
   background-color: #2b2a44;
   border-radius: 10px;
   padding: 20px;
-  width: 60%;
-  max-width: 800px;
-  max-height: 90%;
-  overflow: hidden;
+  width: 80%;
+  max-width: 1200px;
+  
+  /* Remove limites de altura para eliminar rolagem interna */
+  height: auto;
+  max-height: none;
+  overflow: visible;
+  
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
 }
 
 .close-button {
@@ -33,8 +40,17 @@
   background: none;
   border: none;
   font-size: 20px;
-  color: white;
+  color: #fff;
   cursor: pointer;
+}
+
+.modal-content h2 {
+  margin: 0 0 10px 0;
+}
+
+.modal-content p {
+  margin: 0 0 20px 0;
+  max-width: 90%;
 }
 
 .plugin-controls {
@@ -47,7 +63,7 @@
 
 .scrollable-section {
   width: 90%;
-  max-height: 300px;
+  max-height: 280px;
   overflow-y: auto;
   margin-bottom: 20px;
   padding: 10px;
@@ -56,24 +72,95 @@
   border-radius: 5px;
 }
 
-.plugin-slider {
+/* Estilização do scrollbar (opcional) */
+.scrollable-section::-webkit-scrollbar {
+  width: 8px;
+}
+.scrollable-section::-webkit-scrollbar-track {
+  background: #2b2a44;
+}
+.scrollable-section::-webkit-scrollbar-thumb {
+  background-color: #666;
+  border-radius: 4px;
+}
+
+.param-control {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 8px 0;
+}
+
+.param-control label {
+  min-width: 120px;
+  font-size: 14px;
+  color: #fff;
+  text-align: left;
+}
+
+/* Slider Control */
+.slider-control {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  margin-bottom: 10px;
+  gap: 10px;
 }
 
-.plugin-slider p {
-  margin: 0;
-  font-size: 14px;
+.slider-control .rc-slider {
+  flex: 2;
 }
 
-.rc-slider {
-  flex-grow: 1;
-  margin: 0 10px;
-  max-width: 400px;
-  height: 8px;
+.slider-control span {
+  width: 40px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* Toggle Control */
+.toggle-control {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toggle-control .toggle-on,
+.toggle-control .toggle-off {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.toggle-control .toggle-on {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.toggle-control .toggle-off {
+  background-color: #a9a9a9;
+  color: #fff;
+}
+
+/* Select Control */
+.select-control {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.select-control select {
+  flex: 2;
+  background-color: #4a4e69;
+  color: #fff;
+  border: none;
+  padding: 6px;
+  border-radius: 4px;
 }
 
 .file-upload {
@@ -105,7 +192,15 @@
   color: #fff;
 }
 
+.preview-button:hover {
+  background-color: #e58900;
+}
+
 .process-button {
   background-color: #4caf50;
   color: #fff;
+}
+
+.process-button:hover {
+  background-color: #43a047;
 }

@@ -1,19 +1,46 @@
-/* Navbar.css */
+/* Navbar Cyberpunk Escuro */
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #3d3b5e;
-  padding: 10px 20px;
-  color: #fff;
-  font-size: 1rem;
-  border-bottom: 2px solid #6c63ff;
+  background: linear-gradient(90deg, #2a1a4d, #1e1340);
+  padding: 15px 20px;
+  color: #c9a6ff;
+  border-bottom: 3px solid #7442c8;
+  z-index: 1000;
 }
 
 .navbar-left {
   display: flex;
-  flex-direction: column;
-  gap: 5px;
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar-center {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #d1b3ff;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 150px;
+  margin-right: 20px; /* Adiciona espaço da borda direita */
 }
 
 .navbar-user {
@@ -21,40 +48,23 @@
 }
 
 .navbar-credits {
-  color: #04d9ff;
-}
-
-.navbar-right {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.navbar-notifications {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.notification-item {
-  background: #4a4e69;
-  padding: 5px 10px;
-  border-radius: 8px;
-  font-size: 0.85rem;
+  color: #d1b3ff;
+  font-weight: bold;
 }
 
 .login-btn {
-  background-color: #04d9ff;
-  color: #2b2a44;
-  border: none;
-  padding: 8px 16px;
+  background: #7442c8;
+  color: #fff;
   font-size: 1rem;
-  font-weight: bold;
-  border-radius: 6px;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 15px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  font-weight: bold;
+  transition: background 0.3s, transform 0.2s;
 }
 
 .login-btn:hover {
-  background-color: #03c3e0;
+  background: #5d2fa1;
+  transform: translateY(-2px);
 }

@@ -1,82 +1,108 @@
+/* LoginModal.css - Estilo Cyberpunk / 80s */
+
 .login-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000; /* Valor maior que o modal de plugin */
-  }
-  
-  .login-modal-content {
-    background-color: #2b2a44;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-    max-width: 90%;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-  }
-  
-  .login-modal-content h2 {
-    margin-top: 0;
-    text-align: center;
-  }
-  
-  .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    color: #fff;
-    cursor: pointer;
-  }
-  
-  .login-modal-content form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .login-modal-content input {
-    padding: 8px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-  }
-  
-  .login-modal-content button[type="submit"] {
-    background-color: #6c63ff;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .login-modal-content button[type="submit"]:hover {
-    background-color: #5a53e0;
-  }
-  
-  .toggle-mode-button {
-    background-color: #ff9800;
-    color: #fff;
-    border: none;
-    padding: 8px;
-    border-radius: 6px;
-    margin-top: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .toggle-mode-button:hover {
-    background-color: #db8900;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.login-modal-content {
+  /* Fundo gradiente neon roxo-azul para dar ar cyberpunk */
+  background: linear-gradient(135deg, #3a0088, #0abde3);
+  color: #fff;
+  width: 350px;
+  max-width: 95%;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(58, 0, 136, 0.7);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.login-modal-content h2 {
+  margin: 0 0 15px;
+  font-size: 1.8rem;
+  text-shadow: 0 0 8px #ff00d4;
+}
+
+.login-modal-content form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 10px 0;
+}
+
+.login-modal-content input {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  color: #fff;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.login-modal-content input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #fff;
+  cursor: pointer;
+  text-shadow: 0 0 5px #ff00d4;
+}
+
+.login-modal-content button[type="submit"] {
+  background: #f368e0;
+  color: #fff;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s, transform 0.2s;
+  box-shadow: 0 0 10px rgba(243, 104, 224, 0.6);
+}
+
+.login-modal-content button[type="submit"]:hover {
+  background: #ff00d4;
+  transform: translateY(-2px);
+}
+
+.toggle-mode-button {
+  background: #01a3a4;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  box-shadow: 0 0 10px rgba(1, 163, 164, 0.6);
+}
+
+.toggle-mode-button:hover {
+  background: #00d2d3;
+  transform: translateY(-2px);
+}
