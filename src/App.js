@@ -74,58 +74,160 @@ const plugins = [
   },
   {
     id: 2,
-    name: "CompMaster",
-    description: "Controle dinâmico com compressão",
+    name: "compressor-stereo",
+    description: "Simple Effect",
     parameters: [
       {
-        name: "Threshold",
-        type: "slider",
-        min: -60,
-        max: 0,
-        step: 0.5,
-        defaultValue: -24
+        name: "bypass",
+        type: "toggle",
+        defaultValue: false
       },
       {
-        name: "Ratio",
+        name: "g_in",
         type: "slider",
-        min: 1,
-        max: 20,
-        step: 0.5,
-        defaultValue: 2
+        label: "dB",
+        min: -60.0,
+        max: 60.0,
+        step: 0.1,
+        defaultValue: 0.0
       },
       {
-        name: "Attack",
+        name: "g_out",
         type: "slider",
-        min: 0.0,
-        max: 100.0,
-        step: 1,
-        defaultValue: 10
+        label: "dB",
+        min: -60.0,
+        max: 60.0,
+        step: 0.1,
+        defaultValue: 0.0
       },
       {
-        name: "Release",
-        type: "slider",
-        min: 0.0,
-        max: 500.0,
-        step: 5,
-        defaultValue: 50
-      },
-      {
-        name: "Knee",
+        name: "mode",
         type: "select",
         options: [
-          { label: "Soft", value: 0.3 },
-          { label: "Medium", value: 0.6 },
-          { label: "Hard", value: 1.0 }
+          { label: "IIR", value: 0.1 },
+          { label: "FIR", value: 0.2 }
         ],
-        defaultValue: 0.3
+        defaultValue: 0.1
       },
       {
-        name: "Gain",
+        name: "react",
         type: "slider",
+        label: "ms",
         min: 0.0,
-        max: 1.0,
-        step: 0.01,
-        defaultValue: 0.5
+        max: 1000.0,
+        step: 0.1,
+        defaultValue: 200.0
+      },
+      {
+        name: "shift",
+        type: "slider",
+        label: "dB",
+        min: -60.0,
+        max: 60.0,
+        step: 0.1,
+        defaultValue: 0.0
+      },
+      {
+        name: "zoom",
+        type: "slider",
+        label: "dB",
+        min: -60.0,
+        max: 0.0,
+        step: 0.1,
+        defaultValue: -36.0
+      },
+      {
+        name: "ife_l",
+        type: "toggle",
+        defaultValue: true
+      },
+      {
+        name: "ofe_l",
+        type: "toggle",
+        defaultValue: true
+      },
+      {
+        name: "ife_r",
+        type: "toggle",
+        defaultValue: true
+      },
+      {
+        name: "ofe_r",
+        type: "toggle",
+        defaultValue: true
+      },
+      {
+        name: "bal",
+        type: "slider",
+        label: "%",
+        min: -100.0,
+        max: 100.0,
+        step: 0.1,
+        defaultValue: 0.0
+      },
+      {
+        name: "ft",
+        type: "select",
+        options: [
+          { label: "Lo-pass", value: 0.1},
+          { label: "Hi-pass", value: 0.2 },
+          { label: "Band-pass", value: 0.3 }
+        ],
+        defaultValue: 0.1
+      },
+      {
+        name: "fm",
+        type: "select",
+        options: [
+          { label: "RLC (BT)", value: 0.1 },
+          { label: "RC (Standard)", value: 0.2 }
+        ],
+        defaultValue: 0.1
+      },
+      {
+        name: "s",
+        type: "slider",
+        label: "",
+        min: 1.0,
+        max: 10.0,
+        step: 1.0,
+        defaultValue: 1.0
+      },
+      {
+        name: "f",
+        type: "slider",
+        label: "Hz",
+        min: 20.0,
+        max: 20000.0,
+        step: 10.0,
+        defaultValue: 10000.0
+      },
+      {
+        name: "w",
+        type: "slider",
+        label: "oct",
+        min: 0.1,
+        max: 10.0,
+        step: 0.1,
+        defaultValue: 4.0
+      },
+      {
+        name: "g",
+        type: "slider",
+        label: "dB",
+        min: -60.0,
+        max: 60.0,
+        step: 0.1,
+        defaultValue: 0.0
+      },
+      {
+        name: "q",
+        type: "slider",
+        label: "",
+        min: 0.0,
+        max: 10.0,
+        step: 0.1,
+        defaultValue: 0.0
       },
     ]
   },
