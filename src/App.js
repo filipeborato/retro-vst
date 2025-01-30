@@ -74,7 +74,7 @@ const plugins = [
   },
   {
     id: 2,
-    name: "compressor-stereo",
+    name: "filter-stereo",
     description: "Simple Effect",
     parameters: [
       {
