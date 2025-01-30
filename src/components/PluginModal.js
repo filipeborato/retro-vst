@@ -1,11 +1,14 @@
 // components/PluginModal.js
-import React, { useState } from "react";
+import React from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import "../styles/PluginModal.css";
 
-function PluginModal({ plugin, onClose, sliders, onSliderChange }) {
-  const [file, setFile] = useState(null);
+function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
+  // Envio do arquivo e do paramValues continuam parecidos,
+  // mas agora acessamos plugin.parameters e paramValues para gerar a UI.
+
+  const [file, setFile] = React.useState(null);
 
   const handleFileUpload = (event) => {
     const uploadedFile = event.target.files[0];
@@ -36,9 +39,8 @@ function PluginModal({ plugin, onClose, sliders, onSliderChange }) {
       return;
     }
 
-    const params = sliders
-      .map((value, index) => `p${index}=${value}`)
-      .join("&");
+    // Monta params com base em paramValues
+    const params = paramValues.map((val, i) => `p${i}=${val}`).join("&");
 
     const baseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:18080";
     const url = `${baseUrl}/process?plugin=${plugin.name}&preview=${preview}&${params}`;
@@ -86,29 +88,71 @@ function PluginModal({ plugin, onClose, sliders, onSliderChange }) {
     }
   };
 
+  // Renderiza cada parâmetro de acordo com seu tipo
+  const renderParameterControl = (param, index) => {
+    const value = paramValues[index];      
+    switch (param.type) {
+      case "slider":
+        return (
+          <div key={index} className="param-control slider-control">
+            <label>{param.name}</label>
+            <Slider
+              min={param.min}
+              max={param.max}
+              step={param.step}
+              value={value}
+              onChange={(val) => onParameterChange(index, val)}
+            />
+            <span>{value.toFixed(2)}</span>
+          </div>
+        );
+      case "toggle":
+        return (
+          <div key={index} className="param-control toggle-control">
+            <label>{param.name}</label>
+            <button
+              onClick={() => {
+                const toggledValue = value === 1.0 ? 0.0 : 1.0;
+                onParameterChange(index, toggledValue);
+              }}
+              className={value === 1.0 ? "toggle-on" : "toggle-off"}
+            >
+              {value === 1.0 ? "ON" : "OFF"}
+            </button>
+          </div>
+        );
+      case "select":
+        return (
+          <div key={index} className="param-control select-control">
+            <label>{param.name}</label>
+            <select
+              value={value}
+              onChange={(e) => onParameterChange(index, parseFloat(e.target.value))}
+            >
+              {param.options.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="modal" onClick={(e) => e.target.classList.contains("modal") && onClose()}>
       <div className="modal-content">
-        <button className="close-button" onClick={onClose}>          ✖
+        <button className="close-button" onClick={onClose}>
+          ✖
         </button>
         <h2>{plugin.name}</h2>
         <p>{plugin.description}</p>
         <div className="plugin-controls">
           <div className="scrollable-section">
-            {sliders.map((value, index) => (
-              <div key={index} className="plugin-slider">
-                {/* Sugestão: trocar o Slider por um botão ON/OFF ou seletores de string, mas ainda enviando float */}
-                {/* Exemplo: Se for um slider normal, manter o <Slider>. Caso queira o ON/OFF, pode ser 0.0 ou 1.0 */}
-                <Slider
-                  min={0.01}
-                  max={1}
-                  step={0.01}
-                  value={value}
-                  onChange={(val) => onSliderChange(index, val)}
-                />
-                <p>{`${plugin.sliderNames[index]}: ${value.toFixed(2)}`}</p>
-              </div>
-            ))}
+            {plugin.parameters.map((param, i) => renderParameterControl(param, i))}
           </div>
         </div>
         <div className="file-upload">
