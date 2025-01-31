@@ -1,0 +1,1388 @@
+[
+    {
+        "id": 1,
+        "name": "TheFunction",
+        "description": "Plugin de espacialidade avançada",
+        "parameters": [
+            {
+                "name": "Gain",
+                "type": "slider",
+                "min": 0.0,
+                "max": 1.0,
+                "step": 0.01,
+                "defaultValue": 0.5
+            },
+            {
+                "name": "Gain L",
+                "type": "slider",
+                "min": 0.0,
+                "max": 1.0,
+                "step": 0.01,
+                "defaultValue": 0.5
+            },
+            {
+                "name": "Gain R",
+                "type": "slider",
+                "min": 0.0,
+                "max": 1.0,
+                "step": 0.01,
+                "defaultValue": 0.5
+            },
+            {
+                "name": "Phase L",
+                "type": "slider",
+                "min": 0.0,
+                "max": 1.0,
+                "step": 0.01,
+                "defaultValue": 0.5
+            },
+            {
+                "name": "Phase R",
+                "type": "slider",
+                "min": 0.0,
+                "max": 1.0,
+                "step": 0.01,
+                "defaultValue": 0.5
+            },
+            {
+                "name": "Pan L",
+                "type": "slider",
+                "min": -1.0,
+                "max": 1.0,
+                "step": 0.01,
+                "defaultValue": 0.0
+            },
+            {
+                "name": "Pan R",
+                "type": "slider",
+                "min": -1.0,
+                "max": 1.0,
+                "step": 0.01,
+                "defaultValue": 0.0
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "filter-stereo",
+        "description": "Simple Effect",
+        "parameters": [
+            {
+                "name": "bypass",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "g_in",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.1,
+                "defaultValue": 0.0
+            },
+            {
+                "name": "g_out",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.1,
+                "defaultValue": 0.0
+            },
+            {
+                "name": "mode",
+                "type": "select",
+                "options": [
+                    { "label": "IIR", "value": 0.1 },
+                    { "label": "FIR", "value": 0.2 }
+                ],
+                "defaultValue": 0.1
+            },
+            {
+                "name": "react",
+                "type": "slider",
+                "label": "ms",
+                "min": 0.0,
+                "max": 1000.0,
+                "step": 0.1,
+                "defaultValue": 200.0
+            },
+            {
+                "name": "shift",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.1,
+                "defaultValue": 0.0
+            },
+            {
+                "name": "zoom",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 0.0,
+                "step": 0.1,
+                "defaultValue": -36.0
+            },
+            {
+                "name": "ife_l",
+                "type": "toggle",
+                "defaultValue": 1.0
+            },
+            {
+                "name": "ofe_l",
+                "type": "toggle",
+                "defaultValue": 1.0
+            },
+            {
+                "name": "ife_r",
+                "type": "toggle",
+                "defaultValue": 1.0
+            },
+            {
+                "name": "ofe_r",
+                "type": "toggle",
+                "defaultValue": 1.0
+            },
+            {
+                "name": "bal",
+                "type": "slider",
+                "label": "%",
+                "min": -100.0,
+                "max": 100.0,
+                "step": 0.1,
+                "defaultValue": 0.0
+            },
+            {
+                "name": "ft",
+                "type": "select",
+                "options": [
+                    { "label": "Lo-pass", "value": 0.1 },
+                    { "label": "Hi-pass", "value": 0.2 },
+                    { "label": "Band-pass", "value": 0.3 }
+                ],
+                "defaultValue": 0.1
+            },
+            {
+                "name": "fm",
+                "type": "select",
+                "options": [
+                    { "label": "RLC (BT)", "value": 0.1 },
+                    { "label": "RC (Standard)", "value": 0.2 }
+                ],
+                "defaultValue": 0.1
+            },
+            {
+                "name": "s",
+                "type": "slider",
+                "label": "",
+                "min": 1.0,
+                "max": 10.0,
+                "step": 1.0,
+                "defaultValue": 1.0
+            },
+            {
+                "name": "f",
+                "type": "slider",
+                "label": "Hz",
+                "min": 20.0,
+                "max": 20000.0,
+                "step": 10.0,
+                "defaultValue": 10000.0
+            },
+            {
+                "name": "w",
+                "type": "slider",
+                "label": "oct",
+                "min": 0.1,
+                "max": 10.0,
+                "step": 0.1,
+                "defaultValue": 4.0
+            },
+            {
+                "name": "g",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.1,
+                "defaultValue": 0.0
+            },
+            {
+                "name": "q",
+                "type": "slider",
+                "label": "",
+                "min": 0.0,
+                "max": 10.0,
+                "step": 0.1,
+                "defaultValue": 0.0
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "compressor-stereo",
+        "description": "Simple Effect",
+        "parameters": [
+            {
+                "name": "g_in",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": -10.03
+            },
+            {
+                "name": "g_out",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": -10.03
+            },
+            {
+                "name": "pause",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "clear",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "ssplit",
+                "type": "toggle",
+                "defaultValue": 1.0
+            },
+            {
+                "name": "sscs",
+                "type": "select",
+                "options": [
+                    { "label": "Mid", "value": 0.0 },
+                    { "label": "Sid", "value": 1.0 }
+                ],
+                "defaultValue": 0.0
+            },
+            {
+                "name": "sct",
+                "type": "select",
+                "options": [
+                    { "label": "Feed-ba", "value": 0.0 },
+                    { "label": "Other", "value": 1.0 }
+                ],
+                "defaultValue": 0.0
+            },
+            {
+                "name": "scm",
+                "type": "select",
+                "options": [
+                    { "label": "Peak", "value": 0.0 },
+                    { "label": "RMS", "value": 1.0 }
+                ],
+                "defaultValue": 0.0
+            },
+            {
+                "name": "sla",
+                "type": "slider",
+                "label": "ms",
+                "min": 0.0,
+                "max": 1000.0,
+                "step": 0.01,
+                "defaultValue": 2.00
+            },
+            {
+                "name": "scl",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "scs",
+                "type": "select",
+                "options": [
+                    { "label": "Left", "value": 0.0 },
+                    { "label": "Right", "value": 0.5 },
+                    { "label": "Both", "value": 1.0 }
+                ],
+                "defaultValue": 0.0
+            },
+            {
+                "name": "scr",
+                "type": "slider",
+                "label": "ms",
+                "min": 0.0,
+                "max": 1000.0,
+                "step": 0.01,
+                "defaultValue": 0.03
+            },
+            {
+                "name": "scp",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": -20.02
+            },
+            {
+                "name": "shpm",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "shpf",
+                "type": "slider",
+                "label": "Hz",
+                "min": 0.0,
+                "max": 20000.0,
+                "step": 1.0,
+                "defaultValue": 10.0
+            },
+            {
+                "name": "slpm",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "slpf",
+                "type": "slider",
+                "label": "Hz",
+                "min": 0.0,
+                "max": 20000.0,
+                "step": 1.0,
+                "defaultValue": 20000.0
+            },
+            {
+                "name": "cm",
+                "type": "select",
+                "options": [
+                    { "label": "Down", "value": 0.0 },
+                    { "label": "Up", "value": 1.0 }
+                ],
+                "defaultValue": 0.0
+            },
+            {
+                "name": "al",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": -12.00
+            },
+            {
+                "name": "at",
+                "type": "slider",
+                "label": "ms",
+                "min": 0.0,
+                "max": 1000.0,
+                "step": 0.1,
+                "defaultValue": 20.0
+            },
+            {
+                "name": "rrl",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": -60.0
+            },
+            {
+                "name": "rt",
+                "type": "slider",
+                "label": "ms",
+                "min": 0.0,
+                "max": 1000.0,
+                "step": 1.0,
+                "defaultValue": 100.0
+            },
+            {
+                "name": "hold",
+                "type": "slider",
+                "label": "ms",
+                "min": 0.0,
+                "max": 1000.0,
+                "step": 0.1,
+                "defaultValue": 0.0
+            },
+            {
+                "name": "cr",
+                "type": "slider",
+                "label": "",
+                "min": 0.0,
+                "max": 10.0,
+                "step": 0.01,
+                "defaultValue": 4.00
+            },
+            {
+                "name": "kn",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": -6.00
+            },
+            {
+                "name": "bth",
+                "type": "slider",
+                "label": "dB",
+                "min": -100.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": -72.00
+            },
+            {
+                "name": "bsa",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": 6.00
+            },
+            {
+                "name": "mk",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": 0.00
+            },
+            {
+                "name": "cdr",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": -60.00
+            },
+            {
+                "name": "cwt",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": 0.00
+            },
+            {
+                "name": "cdw",
+                "type": "slider",
+                "label": "%",
+                "min": 0.0,
+                "max": 100.0,
+                "step": 0.1,
+                "defaultValue": 100.0
+            },
+            {
+                "name": "slv_l",
+                "type": "toggle",
+                "defaultValue": 1.0
+            },
+            {
+                "name": "elv_l",
+                "type": "toggle",
+                "defaultValue": 1.0
+            },
+            {
+                "name": "grv_l",
+                "type": "toggle",
+                "defaultValue": 1.0
+            },
+            {
+                "name": "ilv_l",
+                "type": "toggle",
+                "defaultValue": 1.0
+            },
+            {
+                "name": "olv_l",
+                "type": "toggle",
+                "defaultValue": 1.0
+            },
+            {
+                "name": "slv_r",
+                "type": "toggle",
+                "defaultValue": 1.0
+            },
+            {
+                "name": "elv_r",
+                "type": "toggle",
+                "defaultValue": 1.0
+            },
+            {
+                "name": "grv_r",
+                "type": "toggle",
+                "defaultValue": 1.0
+            },
+            {
+                "name": "ilv_r",
+                "type": "toggle",
+                "defaultValue": 1.0
+            },
+            {
+                "name": "olv_r",
+                "type": "toggle",
+                "defaultValue": 1.0
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "para-equalizer-x8-stereo",
+        "description": "Loaded Effect: Equalizer Stereo",
+        "parameters": [
+            {
+                "name": "bypass",
+                "type": "toggle",
+                "defaultValue": 1.0
+            },
+            {
+                "name": "g_in",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": 20.00
+            },
+            {
+                "name": "g_out",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": 20.00
+            },
+            {
+                "name": "mode",
+                "type": "select",
+                "options": [
+                    { "label": "IIR", "value": 0.0 },
+                    { "label": "FIR", "value": 1.0 }
+                ],
+                "defaultValue": 1.0
+            },
+            {
+                "name": "react",
+                "type": "slider",
+                "label": "ms",
+                "min": 0.0,
+                "max": 1000.0,
+                "step": 0.001,
+                "defaultValue": 0.010
+            },
+            {
+                "name": "shift",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": -60.0
+            },
+            {
+                "name": "zoom",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": 0.00
+            },
+            {
+                "name": "fsel",
+                "type": "toggle",
+                "defaultValue": 1.0
+            },
+            {
+                "name": "insp_id",
+                "type": "slider",
+                "label": "",
+                "min": -1.0,
+                "max": 10.0,
+                "step": 1.0,
+                "defaultValue": -1.0
+            },
+            {
+                "name": "insp_r",
+                "type": "slider",
+                "label": "oct",
+                "min": 0.1,
+                "max": 10.0,
+                "step": 0.01,
+                "defaultValue": 1.00
+            },
+            {
+                "name": "insp_on",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "ife",
+                "type": "toggle",
+                "defaultValue": 1.0
+            },
+            {
+                "name": "ofe",
+                "type": "toggle",
+                "defaultValue": 1.0
+            },
+            {
+                "name": "rfe",
+                "type": "toggle",
+                "defaultValue": 1.0
+            },
+            {
+                "name": "frqs",
+                "type": "slider",
+                "label": "st",
+                "min": 0.0,
+                "max": 1000.0,
+                "step": 0.001,
+                "defaultValue": 0.000
+            },
+            {
+                "name": "ft_0",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "fm_0",
+                "type": "select",
+                "options": [
+                    { "label": "RLC (BT)", "value": 0.0 },
+                    { "label": "RC (Standard)", "value": 1.0 }
+                ],
+                "defaultValue": 0.0
+            },
+            {
+                "name": "s_0",
+                "type": "slider",
+                "label": "",
+                "min": 1.0,
+                "max": 10.0,
+                "step": 1.0,
+                "defaultValue": 1.0
+            },
+            {
+                "name": "xs_0",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "xm_0",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "f_0",
+                "type": "slider",
+                "label": "Hz",
+                "min": 20.0,
+                "max": 20000.0,
+                "step": 1.0,
+                "defaultValue": 16.0
+            },
+            {
+                "name": "w_0",
+                "type": "slider",
+                "label": "oct",
+                "min": 0.1,
+                "max": 10.0,
+                "step": 0.01,
+                "defaultValue": 4.00
+            },
+            {
+                "name": "g_0",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": 0.00
+            },
+            {
+                "name": "q_0",
+                "type": "slider",
+                "label": "",
+                "min": 0.0,
+                "max": 10.0,
+                "step": 0.01,
+                "defaultValue": 0.00
+            },
+            {
+                "name": "hue_0",
+                "type": "slider",
+                "label": "",
+                "min": 0.0,
+                "max": 1.0,
+                "step": 0.0001,
+                "defaultValue": 0.0000
+            },
+            {
+                "name": "ft_1",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "fm_1",
+                "type": "select",
+                "options": [
+                    { "label": "RLC (BT)", "value": 0.0 },
+                    { "label": "RC (Standard)", "value": 1.0 }
+                ],
+                "defaultValue": 0.0
+            },
+            {
+                "name": "s_1",
+                "type": "slider",
+                "label": "",
+                "min": 1.0,
+                "max": 10.0,
+                "step": 1.0,
+                "defaultValue": 1.0
+            },
+            {
+                "name": "xs_1",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "xm_1",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "f_1",
+                "type": "slider",
+                "label": "Hz",
+                "min": 20.0,
+                "max": 20000.0,
+                "step": 1.0,
+                "defaultValue": 40.0
+            },
+            {
+                "name": "w_1",
+                "type": "slider",
+                "label": "oct",
+                "min": 0.1,
+                "max": 10.0,
+                "step": 0.01,
+                "defaultValue": 4.00
+            },
+            {
+                "name": "g_1",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": 0.00
+            },
+            {
+                "name": "q_1",
+                "type": "slider",
+                "label": "",
+                "min": 0.0,
+                "max": 10.0,
+                "step": 0.01,
+                "defaultValue": 0.00
+            },
+            {
+                "name": "hue_1",
+                "type": "slider",
+                "label": "",
+                "min": 0.0,
+                "max": 1.0,
+                "step": 0.0001,
+                "defaultValue": 0.125
+            },
+            {
+                "name": "ft_2",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "fm_2",
+                "type": "select",
+                "options": [
+                    { "label": "RLC (BT)", "value": 0.0 },
+                    { "label": "RC (Standard)", "value": 1.0 }
+                ],
+                "defaultValue": 0.0
+            },
+            {
+                "name": "s_2",
+                "type": "slider",
+                "label": "",
+                "min": 1.0,
+                "max": 10.0,
+                "step": 1.0,
+                "defaultValue": 1.0
+            },
+            {
+                "name": "xs_2",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "xm_2",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "f_2",
+                "type": "slider",
+                "label": "Hz",
+                "min": 20.0,
+                "max": 20000.0,
+                "step": 1.0,
+                "defaultValue": 100.0
+            },
+            {
+                "name": "w_2",
+                "type": "slider",
+                "label": "oct",
+                "min": 0.1,
+                "max": 10.0,
+                "step": 0.01,
+                "defaultValue": 4.00
+            },
+            {
+                "name": "g_2",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": 0.00
+            },
+            {
+                "name": "q_2",
+                "type": "slider",
+                "label": "",
+                "min": 0.0,
+                "max": 10.0,
+                "step": 0.01,
+                "defaultValue": 0.00
+            },
+            {
+                "name": "hue_2",
+                "type": "slider",
+                "label": "",
+                "min": 0.0,
+                "max": 1.0,
+                "step": 0.0001,
+                "defaultValue": 0.250
+            },
+            {
+                "name": "ft_3",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "fm_3",
+                "type": "select",
+                "options": [
+                    { "label": "RLC (BT)", "value": 0.0 },
+                    { "label": "RC (Standard)", "value": 1.0 }
+                ],
+                "defaultValue": 0.0
+            },
+            {
+                "name": "s_3",
+                "type": "slider",
+                "label": "",
+                "min": 1.0,
+                "max": 10.0,
+                "step": 1.0,
+                "defaultValue": 1.0
+            },
+            {
+                "name": "xs_3",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "xm_3",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "f_3",
+                "type": "slider",
+                "label": "Hz",
+                "min": 20.0,
+                "max": 20000.0,
+                "step": 1.0,
+                "defaultValue": 250.0
+            },
+            {
+                "name": "w_3",
+                "type": "slider",
+                "label": "oct",
+                "min": 0.1,
+                "max": 10.0,
+                "step": 0.01,
+                "defaultValue": 4.00
+            },
+            {
+                "name": "g_3",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": 0.00
+            },
+            {
+                "name": "q_3",
+                "type": "slider",
+                "label": "",
+                "min": 0.0,
+                "max": 10.0,
+                "step": 0.01,
+                "defaultValue": 0.00
+            },
+            {
+                "name": "hue_3",
+                "type": "slider",
+                "label": "",
+                "min": 0.0,
+                "max": 1.0,
+                "step": 0.0001,
+                "defaultValue": 0.375
+            },
+            {
+                "name": "ft_4",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "fm_4",
+                "type": "select",
+                "options": [
+                    { "label": "RLC (BT)", "value": 0.0 },
+                    { "label": "RC (Standard)", "value": 1.0 }
+                ],
+                "defaultValue": 0.0
+            },
+            {
+                "name": "s_4",
+                "type": "slider",
+                "label": "",
+                "min": 1.0,
+                "max": 10.0,
+                "step": 1.0,
+                "defaultValue": 1.0
+            },
+            {
+                "name": "xs_4",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "xm_4",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "f_4",
+                "type": "slider",
+                "label": "Hz",
+                "min": 20.0,
+                "max": 20000.0,
+                "step": 1.0,
+                "defaultValue": 630.0
+            },
+            {
+                "name": "w_4",
+                "type": "slider",
+                "label": "oct",
+                "min": 0.1,
+                "max": 10.0,
+                "step": 0.01,
+                "defaultValue": 4.00
+            },
+            {
+                "name": "g_4",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": 0.00
+            },
+            {
+                "name": "q_4",
+                "type": "slider",
+                "label": "",
+                "min": 0.0,
+                "max": 10.0,
+                "step": 0.01,
+                "defaultValue": 0.00
+            },
+            {
+                "name": "hue_4",
+                "type": "slider",
+                "label": "",
+                "min": 0.0,
+                "max": 1.0,
+                "step": 0.0001,
+                "defaultValue": 0.500
+            },
+            {
+                "name": "ft_5",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "fm_5",
+                "type": "select",
+                "options": [
+                    { "label": "RLC (BT)", "value": 0.0 },
+                    { "label": "RC (Standard)", "value": 1.0 }
+                ],
+                "defaultValue": 0.0
+            },
+            {
+                "name": "s_5",
+                "type": "slider",
+                "label": "",
+                "min": 1.0,
+                "max": 10.0,
+                "step": 1.0,
+                "defaultValue": 1.0
+            },
+            {
+                "name": "xs_5",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "xm_5",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "f_5",
+                "type": "slider",
+                "label": "Hz",
+                "min": 20.0,
+                "max": 20000.0,
+                "step": 1.0,
+                "defaultValue": 1600.0
+            },
+            {
+                "name": "w_5",
+                "type": "slider",
+                "label": "oct",
+                "min": 0.1,
+                "max": 10.0,
+                "step": 0.01,
+                "defaultValue": 4.00
+            },
+            {
+                "name": "g_5",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": 0.00
+            },
+            {
+                "name": "q_5",
+                "type": "slider",
+                "label": "",
+                "min": 0.0,
+                "max": 10.0,
+                "step": 0.01,
+                "defaultValue": 0.00
+            },
+            {
+                "name": "hue_5",
+                "type": "slider",
+                "label": "",
+                "min": 0.0,
+                "max": 1.0,
+                "step": 0.0001,
+                "defaultValue": 0.625
+            },
+            {
+                "name": "ft_6",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "fm_6",
+                "type": "select",
+                "options": [
+                    { "label": "RLC (BT)", "value": 0.0 },
+                    { "label": "RC (Standard)", "value": 1.0 }
+                ],
+                "defaultValue": 0.0
+            },
+            {
+                "name": "s_6",
+                "type": "slider",
+                "label": "",
+                "min": 1.0,
+                "max": 10.0,
+                "step": 1.0,
+                "defaultValue": 1.0
+            },
+            {
+                "name": "xs_6",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "xm_6",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "f_6",
+                "type": "slider",
+                "label": "Hz",
+                "min": 20.0,
+                "max": 20000.0,
+                "step": 1.0,
+                "defaultValue": 4000.0
+            },
+            {
+                "name": "w_6",
+                "type": "slider",
+                "label": "oct",
+                "min": 0.1,
+                "max": 10.0,
+                "step": 0.01,
+                "defaultValue": 4.00
+            },
+            {
+                "name": "g_6",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": 0.00
+            },
+            {
+                "name": "q_6",
+                "type": "slider",
+                "label": "",
+                "min": 0.0,
+                "max": 10.0,
+                "step": 0.01,
+                "defaultValue": 0.00
+            },
+            {
+                "name": "hue_6",
+                "type": "slider",
+                "label": "",
+                "min": 0.0,
+                "max": 1.0,
+                "step": 0.0001,
+                "defaultValue": 0.750
+            },
+            {
+                "name": "ft_7",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "fm_7",
+                "type": "select",
+                "options": [
+                    { "label": "RLC (BT)", "value": 0.0 },
+                    { "label": "RC (Standard)", "value": 1.0 }
+                ],
+                "defaultValue": 0.0
+            },
+            {
+                "name": "s_7",
+                "type": "slider",
+                "label": "",
+                "min": 1.0,
+                "max": 10.0,
+                "step": 1.0,
+                "defaultValue": 1.0
+            },
+            {
+                "name": "xs_7",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "xm_7",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "f_7",
+                "type": "slider",
+                "label": "Hz",
+                "min": 20.0,
+                "max": 20000.0,
+                "step": 1.0,
+                "defaultValue": 10000.0
+            },
+            {
+                "name": "w_7",
+                "type": "slider",
+                "label": "oct",
+                "min": 0.1,
+                "max": 10.0,
+                "step": 0.01,
+                "defaultValue": 4.00
+            },
+            {
+                "name": "g_7",
+                "type": "slider",
+                "label": "dB",
+                "min": -60.0,
+                "max": 60.0,
+                "step": 0.01,
+                "defaultValue": 0.00
+            },
+            {
+                "name": "q_7",
+                "type": "slider",
+                "label": "",
+                "min": 0.0,
+                "max": 10.0,
+                "step": 0.01,
+                "defaultValue": 0.00
+            },
+            {
+                "name": "hue_7",
+                "type": "slider",
+                "label": "",
+                "min": 0.0,
+                "max": 1.0,
+                "step": 0.0001,
+                "defaultValue": 0.875
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "name": "ChorusPlus",
+        "description": "Adicione modulação e profundidade",
+        "parameters": [
+            {
+                "name": "Rate",
+                "type": "slider",
+                "min": 0.0,
+                "max": 5.0,
+                "step": 0.01,
+                "defaultValue": 1.0
+            },
+            {
+                "name": "Depth",
+                "type": "slider",
+                "min": 0.0,
+                "max": 1.0,
+                "step": 0.01,
+                "defaultValue": 0.5
+            },
+            {
+                "name": "Mix",
+                "type": "slider",
+                "min": 0.0,
+                "max": 1.0,
+                "step": 0.01,
+                "defaultValue": 0.5
+            },
+            {
+                "name": "Width",
+                "type": "slider",
+                "min": 0.0,
+                "max": 1.0,
+                "step": 0.01,
+                "defaultValue": 1.0
+            },
+            {
+                "name": "Feedback",
+                "type": "toggle",
+                "defaultValue": 0.0
+            },
+            {
+                "name": "Tone",
+                "type": "slider",
+                "min": 0.0,
+                "max": 1.0,
+                "step": 0.01,
+                "defaultValue": 0.5
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "name": "DistortPro",
+        "description": "Adicione distorção com controle avançado",
+        "parameters": [
+            {
+                "name": "Drive",
+                "type": "slider",
+                "min": 0.0,
+                "max": 1.0,
+                "step": 0.01,
+                "defaultValue": 0.5
+            },
+            {
+                "name": "Tone",
+                "type": "slider",
+                "min": 0.0,
+                "max": 1.0,
+                "step": 0.01,
+                "defaultValue": 0.5
+            },
+            {
+                "name": "Mix",
+                "type": "slider",
+                "min": 0.0,
+                "max": 1.0,
+                "step": 0.01,
+                "defaultValue": 0.5
+            },
+            {
+                "name": "Level",
+                "type": "slider",
+                "min": 0.0,
+                "max": 1.0,
+                "step": 0.01,
+                "defaultValue": 0.8
+            },
+            {
+                "name": "Bias",
+                "type": "slider",
+                "min": 0.0,
+                "max": 1.0,
+                "step": 0.01,
+                "defaultValue": 0.2
+            },
+            {
+                "name": "Color",
+                "type": "select",
+                "options": [
+                    { "label": "Warm", "value": 0.4 },
+                    { "label": "Bright", "value": 0.7 },
+                    { "label": "Dark", "value": 0.2 }
+                ],
+                "defaultValue": 0.4
+            }
+        ]
+    }
+]

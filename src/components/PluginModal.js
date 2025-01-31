@@ -5,9 +5,6 @@ import "rc-slider/assets/index.css";
 import "../styles/PluginModal.css";
 
 function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
-  // Envio do arquivo e do paramValues continuam parecidos,
-  // mas agora acessamos plugin.parameters e paramValues para gerar a UI.
-
   const [file, setFile] = React.useState(null);
 
   const handleFileUpload = (event) => {
@@ -39,8 +36,16 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
       return;
     }
 
-    // Monta params com base em paramValues
-    const params = paramValues.map((val, i) => `p${i}=${val}`).join("&");
+    // Normaliza os valores para garantir que estejam entre 0 e 1
+    const normalizedParams = paramValues.map((val, i) => {
+      const param = plugin.parameters[i];
+      if (param.type === "slider") {
+        return ((val - param.min) / (param.max - param.min)).toFixed(6);
+      }
+      return val;
+    });
+
+    const params = normalizedParams.map((val, i) => `p${i}=${val}`).join("&");
 
     const baseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:18080";
     const url = `${baseUrl}/process?plugin=${plugin.name}&preview=${preview}&${params}`;
@@ -88,9 +93,8 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
     }
   };
 
-  // Renderiza cada parâmetro de acordo com seu tipo
   const renderParameterControl = (param, index) => {
-    const value = paramValues[index];      
+    const value = paramValues[index];
     switch (param.type) {
       case "slider":
         return (
@@ -145,9 +149,7 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
   return (
     <div className="modal" onClick={(e) => e.target.classList.contains("modal") && onClose()}>
       <div className="modal-content">
-        <button className="close-button" onClick={onClose}>
-          ✖
-        </button>
+        <button className="close-button" onClick={onClose}>✖</button>
         <h2>{plugin.name}</h2>
         <p>{plugin.description}</p>
         <div className="plugin-controls">
@@ -159,12 +161,8 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
           <input type="file" onChange={handleFileUpload} />
         </div>
         <div className="action-buttons">
-          <button className="preview-button" onClick={() => handleSend(true)}>
-            Preview
-          </button>
-          <button className="process-button" onClick={() => handleSend(false)}>
-            Process
-          </button>
+          <button className="preview-button" onClick={() => handleSend(true)}>Preview</button>
+          <button className="process-button" onClick={() => handleSend(false)}>Process</button>
         </div>
       </div>
     </div>
