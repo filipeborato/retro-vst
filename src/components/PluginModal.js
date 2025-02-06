@@ -12,31 +12,31 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
     const allowedExtensions = ["wav", "mp3", "ogg", "flac", "aiff"];
 
     if (!uploadedFile) {
-      alert("Nenhum arquivo selecionado!");
+      alert("No file selected!");
       return;
     }
 
     const fileExtension = uploadedFile.name.split(".").pop().toLowerCase();
     if (!allowedExtensions.includes(fileExtension)) {
-      alert("Formato de arquivo inválido. Por favor, envie um arquivo de áudio válido.");
+      alert("Invalid file format. Please upload a valid audio file.");
       return;
     }
-    if (uploadedFile.size > 10 * 1024 * 1024) {
-      alert("O arquivo é muito grande. O limite é de 10MB.");
+    if (uploadedFile.size > 80 * 1024 * 1024) {
+      alert("The file is too large. The limit is 80MB.");
       return;
     }
 
     setFile(uploadedFile);
-    alert(`Arquivo '${uploadedFile.name}' carregado com sucesso!`);
+    alert(`File '${uploadedFile.name}' uploaded successfully!`);
   };
 
   const handleSend = async (preview = false) => {
     if (!file) {
-      alert("Por favor, faça o upload de um arquivo antes de enviar!");
+      alert("Please upload a file before sending!");
       return;
     }
 
-    // Normaliza os valores para garantir que estejam entre 0 e 1
+    // Normalize the parameter values to be between 0 and 1
     const normalizedParams = paramValues.map((val, i) => {
       const param = plugin.parameters[i];
       if (param.type === "slider") {
@@ -47,7 +47,8 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
 
     const params = normalizedParams.map((val, i) => `p${i}=${val}`).join("&");
 
-    const baseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:18080";
+    const baseUrl =
+      process.env.REACT_APP_API_BASE_URL || "http://localhost:18080";
     const url = `${baseUrl}/process?plugin=${plugin.name}&preview=${preview}&${params}`;
 
     const formData = new FormData();
@@ -61,15 +62,15 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error(`Erro do servidor: ${response.status} - ${errorText}`);
-        alert(`Erro ao processar o arquivo: ${response.status}`);
+        console.error(`Server error: ${response.status} - ${errorText}`);
+        alert(`Error processing the file: ${response.status}`);
         return;
       }
 
       const processedFile = await response.blob();
       if (processedFile.size === 0) {
-        console.error("Arquivo recebido está vazio.");
-        alert("Erro: O arquivo recebido está vazio.");
+        console.error("Received file is empty.");
+        alert("Error: The received file is empty.");
         return;
       }
 
@@ -84,12 +85,12 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
 
       alert(
         preview
-          ? "Pré-visualização baixada com sucesso!"
-          : "Arquivo processado e baixado com sucesso!"
+          ? "Preview downloaded successfully!"
+          : "File processed and downloaded successfully!"
       );
     } catch (error) {
-      console.error("Erro ao enviar o arquivo:", error);
-      alert("Erro ao processar o arquivo. Por favor, tente novamente.");
+      console.error("Error sending the file:", error);
+      alert("Error processing the file. Please try again.");
     }
   };
 
@@ -131,7 +132,9 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
             <label>{param.name}</label>
             <select
               value={value}
-              onChange={(e) => onParameterChange(index, parseFloat(e.target.value))}
+              onChange={(e) =>
+                onParameterChange(index, parseFloat(e.target.value))
+              }
             >
               {param.options.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -147,22 +150,33 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
   };
 
   return (
-    <div className="modal" onClick={(e) => e.target.classList.contains("modal") && onClose()}>
+    <div
+      className="modal"
+      onClick={(e) => e.target.classList.contains("modal") && onClose()}
+    >
       <div className="modal-content">
-        <button className="close-button" onClick={onClose}>✖</button>
+        <button className="close-button" onClick={onClose}>
+          ✖
+        </button>
         <h2>{plugin.name}</h2>
         <p>{plugin.description}</p>
         <div className="plugin-controls">
           <div className="scrollable-section">
-            {plugin.parameters.map((param, i) => renderParameterControl(param, i))}
+            {plugin.parameters.map((param, i) =>
+              renderParameterControl(param, i)
+            )}
           </div>
         </div>
         <div className="file-upload">
           <input type="file" onChange={handleFileUpload} />
         </div>
         <div className="action-buttons">
-          <button className="preview-button" onClick={() => handleSend(true)}>Preview</button>
-          <button className="process-button" onClick={() => handleSend(false)}>Process</button>
+          <button className="preview-button" onClick={() => handleSend(true)}>
+            Preview
+          </button>
+          <button className="process-button" onClick={() => handleSend(false)}>
+            Process
+          </button>
         </div>
       </div>
     </div>
