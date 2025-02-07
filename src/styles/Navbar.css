@@ -1,4 +1,4 @@
-/* Navbar Cyberpunk Dark */
+/* Navbar Cyberpunk Escuro */
 .navbar {
   position: fixed;
   top: 0;
@@ -14,27 +14,29 @@
   z-index: 1000;
 }
 
-/* Área da esquerda – exibe nome do usuário e créditos em coluna */
 .navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Estilo para as informações do perfil (nome e créditos) exibidas em duas linhas */
+.profile-info {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 5px;
 }
 
-/* Estilo do nome do usuário */
-.navbar-user {
+.profile-name {
   font-weight: bold;
   font-size: 1rem;
 }
 
-/* Estilo dos créditos */
-.navbar-credits {
+.profile-credits {
   font-size: 0.9rem;
   color: #d1b3ff;
 }
 
-/* Container central: removido o posicionamento absoluto e centralizado com flex */
 .navbar-center {
   flex-grow: 1;
   display: flex;
@@ -44,17 +46,28 @@
   font-size: 1.5rem;
   font-weight: bold;
   color: #d1b3ff;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
 }
 
-/* Área da direita com espaçamento */
 .navbar-right {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  min-width: 150px;
   padding-right: 20px;
 }
 
-/* Botão de login/logout */
+.navbar-user {
+  font-weight: bold;
+}
+
+.navbar-credits {
+  font-weight: bold;
+}
+
 .login-btn {
   background: #7442c8;
   color: #fff;

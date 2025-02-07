@@ -22,7 +22,7 @@ function LoginModal({ onClose, onLogin }) {
     let requestBody;
     if (isSignup) {
       requestBody = {
-        name: fullName,       // Alterado de "Name" para "name"
+        name: fullName, // Alterado de "Name" para "name"
         email: email,
         password: password,
       };
@@ -45,7 +45,8 @@ function LoginModal({ onClose, onLogin }) {
 
       if (response.ok) {
         const token = data.token;
-        alert(`${data.message}\nToken: ${token || "N/A"}`);
+        // Exibe somente a mensagem, sem o token
+        alert(data.message);
         onLogin({ profile: data.profile, token });
         onClose();
       } else {
