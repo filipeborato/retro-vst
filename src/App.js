@@ -1,31 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Cookie from "js-cookie"; // Importa a biblioteca js-cookie
 import Navbar from "./components/Navbar";
 import PluginGrid from "./components/PluginGrid";
 import PluginModal from "./components/PluginModal";
 import LoginModal from "./components/LoginModal";
-
 import "./styles/App.css";
 import { SpeedInsights } from "@vercel/speed-insights/react";
-
-// Importa o arquivo JSON diretamente
-import plugins from './Plugin.json';
+import plugins from "./Plugin.json";
 
 function App() {
-  // Estado para plugin selecionado
   const [selectedPlugin, setSelectedPlugin] = useState(null);
-  // Armazena valores de cada parâmetro do plugin selecionado
   const [paramValues, setParamValues] = useState([]);
-
-  // Estado para login modal
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [profile, setProfile] = useState(null);
+
+  // Ao carregar a página, verifica se existe token no cookie
+  // Se existir, faz uma requisição para a rota /profile para obter os dados do usuário
+  useEffect(() => {
+    const token = Cookie.get("authToken");
+    if (token) {
+      const fetchProfile = async () => {
+        try {
+          // Alterado de "/profile" para "/api/profile"
+          const response = await fetch(
+            process.env.REACT_APP_API_GO_URL + "/api/profile",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+              }
+            }
+          );
+          if (response.ok) {
+            const profileData = await response.json();
+            setProfile(profileData);
+          } else {
+            console.error("Error fetching profile data", response.status);
+          }
+        } catch (error) {
+          console.error("Error fetching profile:", error);
+        }
+      };
+      fetchProfile();
+    }
+  }, []);
 
   const openModal = (plugin) => {
     setSelectedPlugin(plugin);
-    // Inicializa paramValues com base em parameters
-    const initialValues = plugin.parameters.map((param) => {
-      // defaultValue é float ou boolean para toggles
-      return param.defaultValue !== undefined ? param.defaultValue : 0.0;
-    });
+    const initialValues = plugin.parameters.map((param) =>
+      param.defaultValue !== undefined ? param.defaultValue : 0.0
+    );
     setParamValues(initialValues);
   };
 
@@ -34,11 +59,12 @@ function App() {
     setParamValues([]);
   };
 
-  // Atualiza valor de um parâmetro
   const handleParameterChange = (index, newValue) => {
     const updated = [...paramValues];
-    // Verifica se o parâmetro é um toggle (booleano)
-    if (typeof plugins[selectedPlugin.id - 1].parameters[index].defaultValue === 'boolean') {
+    if (
+      typeof plugins[selectedPlugin.id - 1].parameters[index].defaultValue ===
+      "boolean"
+    ) {
       updated[index] = newValue;
     } else {
       updated[index] = parseFloat(newValue.toFixed(2));
@@ -46,17 +72,29 @@ function App() {
     setParamValues(updated);
   };
 
-  // Alterna a exibição da modal de login
   const toggleLoginModal = () => {
     setShowLoginModal((prev) => !prev);
+  };
+
+  // Ao fazer login ou signup, salva o token no cookie e recarrega a página
+  const handleLogin = ({ profile, token }) => {
+    Cookie.set("authToken", token);
+    // Recarrega a página para disparar a lógica de carregamento do profile
+    window.location.reload();
+  };
+
+  // Logout: remove o token do cookie e recarrega a página
+  const handleLogout = () => {
+    Cookie.remove("authToken");
+    window.location.reload();
   };
 
   return (
     <div className="app retro-theme full-height">
       <Navbar
-        user="John Doe"
-        credits={42.5}
-        notifications={["Bem-vindo ao Retro VST!", "Atualização disponível para TheFunction"]}
+        profile={profile}
+        onLogout={handleLogout}
+        credits={profile ? profile.current_balance : 42.5}
         onLoginClick={toggleLoginModal}
       />
       <div className="main-content">
@@ -73,7 +111,9 @@ function App() {
           />
         )}
 
-        {showLoginModal && <LoginModal onClose={toggleLoginModal} />}
+        {showLoginModal && (
+          <LoginModal onClose={toggleLoginModal} onLogin={handleLogin} />
+        )}
       </div>
     </div>
   );

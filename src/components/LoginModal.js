@@ -1,63 +1,60 @@
-// components/LoginModal.js
 import React, { useState } from "react";
 import "../styles/LoginModal.css";
 
-function LoginModal({ onClose }) {
-  const [name, setName] = useState("");
+function LoginModal({ onClose, onLogin }) {
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSignup, setIsSignup] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
-  // Alterna modo entre Login e Signup
+  // Alterna entre Login e Signup e limpa mensagens de erro
   const handleToggleMode = () => {
     setIsSignup((prev) => !prev);
+    setErrorMsg("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Define rota com base se for cadastro ou login
     const endpoint = isSignup ? "/signup" : "/login";
 
-    // Monta o body de acordo com a necessidade da rota
-    // Signup: requer 'Name', 'Email' e 'Password'
-    // Login: requer 'Email' e 'Password'
+    // Para o signup, envia as chaves em minúsculas conforme o esperado pela API
     let requestBody;
     if (isSignup) {
       requestBody = {
-        Name: name,
-        Email: email,
-        Password: password,
+        name: fullName,       // Alterado de "Name" para "name"
+        email: email,
+        password: password,
       };
     } else {
       requestBody = {
-        Email: email,
-        Password: password,
+        email: email,
+        password: password,
       };
     }
 
     try {
-      const url = process.env.REACT_APP_API_GO_URL + endpoint 
-      console.log(url)
+      const url = process.env.REACT_APP_API_GO_URL + endpoint;
       const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestBody),
       });
 
-      // Se a resposta for OK, processa como JSON
       const data = await response.json();
 
       if (response.ok) {
-        // data.message e data.token vindo do servidor
-        alert(`${data.message}\nToken: ${data.token || 'N/A'}`);
+        const token = data.token;
+        alert(`${data.message}\nToken: ${token || "N/A"}`);
+        onLogin({ profile: data.profile, token });
         onClose();
       } else {
-        // Caso de erro, data pode conter { message: 'erro' }
-        alert(`Erro: ${data.message}`);
+        const errorMessage = data.error || data.message || "Unknown error";
+        setErrorMsg(errorMessage);
       }
     } catch (err) {
       console.error(err);
-      alert("Erro ao conectar ao servidor.");
+      setErrorMsg("Error connecting to the server.");
     }
   };
 
@@ -72,13 +69,12 @@ function LoginModal({ onClose }) {
           {isSignup && (
             <input
               type="text"
-              placeholder="Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              placeholder="Full Name"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
               required
             />
           )}
-
           <input
             type="email"
             placeholder="Email"
@@ -93,13 +89,16 @@ function LoginModal({ onClose }) {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-
           <button type="submit">{isSignup ? "Sign Up" : "Login"}</button>
         </form>
+
+        {/* Exibe a mensagem de erro, se houver */}
+        {errorMsg && <p className="error-msg">{errorMsg}</p>}
+
         <button onClick={handleToggleMode} className="toggle-mode-button">
           {isSignup
-            ? "Já tem uma conta? Faça Login"
-            : "Não tem conta? Cadastre-se"}
+            ? "Already have an account? Login"
+            : "Don't have an account? Sign Up"}
         </button>
       </div>
     </div>
