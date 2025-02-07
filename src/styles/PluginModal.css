@@ -1,4 +1,4 @@
-/* PluginModal.css - Estilização aprimorada para uma aparência mais consistente e clean. */
+/* PluginModal.css - atualizado para acomodar a waveform e o layout modificado. */
 
 .modal {
   position: fixed;
@@ -17,14 +17,10 @@
   background-color: #2b2a44;
   border-radius: 10px;
   padding: 20px;
-  width: 80%;
-  max-width: 1200px;
-  
-  /* Remove limites de altura para eliminar rolagem interna */
-  height: auto;
-  max-height: none;
-  overflow: visible;
-  
+  width: 60%;
+  max-width: 900px;
+  max-height: 90%;
+  overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -44,13 +40,24 @@
   cursor: pointer;
 }
 
-.modal-content h2 {
-  margin: 0 0 10px 0;
+.modal-title {
+  margin: 10px 0 5px 0;
+  font-size: 1.8rem;
+  color: #c9a6ff;
 }
 
-.modal-content p {
-  margin: 0 0 20px 0;
+.modal-desc {
+  margin: 0 0 15px 0;
+  font-size: 1rem;
+  color: #ffffff;
+  opacity: 0.9;
   max-width: 90%;
+}
+
+/* Waveform section styling */
+.waveform-section {
+  margin-bottom: 20px;
+  width: 100%;
 }
 
 .plugin-controls {
@@ -59,57 +66,50 @@
   align-items: center;
   gap: 15px;
   width: 100%;
+  margin-bottom: 20px;
+}
+
+.params-header {
+  font-size: 1.2rem;
+  color: #c9a6ff;
+  margin-bottom: 10px;
 }
 
 .scrollable-section {
   width: 90%;
-  max-height: 280px;
+  max-height: 200px;
   overflow-y: auto;
-  margin-bottom: 20px;
+  margin: 0 auto;
   padding: 10px;
   box-sizing: border-box;
   background-color: rgba(255, 255, 255, 0.05);
   border-radius: 5px;
 }
 
-/* Estilização do scrollbar (opcional) */
-.scrollable-section::-webkit-scrollbar {
-  width: 8px;
-}
-.scrollable-section::-webkit-scrollbar-track {
-  background: #2b2a44;
-}
-.scrollable-section::-webkit-scrollbar-thumb {
-  background-color: #666;
-  border-radius: 4px;
-}
-
 .param-control {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   margin: 8px 0;
 }
 
 .param-control label {
-  min-width: 120px;
+  min-width: 100px;
   font-size: 14px;
   color: #fff;
   text-align: left;
+  margin-right: 10px;
 }
 
-/* Slider Control */
+/* Slider control */
 .slider-control {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  width: 100%;
 }
 
 .slider-control .rc-slider {
   flex: 2;
+  margin: 0 10px;
 }
 
 .slider-control span {
@@ -118,36 +118,34 @@
   flex-shrink: 0;
 }
 
-/* Toggle Control */
+/* Toggle control */
 .toggle-control {
-  flex: 1;
+  width: 100%;
   display: flex;
-  align-items: center;
   justify-content: space-between;
 }
 
-.toggle-control .toggle-on,
-.toggle-control .toggle-off {
+.toggle-on {
+  background-color: #4caf50;
+  color: #fff;
   border: none;
   padding: 6px 12px;
   border-radius: 4px;
   cursor: pointer;
-  flex-shrink: 0;
 }
 
-.toggle-control .toggle-on {
-  background-color: #4caf50;
-  color: #fff;
-}
-
-.toggle-control .toggle-off {
+.toggle-off {
   background-color: #a9a9a9;
   color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-/* Select Control */
+/* Select control */
 .select-control {
-  flex: 1;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -163,18 +161,31 @@
   border-radius: 4px;
 }
 
+/* File upload */
 .file-upload {
   margin-bottom: 20px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
 }
 
+.file-label {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  color: #fff;
+}
+
+.file-label input[type="file"] {
+  margin-top: 5px;
+  padding: 6px;
+  cursor: pointer;
+}
+
+/* Action buttons */
 .action-buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 20px;
   width: 100%;
-  gap: 10px;
 }
 
 .preview-button,
@@ -185,6 +196,7 @@
   cursor: pointer;
   font-size: 16px;
   flex: 1;
+  max-width: 150px;
 }
 
 .preview-button {

@@ -1,12 +1,17 @@
 // components/PluginModal.js
-import React from "react";
+import React, { useState } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import "../styles/PluginModal.css";
 
-function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
-  const [file, setFile] = React.useState(null);
+import WaveformSelector from "./WaveformSelector"; // Novo componente
 
+function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
+  // Armazena o arquivo de áudio e o tempo inicial do preview
+  const [file, setFile] = useState(null);
+  const [previewStartTime, setPreviewStartTime] = useState(0);
+
+  // Faz upload do arquivo, validando extensão e tamanho
   const handleFileUpload = (event) => {
     const uploadedFile = event.target.files[0];
     const allowedExtensions = ["wav", "mp3", "ogg", "flac", "aiff"];
@@ -30,13 +35,14 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
     alert(`File '${uploadedFile.name}' uploaded successfully!`);
   };
 
+  // Envia o arquivo + parâmetros normalizados ao backend
   const handleSend = async (preview = false) => {
     if (!file) {
       alert("Please upload a file before sending!");
       return;
     }
 
-    // Normalize the parameter values to be between 0 and 1
+    // Normaliza os parâmetros de slider (0..1)
     const normalizedParams = paramValues.map((val, i) => {
       const param = plugin.parameters[i];
       if (param.type === "slider") {
@@ -45,11 +51,13 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
       return val;
     });
 
+    // Monta a query de parâmetros
     const params = normalizedParams.map((val, i) => `p${i}=${val}`).join("&");
 
+    // Envia também o previewStartTime
     const baseUrl =
       process.env.REACT_APP_API_BASE_URL || "http://localhost:18080";
-    const url = `${baseUrl}/process?plugin=${plugin.name}&preview=${preview}&${params}`;
+    const url = `${baseUrl}/process?plugin=${plugin.name}&preview=${preview}&previewStartTime=${previewStartTime}&${params}`;
 
     const formData = new FormData();
     formData.append("audio_file", file);
@@ -74,6 +82,7 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
         return;
       }
 
+      // Download do arquivo retornado
       const downloadUrl = URL.createObjectURL(processedFile);
       const link = document.createElement("a");
       link.href = downloadUrl;
@@ -94,6 +103,7 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
     }
   };
 
+  // Renderiza cada parâmetro de acordo com o tipo
   const renderParameterControl = (param, index) => {
     const value = paramValues[index];
     switch (param.type) {
@@ -108,7 +118,7 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
               value={value}
               onChange={(val) => onParameterChange(index, val)}
             />
-            <span>{value.toFixed(2)}</span>
+            <span>{Number(value).toFixed(2)}</span>
           </div>
         );
       case "toggle":
@@ -158,18 +168,41 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
         <button className="close-button" onClick={onClose}>
           ✖
         </button>
-        <h2>{plugin.name}</h2>
-        <p>{plugin.description}</p>
+
+        {/* Título e descrição do plugin */}
+        <h2 className="modal-title">{plugin.name}</h2>
+        <p className="modal-desc">{plugin.description}</p>
+
+        {/* Waveform Preview Section */}
+        {file && (
+          <div className="waveform-section">
+            <WaveformSelector
+              file={file}
+              previewStartTime={previewStartTime}
+              setPreviewStartTime={setPreviewStartTime}
+            />
+          </div>
+        )}
+
+        {/* Parâmetros do plugin */}
         <div className="plugin-controls">
+          <h3 className="params-header">Parameters</h3>
           <div className="scrollable-section">
             {plugin.parameters.map((param, i) =>
               renderParameterControl(param, i)
             )}
           </div>
         </div>
+
+        {/* Seleção do arquivo */}
         <div className="file-upload">
-          <input type="file" onChange={handleFileUpload} />
+          <label className="file-label">
+            Select Audio File:
+            <input type="file" onChange={handleFileUpload} accept="audio/*" />
+          </label>
         </div>
+
+        {/* Botões de ação */}
         <div className="action-buttons">
           <button className="preview-button" onClick={() => handleSend(true)}>
             Preview
