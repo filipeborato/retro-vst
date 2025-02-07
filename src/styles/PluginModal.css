@@ -243,3 +243,25 @@
 .process-button:hover {
   background-color: #43a047;
 }
+
+/* ... Outras regras já existentes ... */
+
+/* Loading bar */
+.loading-bar {
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+/* Modal-footer já está definido, garantindo que a área de botões fique fixa */
+.modal-footer {
+  flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  background-color: #2b2a44;
+  padding: 10px 0;
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
