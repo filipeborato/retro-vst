@@ -1,4 +1,3 @@
-// components/PluginModal.js
 import React, { useState } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
@@ -9,6 +8,7 @@ import WaveformSelector from "./WaveformSelector"; // Componente para preview da
 function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
   const [file, setFile] = useState(null);
   const [previewStartTime, setPreviewStartTime] = useState(0);
+  const [isLoading, setIsLoading] = useState(false); // Estado para loading
 
   const handleFileUpload = (event) => {
     const uploadedFile = event.target.files[0];
@@ -39,6 +39,9 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
       return;
     }
 
+    // Bloqueia os botões e ativa o loading
+    setIsLoading(true);
+
     const normalizedParams = paramValues.map((val, i) => {
       const param = plugin.parameters[i];
       if (param.type === "slider") {
@@ -64,6 +67,7 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
         const errorText = await response.text();
         console.error(`Server error: ${response.status} - ${errorText}`);
         alert(`Error processing the file: ${response.status}`);
+        setIsLoading(false);
         return;
       }
 
@@ -71,9 +75,11 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
       if (processedFile.size === 0) {
         console.error("Received file is empty.");
         alert("Error: The received file is empty.");
+        setIsLoading(false);
         return;
       }
 
+      // Cria URL de download e aciona o download
       const downloadUrl = URL.createObjectURL(processedFile);
       const link = document.createElement("a");
       link.href = downloadUrl;
@@ -91,6 +97,8 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
     } catch (error) {
       console.error("Error sending the file:", error);
       alert("Error processing the file. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -108,6 +116,7 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
               step={param.step}
               value={value}
               onChange={(val) => onParameterChange(index, val)}
+              disabled={isLoading}  // Desabilita durante o loading
             />
             <span className="param-value">{Number(value).toFixed(2)}</span>
           </div>
@@ -122,6 +131,7 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
                 onParameterChange(index, toggledValue);
               }}
               className={value === 1.0 ? "toggle-on" : "toggle-off"}
+              disabled={isLoading}  // Desabilita durante o loading
             >
               {value === 1.0 ? "ON" : "OFF"}
             </button>
@@ -136,6 +146,7 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
               onChange={(e) =>
                 onParameterChange(index, parseFloat(e.target.value))
               }
+              disabled={isLoading}  // Desabilita durante o loading
             >
               {param.options.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -193,21 +204,35 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
 
         {/* Área fixa para botões e explicação */}
         <div className="modal-footer">
-          <div className="button-info">
-            <p>
-              Choose "Preview" to listen to a short preview starting at the
-              selected time, or "Process" to apply the effect and download the
-              processed file.
-            </p>
-          </div>
-          <div className="action-buttons">
-            <button className="preview-button" onClick={() => handleSend(true)}>
-              Preview
-            </button>
-            <button className="process-button" onClick={() => handleSend(false)}>
-              Process
-            </button>
-          </div>
+          {isLoading ? (
+            <div className="loading-bar">Loading...</div>
+          ) : (
+            <>
+              <div className="button-info">
+                <p>
+                  Choose "Preview" to listen to a short preview starting at the
+                  selected time, or "Process" to apply the effect and download the
+                  processed file.
+                </p>
+              </div>
+              <div className="action-buttons">
+                <button
+                  className="preview-button"
+                  onClick={() => handleSend(true)}
+                  disabled={isLoading}
+                >
+                  Preview
+                </button>
+                <button
+                  className="process-button"
+                  onClick={() => handleSend(false)}
+                  disabled={isLoading}
+                >
+                  Process
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>
