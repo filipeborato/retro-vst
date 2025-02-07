@@ -4,14 +4,12 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import "../styles/PluginModal.css";
 
-import WaveformSelector from "./WaveformSelector"; // Novo componente
+import WaveformSelector from "./WaveformSelector"; // Componente para preview da waveform
 
 function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
-  // Armazena o arquivo de áudio e o tempo inicial do preview
   const [file, setFile] = useState(null);
   const [previewStartTime, setPreviewStartTime] = useState(0);
 
-  // Faz upload do arquivo, validando extensão e tamanho
   const handleFileUpload = (event) => {
     const uploadedFile = event.target.files[0];
     const allowedExtensions = ["wav", "mp3", "ogg", "flac", "aiff"];
@@ -35,14 +33,12 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
     alert(`File '${uploadedFile.name}' uploaded successfully!`);
   };
 
-  // Envia o arquivo + parâmetros normalizados ao backend
   const handleSend = async (preview = false) => {
     if (!file) {
       alert("Please upload a file before sending!");
       return;
     }
 
-    // Normaliza os parâmetros de slider (0..1)
     const normalizedParams = paramValues.map((val, i) => {
       const param = plugin.parameters[i];
       if (param.type === "slider") {
@@ -51,12 +47,8 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
       return val;
     });
 
-    // Monta a query de parâmetros
     const params = normalizedParams.map((val, i) => `p${i}=${val}`).join("&");
-
-    // Envia também o previewStartTime
-    const baseUrl =
-      process.env.REACT_APP_API_BASE_URL || "http://localhost:18080";
+    const baseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:18080";
     const url = `${baseUrl}/process?plugin=${plugin.name}&preview=${preview}&previewStartTime=${previewStartTime}&${params}`;
 
     const formData = new FormData();
@@ -82,7 +74,6 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
         return;
       }
 
-      // Download do arquivo retornado
       const downloadUrl = URL.createObjectURL(processedFile);
       const link = document.createElement("a");
       link.href = downloadUrl;
@@ -103,14 +94,14 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
     }
   };
 
-  // Renderiza cada parâmetro de acordo com o tipo
   const renderParameterControl = (param, index) => {
     const value = paramValues[index];
+    const displayLabel = param.label || param.name;
     switch (param.type) {
       case "slider":
         return (
           <div key={index} className="param-control slider-control">
-            <label>{param.name}</label>
+            <label className="param-label">{displayLabel}</label>
             <Slider
               min={param.min}
               max={param.max}
@@ -118,13 +109,13 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
               value={value}
               onChange={(val) => onParameterChange(index, val)}
             />
-            <span>{Number(value).toFixed(2)}</span>
+            <span className="param-value">{Number(value).toFixed(2)}</span>
           </div>
         );
       case "toggle":
         return (
           <div key={index} className="param-control toggle-control">
-            <label>{param.name}</label>
+            <label className="param-label">{displayLabel}</label>
             <button
               onClick={() => {
                 const toggledValue = value === 1.0 ? 0.0 : 1.0;
@@ -139,7 +130,7 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
       case "select":
         return (
           <div key={index} className="param-control select-control">
-            <label>{param.name}</label>
+            <label className="param-label">{displayLabel}</label>
             <select
               value={value}
               onChange={(e) =>
@@ -169,47 +160,54 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
           ✖
         </button>
 
-        {/* Título e descrição do plugin */}
-        <h2 className="modal-title">{plugin.name}</h2>
-        <p className="modal-desc">{plugin.description}</p>
+        <div className="modal-body">
+          <h2 className="modal-title">{plugin.name}</h2>
+          <p className="modal-desc">{plugin.description}</p>
 
-        {/* Waveform Preview Section */}
-        {file && (
-          <div className="waveform-section">
-            <WaveformSelector
-              file={file}
-              previewStartTime={previewStartTime}
-              setPreviewStartTime={setPreviewStartTime}
-            />
+          {file && (
+            <div className="waveform-section">
+              <WaveformSelector
+                file={file}
+                previewStartTime={previewStartTime}
+                setPreviewStartTime={setPreviewStartTime}
+              />
+            </div>
+          )}
+
+          <div className="plugin-controls">
+            <h3 className="params-header">Parameters</h3>
+            <div className="scrollable-section">
+              {plugin.parameters.map((param, i) =>
+                renderParameterControl(param, i)
+              )}
+            </div>
           </div>
-        )}
 
-        {/* Parâmetros do plugin */}
-        <div className="plugin-controls">
-          <h3 className="params-header">Parameters</h3>
-          <div className="scrollable-section">
-            {plugin.parameters.map((param, i) =>
-              renderParameterControl(param, i)
-            )}
+          <div className="file-upload">
+            <label className="file-label">
+              Select Audio File:
+              <input type="file" onChange={handleFileUpload} accept="audio/*" />
+            </label>
           </div>
         </div>
 
-        {/* Seleção do arquivo */}
-        <div className="file-upload">
-          <label className="file-label">
-            Select Audio File:
-            <input type="file" onChange={handleFileUpload} accept="audio/*" />
-          </label>
-        </div>
-
-        {/* Botões de ação */}
-        <div className="action-buttons">
-          <button className="preview-button" onClick={() => handleSend(true)}>
-            Preview
-          </button>
-          <button className="process-button" onClick={() => handleSend(false)}>
-            Process
-          </button>
+        {/* Área fixa para botões e explicação */}
+        <div className="modal-footer">
+          <div className="button-info">
+            <p>
+              Choose "Preview" to listen to a short preview starting at the
+              selected time, or "Process" to apply the effect and download the
+              processed file.
+            </p>
+          </div>
+          <div className="action-buttons">
+            <button className="preview-button" onClick={() => handleSend(true)}>
+              Preview
+            </button>
+            <button className="process-button" onClick={() => handleSend(false)}>
+              Process
+            </button>
+          </div>
         </div>
       </div>
     </div>

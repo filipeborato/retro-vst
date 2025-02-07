@@ -1,5 +1,3 @@
-/* PluginModal.css - atualizado para acomodar a waveform e o layout modificado. */
-
 .modal {
   position: fixed;
   top: 0;
@@ -19,14 +17,12 @@
   padding: 20px;
   width: 60%;
   max-width: 900px;
-  max-height: 90%;
-  overflow: hidden;
-  position: relative;
+  max-height: 90vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  position: relative;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-  text-align: center;
+  overflow: hidden; /* Evita scroll horizontal na estrutura geral */
 }
 
 .close-button {
@@ -38,6 +34,12 @@
   font-size: 20px;
   color: #fff;
   cursor: pointer;
+}
+
+.modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 10px; /* Espaço para evitar que o conteúdo fique escondido pelo scrollbar */
 }
 
 .modal-title {
@@ -54,17 +56,14 @@
   max-width: 90%;
 }
 
-/* Waveform section styling */
+/* Waveform section */
 .waveform-section {
   margin-bottom: 20px;
   width: 100%;
 }
 
+/* Contêiner dos controles de parâmetros */
 .plugin-controls {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
   width: 100%;
   margin-bottom: 20px;
 }
@@ -73,56 +72,63 @@
   font-size: 1.2rem;
   color: #c9a6ff;
   margin-bottom: 10px;
+  text-align: center;
 }
 
+/* Container rolável apenas verticalmente */
 .scrollable-section {
-  width: 90%;
-  max-height: 200px;
+  width: 100%;
+  max-height: 250px;
   overflow-y: auto;
-  margin: 0 auto;
+  overflow-x: hidden;
   padding: 10px;
   box-sizing: border-box;
   background-color: rgba(255, 255, 255, 0.05);
   border-radius: 5px;
 }
 
+/* Cada controle de parâmetro */
 .param-control {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  margin: 8px 0;
+  margin: 10px 0;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.param-control label {
-  min-width: 100px;
+.param-label {
+  flex: 1 1 40%;
   font-size: 14px;
   color: #fff;
   text-align: left;
-  margin-right: 10px;
+  word-break: break-all;
 }
 
-/* Slider control */
-.slider-control {
-  width: 100%;
+.slider-control,
+.select-control {
+  flex: 1 1 55%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .slider-control .rc-slider {
-  flex: 2;
-  margin: 0 10px;
+  flex: 1;
 }
 
-.slider-control span {
-  width: 40px;
+.param-value {
+  width: 50px;
   text-align: right;
-  flex-shrink: 0;
 }
 
 /* Toggle control */
 .toggle-control {
-  width: 100%;
+  flex: 1 1 55%;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
 }
 
 .toggle-on {
@@ -145,15 +151,14 @@
 
 /* Select control */
 .select-control {
-  width: 100%;
+  flex: 1 1 55%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 10px;
 }
 
 .select-control select {
-  flex: 2;
+  flex: 1;
   background-color: #4a4e69;
   color: #fff;
   border: none;
@@ -167,7 +172,7 @@
 }
 
 .file-label {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 5px;
@@ -180,12 +185,33 @@
   cursor: pointer;
 }
 
-/* Action buttons */
+/* Área fixa para botões e texto explicativo */
+.modal-footer {
+  flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  background-color: #2b2a44;
+  padding: 10px 0;
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.button-info {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #fff;
+  font-size: 0.95rem;
+  padding: 0 10px;
+}
+
+/* Container dos botões de ação */
 .action-buttons {
   display: flex;
   justify-content: center;
   gap: 20px;
   width: 100%;
+  flex-wrap: wrap;
+  overflow-x: hidden;
 }
 
 .preview-button,
@@ -197,6 +223,7 @@
   font-size: 16px;
   flex: 1;
   max-width: 150px;
+  min-width: 120px;
 }
 
 .preview-button {
