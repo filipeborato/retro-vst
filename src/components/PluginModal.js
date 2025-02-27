@@ -172,7 +172,7 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
         </button>
 
         <div className="modal-body">
-          <h2 className="modal-title">{plugin.name}</h2>
+          <h2 className="modal-title">{plugin.label}</h2>
           <p className="modal-desc">{plugin.description}</p>
 
           {file && (
