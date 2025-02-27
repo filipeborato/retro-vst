@@ -2,6 +2,7 @@
     {
       "id": 1,
       "name": "TheFunction",
+      "label": "The Function",
       "description": "Advanced spatiality plugin",
       "parameters": [
         {
@@ -72,6 +73,7 @@
     {
       "id": 2,
       "name": "filter-stereo",
+      "label": "Filter Stereo",
       "description": "Simple Effect",
       "parameters": [
         {
@@ -239,6 +241,7 @@
     {
       "id": 3,
       "name": "compressor-stereo",
+      "label": "Compressor Stereo",
       "description": "Simple Effect",
       "parameters": [
         {
@@ -573,6 +576,7 @@
     {
       "id": 4,
       "name": "para-equalizer-x8-stereo",
+      "label": "Equalizer X8",
       "description": "Loaded Effect: Equalizer Stereo",
       "parameters": [
         {
@@ -861,6 +865,7 @@
     },
     {
       "id": 5,
+      "label": "Chorus Plus",
       "name": "ChorusPlus",
       "description": "Add modulation and depth",
       "parameters": [
@@ -919,6 +924,7 @@
     },
     {
       "id": 6,
+      "label": "Distor Pro",
       "name": "DistortPro",
       "description": "Add advanced distortion control",
       "parameters": [

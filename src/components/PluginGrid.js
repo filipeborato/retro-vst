@@ -11,7 +11,7 @@ function PluginGrid({ plugins, onPluginClick }) {
           className="plugin-card"
           onClick={() => onPluginClick(plugin)}
         >
-          <h2>{plugin.name}</h2>
+          <h2>{plugin.label}</h2>
           <p>{plugin.description}</p>
         </div>
       ))}
