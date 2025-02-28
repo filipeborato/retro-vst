@@ -80,62 +80,64 @@
           "name": "bypass",
           "label": "Bypass Filter",
           "type": "toggle",
-          "defaultValue": 0.0
+          "defaultValue": 1.0
         },
         {
           "name": "g_in",
           "label": "Input Gain (dB)",
           "type": "slider",
-          "min": -60.0,
-          "max": 60.0,
+          "min": -70.05,
+          "max": 20.00,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": -30.02
         },
         {
           "name": "g_out",
           "label": "Output Gain (dB)",
           "type": "slider",
-          "min": -60.0,
-          "max": 60.0,
+          "min": -70.05,
+          "max": 20.00,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": -30.02
         },
         {
           "name": "mode",
           "label": "Filter Type",
           "type": "select",
           "options": [
-            { "label": "IIR", "value": 0.1 },
-            { "label": "FIR", "value": 0.2 }
+            { "label": "IIR", "value": 0.0 },
+            { "label": "FIR", "value": 0.33 },
+            { "label": "FFT", "value": 0.66 },
+            { "label": "SPM", "value": 1.0 }
           ],
-          "defaultValue": 0.1
+          "defaultValue": 0.66
         },
         {
           "name": "react",
           "label": "Reaction Time (ms)",
           "type": "slider",
-          "min": 0.0,
-          "max": 1000.0,
-          "step": 0.1,
-          "defaultValue": 200.0
+          "min": 0.000,
+          "max": 1.000,
+          "step": 0.001,
+          "defaultValue": 0.001
         },
         {
           "name": "shift",
           "label": "Gain Offset (dB)",
           "type": "slider",
-          "min": -60.0,
-          "max": 60.0,
+          "min": -68.04,
+          "max": 40.00,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": -32.03
         },
         {
           "name": "zoom",
           "label": "Dynamic Range (dB)",
           "type": "slider",
-          "min": -60.0,
-          "max": 0.0,
+          "min": -42.00,
+          "max": 0.00,
           "step": 0.1,
-          "defaultValue": -36.0
+          "defaultValue": 0.00
         },
         {
           "name": "ife_l",
@@ -168,73 +170,90 @@
           "min": -100.0,
           "max": 100.0,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": 100.0
         },
         {
           "name": "ft",
           "label": "Frequency Filter Type",
           "type": "select",
           "options": [
-            { "label": "Lo-pass", "value": 0.1 },
-            { "label": "Hi-pass", "value": 0.2 },
-            { "label": "Band-pass", "value": 0.3 }
+            { "label": "Lo-pass", "value": 0.0 },
+            { "label": "Hi-pass", "value": 0.1 },
+            { "label": "Lo-shel", "value": 0.2 },
+            { "label": "Hi-shel", "value": 0.3 },
+            { "label": "Bell", "value": 0.4 },
+            { "label": "Bandpass", "value": 0.5 },
+            { "label": "Notch", "value": 0.6 },
+            { "label": "Resonant", "value": 0.7 },
+            { "label": "Ladder", "value": 0.8 },
+            { "label": "Allpass", "value": 1.0 }
           ],
-          "defaultValue": 0.1
+          "defaultValue": 1.0
         },
         {
           "name": "fm",
           "label": "Filter Circuit",
           "type": "select",
           "options": [
-            { "label": "RLC (BT)", "value": 0.1 },
-            { "label": "RC (Standard)", "value": 0.2 }
+            { "label": "RLC (BT)", "value": 0.0 },
+            { "label": "RLC (MT)", "value": 0.25 },
+            { "label": "BWC (BT)", "value": 0.5 },
+            { "label": "LRX (BT)", "value": 0.75 },
+            { "label": "APO (DR)", "value": 1.0 }
           ],
-          "defaultValue": 0.1
+          "defaultValue": 1.0
         },
         {
           "name": "s",
           "label": "Filter Intensity",
-          "type": "slider",
-          "min": 1.0,
-          "max": 10.0,
-          "step": 1.0,
+          "type": "select",
+          "options": [
+            { "label": "x1", "value": 0.0 },
+            { "label": "x2", "value": 0.2 },
+            { "label": "x3", "value": 0.4 },
+            { "label": "x4", "value": 0.5 },
+            { "label": "x6", "value": 0.6 },
+            { "label": "x8", "value": 0.8 },
+            { "label": "x12", "value": 0.9 },
+            { "label": "x16", "value": 1.0 }
+          ],
           "defaultValue": 1.0
         },
         {
           "name": "f",
           "label": "Cutoff Frequency (Hz)",
           "type": "slider",
-          "min": 20.0,
-          "max": 20000.0,
+          "min": 10.0,
+          "max": 24000.0,
           "step": 10.0,
-          "defaultValue": 10000.0
+          "defaultValue": 24000.0
         },
         {
           "name": "w",
           "label": "Bandwidth (octaves)",
           "type": "slider",
-          "min": 0.1,
-          "max": 10.0,
+          "min": 0.0,
+          "max": 12.0,
           "step": 0.1,
-          "defaultValue": 4.0
+          "defaultValue": 12.0
         },
         {
           "name": "g",
           "label": "Filter Gain (dB)",
           "type": "slider",
-          "min": -60.0,
-          "max": 60.0,
+          "min": -36.0,
+          "max": 36.0,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": 36.0
         },
         {
           "name": "q",
           "label": "Q Factor",
           "type": "slider",
           "min": 0.0,
-          "max": 10.0,
+          "max": 100.0,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": 100.0
         }
       ]
     },
