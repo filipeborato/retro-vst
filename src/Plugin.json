@@ -80,62 +80,64 @@
           "name": "bypass",
           "label": "Bypass Filter",
           "type": "toggle",
-          "defaultValue": 0.0
+          "defaultValue": 1.0
         },
         {
           "name": "g_in",
           "label": "Input Gain (dB)",
           "type": "slider",
-          "min": -60.0,
-          "max": 60.0,
+          "min": -70.05,
+          "max": 20.00,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": -30.02
         },
         {
           "name": "g_out",
           "label": "Output Gain (dB)",
           "type": "slider",
-          "min": -60.0,
-          "max": 60.0,
+          "min": -70.05,
+          "max": 20.00,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": -30.02
         },
         {
           "name": "mode",
           "label": "Filter Type",
           "type": "select",
           "options": [
-            { "label": "IIR", "value": 0.1 },
-            { "label": "FIR", "value": 0.2 }
+            { "label": "IIR", "value": 0.0 },
+            { "label": "FIR", "value": 0.33 },
+            { "label": "FFT", "value": 0.66 },
+            { "label": "SPM", "value": 1.0 }
           ],
-          "defaultValue": 0.1
+          "defaultValue": 0.66
         },
         {
           "name": "react",
           "label": "Reaction Time (ms)",
           "type": "slider",
-          "min": 0.0,
-          "max": 1000.0,
-          "step": 0.1,
-          "defaultValue": 200.0
+          "min": 0.000,
+          "max": 1.000,
+          "step": 0.001,
+          "defaultValue": 0.001
         },
         {
           "name": "shift",
           "label": "Gain Offset (dB)",
           "type": "slider",
-          "min": -60.0,
-          "max": 60.0,
+          "min": -68.04,
+          "max": 40.00,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": -32.03
         },
         {
           "name": "zoom",
           "label": "Dynamic Range (dB)",
           "type": "slider",
-          "min": -60.0,
-          "max": 0.0,
+          "min": -42.00,
+          "max": 0.00,
           "step": 0.1,
-          "defaultValue": -36.0
+          "defaultValue": 0.00
         },
         {
           "name": "ife_l",
@@ -168,73 +170,90 @@
           "min": -100.0,
           "max": 100.0,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": 100.0
         },
         {
           "name": "ft",
           "label": "Frequency Filter Type",
           "type": "select",
           "options": [
-            { "label": "Lo-pass", "value": 0.1 },
-            { "label": "Hi-pass", "value": 0.2 },
-            { "label": "Band-pass", "value": 0.3 }
+            { "label": "Lo-pass", "value": 0.0 },
+            { "label": "Hi-pass", "value": 0.1 },
+            { "label": "Lo-shel", "value": 0.2 },
+            { "label": "Hi-shel", "value": 0.3 },
+            { "label": "Bell", "value": 0.4 },
+            { "label": "Bandpass", "value": 0.5 },
+            { "label": "Notch", "value": 0.6 },
+            { "label": "Resonant", "value": 0.7 },
+            { "label": "Ladder", "value": 0.8 },
+            { "label": "Allpass", "value": 1.0 }
           ],
-          "defaultValue": 0.1
+          "defaultValue": 1.0
         },
         {
           "name": "fm",
           "label": "Filter Circuit",
           "type": "select",
           "options": [
-            { "label": "RLC (BT)", "value": 0.1 },
-            { "label": "RC (Standard)", "value": 0.2 }
+            { "label": "RLC (BT)", "value": 0.0 },
+            { "label": "RLC (MT)", "value": 0.25 },
+            { "label": "BWC (BT)", "value": 0.5 },
+            { "label": "LRX (BT)", "value": 0.75 },
+            { "label": "APO (DR)", "value": 1.0 }
           ],
-          "defaultValue": 0.1
+          "defaultValue": 1.0
         },
         {
           "name": "s",
           "label": "Filter Intensity",
-          "type": "slider",
-          "min": 1.0,
-          "max": 10.0,
-          "step": 1.0,
+          "type": "select",
+          "options": [
+            { "label": "x1", "value": 0.0 },
+            { "label": "x2", "value": 0.2 },
+            { "label": "x3", "value": 0.4 },
+            { "label": "x4", "value": 0.5 },
+            { "label": "x6", "value": 0.6 },
+            { "label": "x8", "value": 0.8 },
+            { "label": "x12", "value": 0.9 },
+            { "label": "x16", "value": 1.0 }
+          ],
           "defaultValue": 1.0
         },
         {
           "name": "f",
           "label": "Cutoff Frequency (Hz)",
           "type": "slider",
-          "min": 20.0,
-          "max": 20000.0,
+          "min": 10.0,
+          "max": 24000.0,
           "step": 10.0,
-          "defaultValue": 10000.0
+          "defaultValue": 24000.0
         },
         {
           "name": "w",
           "label": "Bandwidth (octaves)",
           "type": "slider",
-          "min": 0.1,
-          "max": 10.0,
+          "min": 0.0,
+          "max": 12.0,
           "step": 0.1,
-          "defaultValue": 4.0
+          "defaultValue": 12.0
         },
         {
           "name": "g",
           "label": "Filter Gain (dB)",
           "type": "slider",
-          "min": -60.0,
-          "max": 60.0,
+          "min": -36.0,
+          "max": 36.0,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": 36.0
         },
         {
           "name": "q",
           "label": "Q Factor",
           "type": "slider",
           "min": 0.0,
-          "max": 10.0,
+          "max": 100.0,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": 100.0
         }
       ]
     },
@@ -865,60 +884,732 @@
     },
     {
       "id": 5,
-      "label": "Chorus Plus",
-      "name": "ChorusPlus",
-      "description": "Add modulation and depth",
+      "label": "Pitched Delay",
+      "name": "PitchedDelay",
+      "description": "Pitch and Delay effect with multi‑tab modulation",
       "parameters": [
         {
-          "name": "Rate",
-          "label": "Modulation Rate (Hz)",
+          "name": "Tab1-Pitch",
+          "label": "Tab 1 Pitch",
+          "type": "slider",
+          "min": 0.0,
+          "max": 10.0,
+          "step": 0.001,
+          "defaultValue": 5.520
+        },
+        {
+          "name": "Tab1-Sync",
+          "label": "Tab 1 Sync",
+          "type": "slider",
+          "min": 0.0,
+          "max": 10.0,
+          "step": 0.001,
+          "defaultValue": 4.500
+        },
+        {
+          "name": "Tab1-PitchType",
+          "label": "Tab 1 Pitch Type",
           "type": "slider",
           "min": 0.0,
           "max": 5.0,
-          "step": 0.01,
-          "defaultValue": 1.0
+          "step": 0.001,
+          "defaultValue": 2.000
         },
         {
-          "name": "Depth",
-          "label": "Modulation Depth",
+          "name": "Tab1-PrePitch",
+          "label": "Tab 1 Pre Pitch",
+          "type": "slider",
+          "min": 0.0,
+          "max": 5.0,
+          "step": 0.001,
+          "defaultValue": 1.000
+        },
+        {
+          "name": "Tab1-Predelay",
+          "label": "Tab 1 Predelay",
+          "type": "slider",
+          "min": 0.0,
+          "max": 5.0,
+          "step": 0.001,
+          "defaultValue": 0.800
+        },
+        {
+          "name": "Tab1-Pre-Volume",
+          "label": "Tab 1 Pre Volume",
+          "type": "slider",
+          "min": -60.0,
+          "max": 0.0,
+          "step": 0.001,
+          "defaultValue": -36.000
+        },
+        {
+          "name": "Tab1-Delay",
+          "label": "Tab 1 Delay",
+          "type": "slider",
+          "min": 0.0,
+          "max": 10.0,
+          "step": 0.001,
+          "defaultValue": 2.000
+        },
+        {
+          "name": "Tab1-Feedback",
+          "label": "Tab 1 Feedback",
           "type": "slider",
           "min": 0.0,
           "max": 1.0,
-          "step": 0.01,
-          "defaultValue": 0.5
+          "step": 0.001,
+          "defaultValue": 0.000
         },
         {
-          "name": "Mix",
-          "label": "Effect Mix",
+          "name": "Tab1-EQ-Type",
+          "label": "Tab 1 EQ Type",
           "type": "slider",
           "min": 0.0,
           "max": 1.0,
-          "step": 0.01,
-          "defaultValue": 0.5
+          "step": 0.001,
+          "defaultValue": 0.000
         },
         {
-          "name": "Width",
-          "label": "Stereo Width",
+          "name": "Tab1-EQ-Freq",
+          "label": "Tab 1 EQ Frequency",
+          "type": "slider",
+          "min": 20.0,
+          "max": 20000.0,
+          "step": 1.0,
+          "defaultValue": 1000.000
+        },
+        {
+          "name": "Tab1-EQ-Q",
+          "label": "Tab 1 EQ Q",
+          "type": "slider",
+          "min": 0.1,
+          "max": 10.0,
+          "step": 0.001,
+          "defaultValue": 0.707
+        },
+        {
+          "name": "Tab1-EQ-Gain",
+          "label": "Tab 1 EQ Gain",
+          "type": "slider",
+          "min": -12.0,
+          "max": 12.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab1-Mode",
+          "label": "Tab 1 Mode",
           "type": "slider",
           "min": 0.0,
           "max": 1.0,
-          "step": 0.01,
-          "defaultValue": 1.0
+          "step": 0.001,
+          "defaultValue": 0.000
         },
         {
-          "name": "Feedback",
-          "label": "Enable Feedback",
+          "name": "Tab1-Volume",
+          "label": "Tab 1 Volume",
+          "type": "slider",
+          "min": -12.0,
+          "max": 12.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab1-Pan",
+          "label": "Tab 1 Pan",
+          "type": "slider",
+          "min": -1.0,
+          "max": 1.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab1-Enabled",
+          "label": "Tab 1 Enabled",
           "type": "toggle",
           "defaultValue": 0.0
         },
         {
-          "name": "Tone",
-          "label": "Tone Control",
+          "name": "Tab2-Pitch",
+          "label": "Tab 2 Pitch",
+          "type": "slider",
+          "min": 0.0,
+          "max": 10.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab2-Sync",
+          "label": "Tab 2 Sync",
+          "type": "slider",
+          "min": 0.0,
+          "max": 10.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab2-PitchType",
+          "label": "Tab 2 Pitch Type",
+          "type": "slider",
+          "min": 0.0,
+          "max": 5.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab2-PrePitch",
+          "label": "Tab 2 Pre Pitch",
+          "type": "slider",
+          "min": 0.0,
+          "max": 5.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab2-Predelay",
+          "label": "Tab 2 Predelay",
+          "type": "slider",
+          "min": 0.0,
+          "max": 5.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab2-Pre-Volume",
+          "label": "Tab 2 Pre Volume",
+          "type": "slider",
+          "min": -60.0,
+          "max": 0.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab2-Delay",
+          "label": "Tab 2 Delay",
+          "type": "slider",
+          "min": 0.0,
+          "max": 10.0,
+          "step": 0.001,
+          "defaultValue": 2.000
+        },
+        {
+          "name": "Tab2-Feedback",
+          "label": "Tab 2 Feedback",
           "type": "slider",
           "min": 0.0,
           "max": 1.0,
-          "step": 0.01,
-          "defaultValue": 0.5
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab2-EQ-Type",
+          "label": "Tab 2 EQ Type",
+          "type": "slider",
+          "min": 0.0,
+          "max": 1.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab2-EQ-Freq",
+          "label": "Tab 2 EQ Frequency",
+          "type": "slider",
+          "min": 20.0,
+          "max": 20000.0,
+          "step": 1.0,
+          "defaultValue": 1000.000
+        },
+        {
+          "name": "Tab2-EQ-Q",
+          "label": "Tab 2 EQ Q",
+          "type": "slider",
+          "min": 0.1,
+          "max": 10.0,
+          "step": 0.001,
+          "defaultValue": 0.707
+        },
+        {
+          "name": "Tab2-EQ-Gain",
+          "label": "Tab 2 EQ Gain",
+          "type": "slider",
+          "min": -12.0,
+          "max": 12.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab2-Mode",
+          "label": "Tab 2 Mode",
+          "type": "slider",
+          "min": 0.0,
+          "max": 1.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab2-Volume",
+          "label": "Tab 2 Volume",
+          "type": "slider",
+          "min": -12.0,
+          "max": 12.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab2-Pan",
+          "label": "Tab 2 Pan",
+          "type": "slider",
+          "min": -1.0,
+          "max": 1.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab2-Enabled",
+          "label": "Tab 2 Enabled",
+          "type": "toggle",
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab3-Pitch",
+          "label": "Tab 3 Pitch",
+          "type": "slider",
+          "min": 0.0,
+          "max": 10.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab3-Sync",
+          "label": "Tab 3 Sync",
+          "type": "slider",
+          "min": 0.0,
+          "max": 10.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab3-PitchType",
+          "label": "Tab 3 Pitch Type",
+          "type": "slider",
+          "min": 0.0,
+          "max": 5.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab3-PrePitch",
+          "label": "Tab 3 Pre Pitch",
+          "type": "slider",
+          "min": 0.0,
+          "max": 5.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab3-Predelay",
+          "label": "Tab 3 Predelay",
+          "type": "slider",
+          "min": 0.0,
+          "max": 5.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab3-Pre-Volume",
+          "label": "Tab 3 Pre Volume",
+          "type": "slider",
+          "min": -60.0,
+          "max": 0.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab3-Delay",
+          "label": "Tab 3 Delay",
+          "type": "slider",
+          "min": 0.0,
+          "max": 10.0,
+          "step": 0.001,
+          "defaultValue": 2.000
+        },
+        {
+          "name": "Tab3-Feedback",
+          "label": "Tab 3 Feedback",
+          "type": "slider",
+          "min": 0.0,
+          "max": 1.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab3-EQ-Type",
+          "label": "Tab 3 EQ Type",
+          "type": "slider",
+          "min": 0.0,
+          "max": 1.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab3-EQ-Freq",
+          "label": "Tab 3 EQ Frequency",
+          "type": "slider",
+          "min": 20.0,
+          "max": 20000.0,
+          "step": 1.0,
+          "defaultValue": 1000.000
+        },
+        {
+          "name": "Tab3-EQ-Q",
+          "label": "Tab 3 EQ Q",
+          "type": "slider",
+          "min": 0.1,
+          "max": 10.0,
+          "step": 0.001,
+          "defaultValue": 0.707
+        },
+        {
+          "name": "Tab3-EQ-Gain",
+          "label": "Tab 3 EQ Gain",
+          "type": "slider",
+          "min": -12.0,
+          "max": 12.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab3-Mode",
+          "label": "Tab 3 Mode",
+          "type": "slider",
+          "min": 0.0,
+          "max": 1.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab3-Volume",
+          "label": "Tab 3 Volume",
+          "type": "slider",
+          "min": -12.0,
+          "max": 12.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab3-Pan",
+          "label": "Tab 3 Pan",
+          "type": "slider",
+          "min": -1.0,
+          "max": 1.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab3-Enabled",
+          "label": "Tab 3 Enabled",
+          "type": "toggle",
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab4-Pitch",
+          "label": "Tab 4 Pitch",
+          "type": "slider",
+          "min": 0.0,
+          "max": 10.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab4-Sync",
+          "label": "Tab 4 Sync",
+          "type": "slider",
+          "min": 0.0,
+          "max": 10.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab4-PitchType",
+          "label": "Tab 4 Pitch Type",
+          "type": "slider",
+          "min": 0.0,
+          "max": 5.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab4-PrePitch",
+          "label": "Tab 4 Pre Pitch",
+          "type": "slider",
+          "min": 0.0,
+          "max": 5.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab4-Predelay",
+          "label": "Tab 4 Predelay",
+          "type": "slider",
+          "min": 0.0,
+          "max": 5.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab4-Pre-Volume",
+          "label": "Tab 4 Pre Volume",
+          "type": "slider",
+          "min": -60.0,
+          "max": 0.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab4-Delay",
+          "label": "Tab 4 Delay",
+          "type": "slider",
+          "min": 0.0,
+          "max": 10.0,
+          "step": 0.001,
+          "defaultValue": 2.000
+        },
+        {
+          "name": "Tab4-Feedback",
+          "label": "Tab 4 Feedback",
+          "type": "slider",
+          "min": 0.0,
+          "max": 1.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab4-EQ-Type",
+          "label": "Tab 4 EQ Type",
+          "type": "slider",
+          "min": 0.0,
+          "max": 1.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab4-EQ-Freq",
+          "label": "Tab 4 EQ Frequency",
+          "type": "slider",
+          "min": 20.0,
+          "max": 20000.0,
+          "step": 1.0,
+          "defaultValue": 1000.000
+        },
+        {
+          "name": "Tab4-EQ-Q",
+          "label": "Tab 4 EQ Q",
+          "type": "slider",
+          "min": 0.1,
+          "max": 10.0,
+          "step": 0.001,
+          "defaultValue": 0.707
+        },
+        {
+          "name": "Tab4-EQ-Gain",
+          "label": "Tab 4 EQ Gain",
+          "type": "slider",
+          "min": -12.0,
+          "max": 12.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab4-Mode",
+          "label": "Tab 4 Mode",
+          "type": "slider",
+          "min": 0.0,
+          "max": 1.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab4-Volume",
+          "label": "Tab 4 Volume",
+          "type": "slider",
+          "min": -12.0,
+          "max": 12.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab4-Pan",
+          "label": "Tab 4 Pan",
+          "type": "slider",
+          "min": -1.0,
+          "max": 1.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab4-Enabled",
+          "label": "Tab 4 Enabled",
+          "type": "toggle",
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab5-Pitch",
+          "label": "Tab 5 Pitch",
+          "type": "slider",
+          "min": 0.0,
+          "max": 10.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab5-Sync",
+          "label": "Tab 5 Sync",
+          "type": "slider",
+          "min": 0.0,
+          "max": 10.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab5-PitchType",
+          "label": "Tab 5 Pitch Type",
+          "type": "slider",
+          "min": 0.0,
+          "max": 5.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab5-PrePitch",
+          "label": "Tab 5 Pre Pitch",
+          "type": "slider",
+          "min": 0.0,
+          "max": 5.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab5-Predelay",
+          "label": "Tab 5 Predelay",
+          "type": "slider",
+          "min": 0.0,
+          "max": 5.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab5-Pre-Volume",
+          "label": "Tab 5 Pre Volume",
+          "type": "slider",
+          "min": -60.0,
+          "max": 0.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab5-Delay",
+          "label": "Tab 5 Delay",
+          "type": "slider",
+          "min": 0.0,
+          "max": 10.0,
+          "step": 0.001,
+          "defaultValue": 2.000
+        },
+        {
+          "name": "Tab5-Feedback",
+          "label": "Tab 5 Feedback",
+          "type": "slider",
+          "min": 0.0,
+          "max": 1.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab5-EQ-Type",
+          "label": "Tab 5 EQ Type",
+          "type": "slider",
+          "min": 0.0,
+          "max": 1.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab5-EQ-Freq",
+          "label": "Tab 5 EQ Frequency",
+          "type": "slider",
+          "min": 20.0,
+          "max": 20000.0,
+          "step": 1.0,
+          "defaultValue": 1000.000
+        },
+        {
+          "name": "Tab5-EQ-Q",
+          "label": "Tab 5 EQ Q",
+          "type": "slider",
+          "min": 0.1,
+          "max": 10.0,
+          "step": 0.001,
+          "defaultValue": 0.707
+        },
+        {
+          "name": "Tab5-EQ-Gain",
+          "label": "Tab 5 EQ Gain",
+          "type": "slider",
+          "min": -12.0,
+          "max": 12.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab5-Mode",
+          "label": "Tab 5 Mode",
+          "type": "slider",
+          "min": 0.0,
+          "max": 1.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab5-Volume",
+          "label": "Tab 5 Volume",
+          "type": "slider",
+          "min": -12.0,
+          "max": 12.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab5-Pan",
+          "label": "Tab 5 Pan",
+          "type": "slider",
+          "min": -1.0,
+          "max": 1.0,
+          "step": 0.001,
+          "defaultValue": 0.000
+        },
+        {
+          "name": "Tab5-Enabled",
+          "label": "Tab 5 Enabled",
+          "type": "toggle",
+          "defaultValue": 0.000
+        },
+        {
+          "name": "DryVolume",
+          "label": "Dry Volume",
+          "type": "slider",
+          "min": -60.0,
+          "max": 12.0,
+          "step": 0.001,
+          "defaultValue": -12.00
+        },
+        {
+          "name": "MasterVolume",
+          "label": "Master Volume",
+          "type": "slider",
+          "min": -60.0,
+          "max": 12.0,
+          "step": 0.001,
+          "defaultValue": -12.00
         }
       ]
     },
