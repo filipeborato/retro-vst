@@ -1,111 +1,96 @@
 # Retro VST Effects – Create React App
 
-Este projeto foi iniciado com [Create React App](https://github.com/facebook/create-react-app), mas evoluiu para ser uma plataforma de efeitos de áudio em tempo real, integrando funcionalidades de login, backend protegido, manipulação de plugins e parâmetros.
+This project started with [Create React App](https://github.com/facebook/create-react-app), but has evolved into a real-time audio effects platform, integrating login functionality, a secure backend, plugin and parameter handling.
 
-## Estrutura Geral do Projeto
+## General Project Structure
 
 - **src/**
-  - **components/**
-    - **Navbar.js**: Barra de navegação com nome do usuário, créditos e botão de login/logout.
-    - **PluginGrid.js**: Exibe a lista de plugins disponíveis.
-    - **PluginModal.js**: Modal para exibir e manipular parâmetros de um plugin específico. Inclui:
-      - Upload de arquivo de áudio.
-      - Parâmetros (sliders, toggles e selects) com labels para o usuário.
-      - Botões de Preview e Process com estado de carregamento (loading).
-      - Integração com backend para envio do arquivo e parâmetros.
-    - **LoginModal.js**: Modal para login e signup, exibindo erros de autenticação e usando token para rota /profile.
-    - **WaveformSelector.js** (opcional): Visualização e seleção do ponto de preview do áudio.
-  - **Plugin.json**: Arquivo de configuração dos plugins. Cada plugin tem:
-    - **id**: identificador.
-    - **label**: texto de exibição (por exemplo, “Filter Stereo”, “The Function”).
-    - **name**: identificador para o backend (por exemplo, “filter-stereo”).
-    - **description**: texto descritivo.
-    - **parameters**: array de parâmetros (sliders, toggles, selects) com campos { name, type, min, max, defaultValue, ... }.
-  - **styles/**: Arquivos CSS para estilização (Navbar.css, PluginModal.css, etc.).
-  - **App.js**: Componente principal.
-    - Gerencia estado global (perfil do usuário, plugins selecionados, etc.).
-    - Chama o LoginModal, PluginModal, etc.
+- **components/**
+  - **Navbar.js**: Navigation bar with username, credits and login/logout button.
+  - **PluginGrid.js**: Displays the list of available plugins.
+  - **PluginModal.js**: Modal to display and manipulate parameters of a specific plugin. Includes:
+    - Audio file upload.
+    - Parameters (sliders, toggles and selects) with labels for the user.
+    - Preview and Process buttons with loading state.
+    - Integration with backend to send file and parameters.
+  - **LoginModal.js**: Modal for login and signup, displaying authentication errors and using token for /profile route.
+  - **WaveformSelector.js** (optional): Display and selection of audio preview point.
+  - **Plugin.json**: Plugin configuration file. Each plugin has:
+    - **id**: identifier.
+    - **label**: display text (e.g. “Filter Stereo”, “The Function”).
+    - **name**: identifier for the backend (e.g. “filter-stereo”).
+    - **description**: descriptive text.
+    - **parameters**: array of parameters (sliders, toggles, selects) with fields { name, type, min, max, defaultValue, ... }. - **styles/**: CSS files for styling (Navbar.css, PluginModal.css, etc.).
+  - **App.js**: Main component.
+  - Manages global state (user profile, selected plugins, etc.).
+  - Calls LoginModal, PluginModal, etc.
 
-- **public/**: Pasta pública com index.html.
+  - **public/**: Public folder with index.html.
 
-## Scripts Disponíveis
+## Available Scripts
 
-No diretório do projeto, você pode executar:
+In the project directory, you can run:
 
 ### `npm start`
 
-Executa a aplicação em modo de desenvolvimento.\
-Abra [http://localhost:3000](http://localhost:3000) para visualizar no navegador.
+Runs the application in development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view in the browser.
 
-A página recarrega quando você faz alterações no código.\
-Você também verá erros de lint no console.
+The page reloads when you make changes to the code.\
+You will also see lint errors in the console.
 
 ### `npm test`
 
-Inicia o test runner em modo interativo de observação.\
-Veja a seção sobre [running tests](https://facebook.github.io/create-react-app/docs/running-tests) para mais informações.
+Starts the test runner in interactive observation mode.\
+See the [running tests](https://facebook.github.io/create-react-app/docs/running-tests) section for more information.
 
 ### `npm run build`
 
-Compila a aplicação para produção na pasta `build`.\
-Empacota corretamente o React em modo de produção e otimiza para melhor performance.
+Builds the application for production in the `build` folder.\
+Properly packages React in production mode and optimizes for better performance.
 
-Os arquivos são minificados e os nomes incluem hashes.\
-Sua aplicação está pronta para deploy!
+Files are minified and names include hashes.\
+Your application is ready to deploy!
 
-Veja a seção sobre [deployment](https://facebook.github.io/create-react-app/docs/deployment) para mais informações.
+See the [deployment](https://facebook.github.io/create-react-app/docs/deployment) section for more information.
 
 ### `npm run eject`
 
-**Atenção: esta é uma operação sem volta. Uma vez que você `eject`, não pode retornar!**
+**Warning: this is a one-way operation. Once you eject, you can’t go back!**
 
-Se você não estiver satisfeito com a configuração de build e de ferramentas, pode executar `eject` a qualquer momento. Este comando removerá a dependência única de build do seu projeto.
+If you’re not happy with your build and tooling setup, you can run eject at any time. This command will remove the single build dependency from your project.
 
-Depois disso, todos os arquivos de configuração e as dependências transitivas (webpack, Babel, ESLint, etc.) serão copiados diretamente para o seu projeto, para que você tenha controle total. Neste ponto, você está por conta própria.
+After that, all configuration files and transitive dependencies (webpack, Babel, ESLint, etc.) will be copied directly into your project, giving you full control. At this point, you’re on your own.
 
-Você nunca precisa usar `eject`. O conjunto de recursos fornecido pelo Create React App é bom para pequenos e médios deploys, e você não deve se sentir obrigado a usar esse recurso. Porém, ele existe para quando você precisar personalizar a configuração.
+You never need to use eject. The feature set provided by Create React App is good for small to medium deployments, and you shouldn’t feel obligated to use it. However, it’s there for when you need to customize your setup.
 
-## Funcionalidades Principais do Projeto
+## Main Project Features
 
-1. **Login/Signup com Token e Rota /profile**:
-   - Ao efetuar login ou signup, o usuário recebe um token.\
-   - O token é armazenado em cookies (ou localStorage) para requisições subsequentes.\
-   - Uso de rota protegida `/profile` para buscar dados do usuário (ex.: nome e saldo).
+1. **Login/Signup with Token and /profile Route**:
+- When logging in or signing up, the user receives a token.\
+- The token is stored in cookies (or localStorage) for subsequent requests.\
+- Use of protected `/profile` route to retrieve user data (e.g. name and balance).
 
-2. **Navbar Dinâmica**:
-   - Exibe os dados do usuário (nome, créditos) e o botão de logout se o usuário estiver logado.\
-   - Exibe "Guest" e o botão "Login / Signup" se não houver perfil carregado.
+2. **Dynamic Navbar**:
+- Displays user data (name, credits) and the logout button if the user is logged in.\
+- Displays "Guest" and the "Login / Signup" button if there is no profile loaded.
 
 3. **PluginGrid**:
-   - Lista de plugins (lidos do `Plugin.json`).\
-   - Cada plugin possui `id`, `label` (para exibição), `name` (para o backend), `description` e uma lista de `parameters`.
+- List of plugins (read from `Plugin.json`).\
+- Each plugin has `id`, `label` (for display), `name` (for the backend), `description` and a list of `parameters`.
 
 4. **PluginModal**:
-   - Ao clicar em um plugin na grid, abre um modal.
-   - Exibe título (campo `plugin.label`) e descrição (`plugin.description`).
-   - Lista parâmetros:
-     - **Sliders** com range (min, max, step).\
-     - **Toggles** (ON/OFF).\
-     - **Selects** com opções.
-   - Permite upload de um arquivo de áudio (com validações de extensão e tamanho).
-   - Quando o usuário clica em **Preview** ou **Process**:
-     - Bloqueia a interface com `isLoading=true`.\
-     - Normaliza valores de sliders (0..1) se necessário ou envia diretamente.
-     - Monta query string usando `encodeURIComponent(param.name)=value`.\
-     - Envia o arquivo para o backend.
-     - Ao receber a resposta (blob), inicia o download do arquivo resultante.
-     - Exibe alertas de sucesso ou erro.
-
-## Dicas de Backend
-
-- Para suportar o cabeçalho `Authorization` e requisições cross-origin, configure o CORS no backend (por exemplo, usando gin-contrib/cors no Gin).
-- Para rotas protegidas, implemente um middleware que valide o token JWT, parse os claims e armazene no contexto.
-
-## Aprendendo Mais
-
-Para saber mais sobre React, visite a [documentação oficial do React](https://reactjs.org/). Se quiser detalhes sobre como o Create React App funciona e como personalizar o build, consulte a [documentação do CRA](https://facebook.github.io/create-react-app/docs/getting-started).
-
-## Licença
-
-Este projeto segue o [MIT License](./LICENSE), podendo ser utilizado livremente.
-
+- When clicking on a plugin in the grid, opens a modal.
+- Displays title (`plugin.label` field) and description (`plugin.description`).
+- Lists parameters:
+- **Sliders** with range (min, max, step).\
+- **Toggles** (ON/OFF).\
+- **Selects** with options.
+- Allows upload of an audio file (with extension and size validations).
+- When the user clicks **Preview** or **Process**:
+- Blocks the interface with `isLoading=true`.\
+- Normalizes slider values ​​(0..1) if necessary or sends directly.
+- Assembles query string using `encodeURIComponent(param.name)=value`.\
+- Sends the file to the backend.
+- Upon receiving the response (blob), starts downloading the resulting file.
+- Displays success or error alerts.
