@@ -617,74 +617,76 @@
     },
     {
       "id": 4,
+      "label": "Para-Equalizer X8 Stereo",
       "name": "para-equalizer-x8-stereo",
-      "label": "Equalizer X8",
       "description": "Loaded Effect: Equalizer Stereo",
       "parameters": [
         {
           "name": "bypass",
-          "label": "Bypass Equalizer",
+          "label": "Bypass",
           "type": "toggle",
           "defaultValue": 1.0
         },
         {
           "name": "g_in",
-          "label": "Input Gain (dB)",
+          "label": "dB",
           "type": "slider",
-          "min": -60.0,
+          "min": -120.0,
           "max": 60.0,
           "step": 0.01,
-          "defaultValue": 20.00
+          "defaultValue": -30.02
         },
         {
           "name": "g_out",
-          "label": "Output Gain (dB)",
+          "label": "dB",
           "type": "slider",
-          "min": -60.0,
+          "min": -120.0,
           "max": 60.0,
           "step": 0.01,
-          "defaultValue": 20.00
+          "defaultValue": -30.02
         },
         {
           "name": "mode",
-          "label": "EQ Filter Algorithm",
+          "label": "Filter Mode",
           "type": "select",
           "options": [
             { "label": "IIR", "value": 0.0 },
-            { "label": "FIR", "value": 1.0 }
+            { "label": "FIR", "value": 0.4 },
+            { "label": "FFT", "value": 0.7 },
+            { "label": "SPM", "value": 1.0 }
           ],
-          "defaultValue": 1.0
+          "defaultValue": 0.7
         },
         {
           "name": "react",
-          "label": "EQ Reaction (ms)",
+          "label": "ms",
           "type": "slider",
           "min": 0.0,
-          "max": 1000.0,
+          "max": 1.0,
           "step": 0.001,
-          "defaultValue": 0.010
+          "defaultValue": 0.001
         },
         {
           "name": "shift",
-          "label": "Frequency Shift (dB)",
+          "label": "dB",
           "type": "slider",
-          "min": -60.0,
-          "max": 60.0,
+          "min": -120.0,
+          "max": 40.0,
           "step": 0.01,
-          "defaultValue": -60.0
+          "defaultValue": -32.03
         },
         {
           "name": "zoom",
-          "label": "Frequency Zoom (dB)",
+          "label": "dB",
           "type": "slider",
-          "min": -60.0,
-          "max": 60.0,
+          "min": -42.0,
+          "max": 0.0,
           "step": 0.01,
-          "defaultValue": 0.00
+          "defaultValue": 0.0
         },
         {
           "name": "fsel",
-          "label": "Filter Band Selector",
+          "label": "Filters",
           "type": "toggle",
           "defaultValue": 1.0
         },
@@ -693,218 +695,906 @@
           "label": "Preset ID",
           "type": "slider",
           "min": -1.0,
-          "max": 10.0,
+          "max": 7.0,
           "step": 1.0,
-          "defaultValue": -1.0
+          "defaultValue": 7.0
         },
         {
           "name": "insp_r",
-          "label": "Preset Range (octaves)",
+          "label": "oct",
           "type": "slider",
-          "min": 0.1,
-          "max": 10.0,
-          "step": 0.01,
-          "defaultValue": 1.00
+          "min": 0.0,
+          "max": 5.0,
+          "step": 0.5,
+          "defaultValue": 5.0
         },
         {
           "name": "insp_on",
-          "label": "Preset Activation",
-          "type": "toggle",
-          "defaultValue": 0.0
-        },
-        {
-          "name": "ife",
-          "label": "Input EQ Active",
+          "label": "Preset On",
           "type": "toggle",
           "defaultValue": 1.0
         },
         {
-          "name": "ofe",
-          "label": "Output EQ Active",
+          "name": "ife_l",
+          "label": "Left Input EQ",
           "type": "toggle",
           "defaultValue": 1.0
         },
         {
-          "name": "rfe",
-          "label": "Routing EQ Active",
+          "name": "ofe_l",
+          "label": "Left Output EQ",
           "type": "toggle",
           "defaultValue": 1.0
+        },
+        {
+          "name": "rfe_l",
+          "label": "Left Routing EQ",
+          "type": "toggle",
+          "defaultValue": 1.0
+        },
+        {
+          "name": "ife_r",
+          "label": "Right Input EQ",
+          "type": "toggle",
+          "defaultValue": 1.0
+        },
+        {
+          "name": "ofe_r",
+          "label": "Right Output EQ",
+          "type": "toggle",
+          "defaultValue": 1.0
+        },
+        {
+          "name": "rfe_r",
+          "label": "Right Routing EQ",
+          "type": "toggle",
+          "defaultValue": 1.0
+        },
+        {
+          "name": "bal",
+          "label": "%",
+          "type": "slider",
+          "min": -100.0,
+          "max": 100.0,
+          "step": 1.0,
+          "defaultValue": 100.0
         },
         {
           "name": "frqs",
-          "label": "EQ Fine Tune (st)",
+          "label": "st",
           "type": "slider",
-          "min": 0.0,
-          "max": 1000.0,
-          "step": 0.001,
-          "defaultValue": 0.000
-        },
+          "min": -120.0,
+          "max": 120.0,
+          "step": 1.0,
+          "defaultValue": 120.0
+        },     
         {
           "name": "ft_0",
-          "label": "Band 1: Filter Enable",
-          "type": "toggle",
-          "defaultValue": 0.0
+          "label": "Band0 Filter Type",
+          "type": "select",
+          "options": [
+            { "label": "Off",      "value": 0.0 },
+            { "label": "Bell",     "value": 0.1 },
+            { "label": "Hi-pass",  "value": 0.2 },
+            { "label": "Hi-shel",  "value": 0.3 },
+            { "label": "Lo-pass",  "value": 0.4 },
+            { "label": "Lo-shel",  "value": 0.5 },
+            { "label": "Notch",    "value": 0.6 },
+            { "label": "Resonan",  "value": 0.7 },
+            { "label": "Allpass",  "value": 0.8 },
+            { "label": "Bandpas",  "value": 0.9 },
+            { "label": "Ladder-",  "value": 1.0 }
+          ],
+          "defaultValue": 1.0
         },
         {
           "name": "fm_0",
-          "label": "Band 1: Filter Type",
+          "label": "Band0 Mode",
           "type": "select",
           "options": [
             { "label": "RLC (BT)", "value": 0.0 },
-            { "label": "RC (Standard)", "value": 1.0 }
+            { "label": "RLC (MT)", "value": 0.2 },
+            { "label": "BWC (BT)", "value": 0.4 },
+            { "label": "BWC (MT)", "value": 0.5 },
+            { "label": "LRX (BT)", "value": 0.7 },
+            { "label": "LRX (MT)", "value": 0.9 },
+            { "label": "APO (DR)", "value": 1.0 }
           ],
-          "defaultValue": 0.0
+          "defaultValue": 1.0
         },
         {
           "name": "s_0",
-          "label": "Band 1: Scale",
-          "type": "slider",
-          "min": 1.0,
-          "max": 10.0,
-          "step": 1.0,
+          "label": "Band0 Scale",
+          "type": "select",
+          "options": [
+            { "label": "x1", "value": 0.0 },
+            { "label": "x2", "value": 0.4 },
+            { "label": "x3", "value": 0.7 },
+            { "label": "x4", "value": 1.0 }
+          ],
           "defaultValue": 1.0
         },
         {
           "name": "xs_0",
-          "label": "Band 1: Extra Switch",
+          "label": "Band0 Extra Switch",
           "type": "toggle",
-          "defaultValue": 0.0
+          "defaultValue": 1.0
         },
         {
           "name": "xm_0",
-          "label": "Band 1: Mute",
+          "label": "Band0 Mute",
           "type": "toggle",
-          "defaultValue": 0.0
+          "defaultValue": 1.0
         },
         {
           "name": "f_0",
-          "label": "Band 1: Frequency (Hz)",
+          "label": "Band0 Frequency (Hz)",
           "type": "slider",
-          "min": 20.0,
-          "max": 20000.0,
+          "min": 10.0,
+          "max": 24000.0,
           "step": 1.0,
-          "defaultValue": 16.0
+          "defaultValue": 24000.0
         },
         {
           "name": "w_0",
-          "label": "Band 1: Bandwidth (octaves)",
+          "label": "Band0 Bandwidth (oct)",
           "type": "slider",
-          "min": 0.1,
-          "max": 10.0,
-          "step": 0.01,
-          "defaultValue": 4.00
+          "min": 0.0,
+          "max": 12.0,
+          "step": 0.1,
+          "defaultValue": 12.0
         },
         {
           "name": "g_0",
-          "label": "Band 1: Gain (dB)",
+          "label": "Band0 Gain (dB)",
           "type": "slider",
-          "min": -60.0,
-          "max": 60.0,
+          "min": -36.0,
+          "max": 36.0,
           "step": 0.01,
-          "defaultValue": 0.00
+          "defaultValue": 36.0
         },
         {
           "name": "q_0",
-          "label": "Band 1: Q Factor",
+          "label": "Band0 Q",
           "type": "slider",
           "min": 0.0,
-          "max": 10.0,
-          "step": 0.01,
-          "defaultValue": 0.00
+          "max": 100.0,
+          "step": 0.1,
+          "defaultValue": 100.0
         },
         {
           "name": "hue_0",
-          "label": "Band 1: Color Tone",
+          "label": "Band0 Hue",
           "type": "slider",
           "min": 0.0,
           "max": 1.0,
           "step": 0.0001,
-          "defaultValue": 0.0000
-        },
+          "defaultValue": 1.0
+        },    
         {
           "name": "ft_1",
-          "label": "Band 2: Filter Enable",
-          "type": "toggle",
-          "defaultValue": 0.0
-        },
-        {
-          "name": "fm_1",
-          "label": "Band 2: Filter Type",
+          "label": "Band1 Filter Type",
           "type": "select",
           "options": [
-            { "label": "RLC (BT)", "value": 0.0 },
-            { "label": "RC (Standard)", "value": 1.0 }
+            { "label": "Off", "value": 0.0 },
+            { "label": "Bell", "value": 0.1 },
+            { "label": "Hi-pass", "value": 0.2 },
+            { "label": "Hi-shel", "value": 0.3 },
+            { "label": "Lo-pass", "value": 0.4 },
+            { "label": "Lo-shel", "value": 0.5 },
+            { "label": "Notch", "value": 0.6 },
+            { "label": "Resonan", "value": 0.7 },
+            { "label": "Allpass", "value": 0.8 },
+            { "label": "Bandpas", "value": 0.9 },
+            { "label": "Ladder-", "value": 1.0 }
           ],
           "defaultValue": 0.0
         },
         {
+          "name": "fm_1",
+          "label": "Band1 Mode",
+          "type": "select",
+          "options": [
+            { "label": "RLC (BT)", "value": 0.0 },
+            { "label": "RLC (MT)", "value": 0.2 },
+            { "label": "BWC (BT)", "value": 0.4 },
+            { "label": "BWC (MT)", "value": 0.5 },
+            { "label": "LRX (BT)", "value": 0.7 },
+            { "label": "LRX (MT)", "value": 0.9 },
+            { "label": "APO (DR)", "value": 1.0 }
+          ],
+          "defaultValue": 1.0
+        },
+        {
           "name": "s_1",
-          "label": "Band 2: Scale",
-          "type": "slider",
-          "min": 1.0,
-          "max": 10.0,
-          "step": 1.0,
+          "label": "Band1 Scale",
+          "type": "select",
+          "options": [
+            { "label": "x1", "value": 0.0 },
+            { "label": "x2", "value": 0.4 },
+            { "label": "x3", "value": 0.7 },
+            { "label": "x4", "value": 1.0 }
+          ],
           "defaultValue": 1.0
         },
         {
           "name": "xs_1",
-          "label": "Band 2: Extra Switch",
+          "label": "Band1 Extra Switch",
           "type": "toggle",
-          "defaultValue": 0.0
+          "defaultValue": 1.0
         },
         {
           "name": "xm_1",
-          "label": "Band 2: Mute",
+          "label": "Band1 Mute",
           "type": "toggle",
-          "defaultValue": 0.0
+          "defaultValue": 1.0
         },
         {
           "name": "f_1",
-          "label": "Band 2: Frequency (Hz)",
+          "label": "Band1 Frequency (Hz)",
           "type": "slider",
-          "min": 20.0,
-          "max": 20000.0,
+          "min": 10.0,
+          "max": 24000.0,
           "step": 1.0,
-          "defaultValue": 40.0
+          "defaultValue": 24000.0
         },
         {
           "name": "w_1",
-          "label": "Band 2: Bandwidth (octaves)",
+          "label": "Band1 Bandwidth (oct)",
           "type": "slider",
-          "min": 0.1,
-          "max": 10.0,
-          "step": 0.01,
-          "defaultValue": 4.00
+          "min": 0.0,
+          "max": 12.0,
+          "step": 0.1,
+          "defaultValue": 12.0
         },
         {
           "name": "g_1",
-          "label": "Band 2: Gain (dB)",
+          "label": "Band1 Gain (dB)",
           "type": "slider",
-          "min": -60.0,
-          "max": 60.0,
+          "min": -36.0,
+          "max": 36.0,
           "step": 0.01,
-          "defaultValue": 0.00
+          "defaultValue": 36.0
         },
         {
           "name": "q_1",
-          "label": "Band 2: Q Factor",
+          "label": "Band1 Q",
           "type": "slider",
           "min": 0.0,
-          "max": 10.0,
-          "step": 0.01,
-          "defaultValue": 0.00
+          "max": 100.0,
+          "step": 0.1,
+          "defaultValue": 100.0
         },
         {
           "name": "hue_1",
-          "label": "Band 2: Color Tone",
+          "label": "Band1 Hue",
           "type": "slider",
           "min": 0.0,
           "max": 1.0,
           "step": 0.0001,
-          "defaultValue": 0.125
-        }      
+          "defaultValue": 1.0
+        },
+        {
+          "name": "ft_2",
+          "label": "Band2 Filter Type",
+          "type": "select",
+          "options": [
+            { "label": "Off",      "value": 0.0 },
+            { "label": "Bell",     "value": 0.1 },
+            { "label": "Hi-pass",  "value": 0.2 },
+            { "label": "Hi-shel",  "value": 0.3 },
+            { "label": "Lo-pass",  "value": 0.4 },
+            { "label": "Lo-shel",  "value": 0.5 },
+            { "label": "Notch",    "value": 0.6 },
+            { "label": "Resonan",  "value": 0.7 },
+            { "label": "Allpass",  "value": 0.8 },
+            { "label": "Bandpas",  "value": 0.9 },
+            { "label": "Ladder-",  "value": 1.0 }
+          ],
+          "defaultValue": 0.0
+        },
+        {
+          "name": "fm_2",
+          "label": "Band2 Mode",
+          "type": "select",
+          "options": [
+            { "label": "RLC (BT)", "value": 0.0 },
+            { "label": "RLC (MT)", "value": 0.2 },
+            { "label": "BWC (BT)", "value": 0.4 },
+            { "label": "BWC (MT)", "value": 0.5 },
+            { "label": "LRX (BT)", "value": 0.7 },
+            { "label": "LRX (MT)", "value": 0.9 },
+            { "label": "APO (DR)", "value": 1.0 }
+          ],
+          "defaultValue": 1.0
+        },
+        {
+          "name": "s_2",
+          "label": "Band2 Scale",
+          "type": "select",
+          "options": [
+            { "label": "x1", "value": 0.0 },
+            { "label": "x2", "value": 0.4 },
+            { "label": "x3", "value": 0.7 },
+            { "label": "x4", "value": 1.0 }
+          ],
+          "defaultValue": 1.0
+        },
+        {
+          "name": "xs_2",
+          "label": "Band2 Extra Switch",
+          "type": "toggle",
+          "defaultValue": 1.0
+        },
+        {
+          "name": "xm_2",
+          "label": "Band2 Mute",
+          "type": "toggle",
+          "defaultValue": 1.0
+        },
+        {
+          "name": "f_2",
+          "label": "Band2 Frequency (Hz)",
+          "type": "slider",
+          "min": 10.0,
+          "max": 24000.0,
+          "step": 1.0,
+          "defaultValue": 24000.0
+        },
+        {
+          "name": "w_2",
+          "label": "Band2 Bandwidth (oct)",
+          "type": "slider",
+          "min": 0.0,
+          "max": 12.0,
+          "step": 0.1,
+          "defaultValue": 12.0
+        },
+        {
+          "name": "g_2",
+          "label": "Band2 Gain (dB)",
+          "type": "slider",
+          "min": -36.0,
+          "max": 36.0,
+          "step": 0.01,
+          "defaultValue": 36.0
+        },
+        {
+          "name": "q_2",
+          "label": "Band2 Q",
+          "type": "slider",
+          "min": 0.0,
+          "max": 100.0,
+          "step": 0.1,
+          "defaultValue": 100.0
+        },
+        {
+          "name": "hue_2",
+          "label": "Band2 Hue",
+          "type": "slider",
+          "min": 0.0,
+          "max": 1.0,
+          "step": 0.0001,
+          "defaultValue": 1.0
+        },
+        {
+          "name": "ft_3",
+          "label": "Band3 Filter Type",
+          "type": "select",
+          "options": [
+            { "label": "Off",      "value": 0.0 },
+            { "label": "Bell",     "value": 0.1 },
+            { "label": "Hi-pass",  "value": 0.2 },
+            { "label": "Hi-shel",  "value": 0.3 },
+            { "label": "Lo-pass",  "value": 0.4 },
+            { "label": "Lo-shel",  "value": 0.5 },
+            { "label": "Notch",    "value": 0.6 },
+            { "label": "Resonan",  "value": 0.7 },
+            { "label": "Allpass",  "value": 0.8 },
+            { "label": "Bandpas",  "value": 0.9 },
+            { "label": "Ladder-",  "value": 1.0 }
+          ],
+          "defaultValue": 0.0
+        },
+        {
+          "name": "fm_3",
+          "label": "Band3 Mode",
+          "type": "select",
+          "options": [
+            { "label": "RLC (BT)", "value": 0.0 },
+            { "label": "RLC (MT)", "value": 0.2 },
+            { "label": "BWC (BT)", "value": 0.4 },
+            { "label": "BWC (MT)", "value": 0.5 },
+            { "label": "LRX (BT)", "value": 0.7 },
+            { "label": "LRX (MT)", "value": 0.9 },
+            { "label": "APO (DR)", "value": 1.0 }
+          ],
+          "defaultValue": 1.0
+        },
+        {
+          "name": "s_3",
+          "label": "Band3 Scale",
+          "type": "select",
+          "options": [
+            { "label": "x1", "value": 0.0 },
+            { "label": "x2", "value": 0.4 },
+            { "label": "x3", "value": 0.7 },
+            { "label": "x4", "value": 1.0 }
+          ],
+          "defaultValue": 1.0
+        },
+        {
+          "name": "xs_3",
+          "label": "Band3 Extra Switch",
+          "type": "toggle",
+          "defaultValue": 1.0
+        },
+        {
+          "name": "xm_3",
+          "label": "Band3 Mute",
+          "type": "toggle",
+          "defaultValue": 1.0
+        },
+        {
+          "name": "f_3",
+          "label": "Band3 Frequency (Hz)",
+          "type": "slider",
+          "min": 10.0,
+          "max": 24000.0,
+          "step": 1.0,
+          "defaultValue": 24000.0
+        },
+        {
+          "name": "w_3",
+          "label": "Band3 Bandwidth (oct)",
+          "type": "slider",
+          "min": 0.0,
+          "max": 12.0,
+          "step": 0.1,
+          "defaultValue": 12.0
+        },
+        {
+          "name": "g_3",
+          "label": "Band3 Gain (dB)",
+          "type": "slider",
+          "min": -36.0,
+          "max": 36.0,
+          "step": 0.01,
+          "defaultValue": 36.0
+        },
+        {
+          "name": "q_3",
+          "label": "Band3 Q",
+          "type": "slider",
+          "min": 0.0,
+          "max": 100.0,
+          "step": 0.1,
+          "defaultValue": 100.0
+        },
+        {
+          "name": "hue_3",
+          "label": "Band3 Hue",
+          "type": "slider",
+          "min": 0.0,
+          "max": 1.0,
+          "step": 0.0001,
+          "defaultValue": 1.0
+        },        
+        {
+          "name": "ft_4",
+          "label": "Band4 Filter Type",
+          "type": "select",
+          "options": [
+            { "label": "Off",      "value": 0.0 },
+            { "label": "Bell",     "value": 0.1 },
+            { "label": "Hi-pass",  "value": 0.2 },
+            { "label": "Hi-shel",  "value": 0.3 },
+            { "label": "Lo-pass",  "value": 0.4 },
+            { "label": "Lo-shel",  "value": 0.5 },
+            { "label": "Notch",    "value": 0.6 },
+            { "label": "Resonan",  "value": 0.7 },
+            { "label": "Allpass",  "value": 0.8 },
+            { "label": "Bandpas",  "value": 0.9 },
+            { "label": "Ladder-",  "value": 1.0 }
+          ],
+          "defaultValue": 0.0
+        },
+        {
+          "name": "fm_4",
+          "label": "Band4 Mode",
+          "type": "select",
+          "options": [
+            { "label": "RLC (BT)", "value": 0.0 },
+            { "label": "RLC (MT)", "value": 0.2 },
+            { "label": "BWC (BT)", "value": 0.4 },
+            { "label": "BWC (MT)", "value": 0.5 },
+            { "label": "LRX (BT)", "value": 0.7 },
+            { "label": "LRX (MT)", "value": 0.9 },
+            { "label": "APO (DR)", "value": 1.0 }
+          ],
+          "defaultValue": 1.0
+        },
+        {
+          "name": "s_4",
+          "label": "Band4 Scale",
+          "type": "select",
+          "options": [
+            { "label": "x1", "value": 0.0 },
+            { "label": "x2", "value": 0.4 },
+            { "label": "x3", "value": 0.7 },
+            { "label": "x4", "value": 1.0 }
+          ],
+          "defaultValue": 1.0
+        },
+        {
+          "name": "xs_4",
+          "label": "Band4 Extra Switch",
+          "type": "toggle",
+          "defaultValue": 1.0
+        },
+        {
+          "name": "xm_4",
+          "label": "Band4 Mute",
+          "type": "toggle",
+          "defaultValue": 1.0
+        },
+        {
+          "name": "f_4",
+          "label": "Band4 Frequency (Hz)",
+          "type": "slider",
+          "min": 10.0,
+          "max": 24000.0,
+          "step": 1.0,
+          "defaultValue": 24000.0
+        },
+        {
+          "name": "w_4",
+          "label": "Band4 Bandwidth (oct)",
+          "type": "slider",
+          "min": 0.0,
+          "max": 12.0,
+          "step": 0.1,
+          "defaultValue": 12.0
+        },
+        {
+          "name": "g_4",
+          "label": "Band4 Gain (dB)",
+          "type": "slider",
+          "min": -36.0,
+          "max": 36.0,
+          "step": 0.01,
+          "defaultValue": 36.0
+        },
+        {
+          "name": "q_4",
+          "label": "Band4 Q",
+          "type": "slider",
+          "min": 0.0,
+          "max": 100.0,
+          "step": 0.1,
+          "defaultValue": 100.0
+        },
+        {
+          "name": "hue_4",
+          "label": "Band4 Hue",
+          "type": "slider",
+          "min": 0.0,
+          "max": 1.0,
+          "step": 0.0001,
+          "defaultValue": 1.0
+        },
+        {
+          "name": "ft_5",
+          "label": "Band5 Filter Type",
+          "type": "select",
+          "options": [
+            { "label": "Off",      "value": 0.0 },
+            { "label": "Bell",     "value": 0.1 },
+            { "label": "Hi-pass",  "value": 0.2 },
+            { "label": "Hi-shel",  "value": 0.3 },
+            { "label": "Lo-pass",  "value": 0.4 },
+            { "label": "Lo-shel",  "value": 0.5 },
+            { "label": "Notch",    "value": 0.6 },
+            { "label": "Resonan",  "value": 0.7 },
+            { "label": "Allpass",  "value": 0.8 },
+            { "label": "Bandpas",  "value": 0.9 },
+            { "label": "Ladder-",  "value": 1.0 }
+          ],
+          "defaultValue": 0.0
+        },
+        {
+          "name": "fm_5",
+          "label": "Band5 Mode",
+          "type": "select",
+          "options": [
+            { "label": "RLC (BT)", "value": 0.0 },
+            { "label": "RLC (MT)", "value": 0.2 },
+            { "label": "BWC (BT)", "value": 0.4 },
+            { "label": "BWC (MT)", "value": 0.5 },
+            { "label": "LRX (BT)", "value": 0.7 },
+            { "label": "LRX (MT)", "value": 0.9 },
+            { "label": "APO (DR)", "value": 1.0 }
+          ],
+          "defaultValue": 1.0
+        },
+        {
+          "name": "s_5",
+          "label": "Band5 Scale",
+          "type": "select",
+          "options": [
+            { "label": "x1", "value": 0.0 },
+            { "label": "x2", "value": 0.4 },
+            { "label": "x3", "value": 0.7 },
+            { "label": "x4", "value": 1.0 }
+          ],
+          "defaultValue": 1.0
+        },
+        {
+          "name": "xs_5",
+          "label": "Band5 Extra Switch",
+          "type": "toggle",
+          "defaultValue": 1.0
+        },
+        {
+          "name": "xm_5",
+          "label": "Band5 Mute",
+          "type": "toggle",
+          "defaultValue": 1.0
+        },
+        {
+          "name": "f_5",
+          "label": "Band5 Frequency (Hz)",
+          "type": "slider",
+          "min": 10.0,
+          "max": 24000.0,
+          "step": 1.0,
+          "defaultValue": 24000.0
+        },
+        {
+          "name": "w_5",
+          "label": "Band5 Bandwidth (oct)",
+          "type": "slider",
+          "min": 0.0,
+          "max": 12.0,
+          "step": 0.1,
+          "defaultValue": 12.0
+        },
+        {
+          "name": "g_5",
+          "label": "Band5 Gain (dB)",
+          "type": "slider",
+          "min": -36.0,
+          "max": 36.0,
+          "step": 0.01,
+          "defaultValue": 36.0
+        },
+        {
+          "name": "q_5",
+          "label": "Band5 Q",
+          "type": "slider",
+          "min": 0.0,
+          "max": 100.0,
+          "step": 0.1,
+          "defaultValue": 100.0
+        },
+        {
+          "name": "hue_5",
+          "label": "Band5 Hue",
+          "type": "slider",
+          "min": 0.0,
+          "max": 1.0,
+          "step": 0.0001,
+          "defaultValue": 1.0
+        },
+        {
+          "name": "ft_6",
+          "label": "Band6 Filter Type",
+          "type": "select",
+          "options": [
+            { "label": "Off",      "value": 0.0 },
+            { "label": "Bell",     "value": 0.1 },
+            { "label": "Hi-pass",  "value": 0.2 },
+            { "label": "Hi-shel",  "value": 0.3 },
+            { "label": "Lo-pass",  "value": 0.4 },
+            { "label": "Lo-shel",  "value": 0.5 },
+            { "label": "Notch",    "value": 0.6 },
+            { "label": "Resonan",  "value": 0.7 },
+            { "label": "Allpass",  "value": 0.8 },
+            { "label": "Bandpas",  "value": 0.9 },
+            { "label": "Ladder-",  "value": 1.0 }
+          ],
+          "defaultValue": 0.0
+        },
+        {
+          "name": "fm_6",
+          "label": "Band6 Mode",
+          "type": "select",
+          "options": [
+            { "label": "RLC (BT)", "value": 0.0 },
+            { "label": "RLC (MT)", "value": 0.2 },
+            { "label": "BWC (BT)", "value": 0.4 },
+            { "label": "BWC (MT)", "value": 0.5 },
+            { "label": "LRX (BT)", "value": 0.7 },
+            { "label": "LRX (MT)", "value": 0.9 },
+            { "label": "APO (DR)", "value": 1.0 }
+          ],
+          "defaultValue": 1.0
+        },
+        {
+          "name": "s_6",
+          "label": "Band6 Scale",
+          "type": "select",
+          "options": [
+            { "label": "x1", "value": 0.0 },
+            { "label": "x2", "value": 0.4 },
+            { "label": "x3", "value": 0.7 },
+            { "label": "x4", "value": 1.0 }
+          ],
+          "defaultValue": 1.0
+        },
+        {
+          "name": "xs_6",
+          "label": "Band6 Extra Switch",
+          "type": "toggle",
+          "defaultValue": 1.0
+        },
+        {
+          "name": "xm_6",
+          "label": "Band6 Mute",
+          "type": "toggle",
+          "defaultValue": 1.0
+        },
+        {
+          "name": "f_6",
+          "label": "Band6 Frequency (Hz)",
+          "type": "slider",
+          "min": 10.0,
+          "max": 24000.0,
+          "step": 1.0,
+          "defaultValue": 24000.0
+        },
+        {
+          "name": "w_6",
+          "label": "Band6 Bandwidth (oct)",
+          "type": "slider",
+          "min": 0.0,
+          "max": 12.0,
+          "step": 0.1,
+          "defaultValue": 12.0
+        },
+        {
+          "name": "g_6",
+          "label": "Band6 Gain (dB)",
+          "type": "slider",
+          "min": -36.0,
+          "max": 36.0,
+          "step": 0.01,
+          "defaultValue": 36.0
+        },
+        {
+          "name": "q_6",
+          "label": "Band6 Q",
+          "type": "slider",
+          "min": 0.0,
+          "max": 100.0,
+          "step": 0.1,
+          "defaultValue": 100.0
+        },
+        {
+          "name": "hue_6",
+          "label": "Band6 Hue",
+          "type": "slider",
+          "min": 0.0,
+          "max": 1.0,
+          "step": 0.0001,
+          "defaultValue": 1.0
+        },
+        {
+          "name": "ft_7",
+          "label": "Band7 Filter Type",
+          "type": "select",
+          "options": [
+            { "label": "Off",      "value": 0.0 },
+            { "label": "Bell",     "value": 0.1 },
+            { "label": "Hi-pass",  "value": 0.2 },
+            { "label": "Hi-shel",  "value": 0.3 },
+            { "label": "Lo-pass",  "value": 0.4 },
+            { "label": "Lo-shel",  "value": 0.5 },
+            { "label": "Notch",    "value": 0.6 },
+            { "label": "Resonan",  "value": 0.7 },
+            { "label": "Allpass",  "value": 0.8 },
+            { "label": "Bandpas",  "value": 0.9 },
+            { "label": "Ladder-",  "value": 1.0 }
+          ],
+          "defaultValue": 0.0
+        },
+        {
+          "name": "fm_7",
+          "label": "Band7 Mode",
+          "type": "select",
+          "options": [
+            { "label": "RLC (BT)", "value": 0.0 },
+            { "label": "RLC (MT)", "value": 0.2 },
+            { "label": "BWC (BT)", "value": 0.4 },
+            { "label": "BWC (MT)", "value": 0.5 },
+            { "label": "LRX (BT)", "value": 0.7 },
+            { "label": "LRX (MT)", "value": 0.9 },
+            { "label": "APO (DR)", "value": 1.0 }
+          ],
+          "defaultValue": 1.0
+        },
+        {
+          "name": "s_7",
+          "label": "Band7 Scale",
+          "type": "select",
+          "options": [
+            { "label": "x1", "value": 0.0 },
+            { "label": "x2", "value": 0.4 },
+            { "label": "x3", "value": 0.7 },
+            { "label": "x4", "value": 1.0 }
+          ],
+          "defaultValue": 1.0
+        },
+        {
+          "name": "xs_7",
+          "label": "Band7 Extra Switch",
+          "type": "toggle",
+          "defaultValue": 1.0
+        },
+        {
+          "name": "xm_7",
+          "label": "Band7 Mute",
+          "type": "toggle",
+          "defaultValue": 1.0
+        },
+        {
+          "name": "f_7",
+          "label": "Band7 Frequency (Hz)",
+          "type": "slider",
+          "min": 10.0,
+          "max": 24000.0,
+          "step": 1.0,
+          "defaultValue": 24000.0
+        },
+        {
+          "name": "w_7",
+          "label": "Band7 Bandwidth (oct)",
+          "type": "slider",
+          "min": 0.0,
+          "max": 12.0,
+          "step": 0.1,
+          "defaultValue": 12.0
+        },
+        {
+          "name": "g_7",
+          "label": "Band7 Gain (dB)",
+          "type": "slider",
+          "min": -36.0,
+          "max": 36.0,
+          "step": 0.01,
+          "defaultValue": 36.0
+        },
+        {
+          "name": "q_7",
+          "label": "Band7 Q",
+          "type": "slider",
+          "min": 0.0,
+          "max": 100.0,
+          "step": 0.1,
+          "defaultValue": 100.0
+        },
+        {
+          "name": "hue_7",
+          "label": "Band7 Hue",
+          "type": "slider",
+          "min": 0.0,
+          "max": 1.0,
+          "step": 0.0001,
+          "defaultValue": 1.0
+        }               
       ]
     },
+    
     {
       "id": 5,
       "label": "Pitched Delay",
