@@ -80,7 +80,7 @@
           "name": "bypass",
           "label": "Bypass Filter",
           "type": "toggle",
-          "defaultValue": 1.0
+          "defaultValue": 0.0
         },
         {
           "name": "g_in",
@@ -170,7 +170,7 @@
           "min": -100.0,
           "max": 100.0,
           "step": 0.1,
-          "defaultValue": 100.0
+          "defaultValue": 0.0
         },
         {
           "name": "ft",
@@ -226,7 +226,7 @@
           "min": 10.0,
           "max": 24000.0,
           "step": 10.0,
-          "defaultValue": 24000.0
+          "defaultValue": 50.0
         },
         {
           "name": "w",
@@ -235,7 +235,7 @@
           "min": 0.0,
           "max": 12.0,
           "step": 0.1,
-          "defaultValue": 12.0
+          "defaultValue": 3.0
         },
         {
           "name": "g",
@@ -244,7 +244,7 @@
           "min": -36.0,
           "max": 36.0,
           "step": 0.1,
-          "defaultValue": 36.0
+          "defaultValue": 0.0
         },
         {
           "name": "q",
@@ -253,7 +253,7 @@
           "min": 0.0,
           "max": 100.0,
           "step": 0.1,
-          "defaultValue": 100.0
+          "defaultValue": 20.0
         }
       ]
     },
@@ -267,7 +267,7 @@
           "name": "bypass",
           "label": "Bypass",
           "type": "toggle",
-          "defaultValue": 1.0
+          "defaultValue": 0.0
         },
         {
           "name": "g_in",
@@ -378,7 +378,7 @@
           "min": 0.0,
           "max": 250.0,
           "step": 0.1,
-          "defaultValue": 250.0
+          "defaultValue": 100.0
         },
         {
           "name": "scp",
@@ -387,7 +387,7 @@
           "min": -60.0,
           "max": 40.0,
           "step": 0.01,
-          "defaultValue": 40.0
+          "defaultValue": 0.0
         },
         {
           "name": "shpm",
@@ -405,7 +405,7 @@
           "min": 10.0,
           "max": 20000.0,
           "step": 1.0,
-          "defaultValue": 20000.0
+          "defaultValue": 12000.0
         },
         {
           "name": "slpm",
@@ -423,7 +423,7 @@
           "min": 10.0,
           "max": 20000.0,
           "step": 1.0,
-          "defaultValue": 20000.0
+          "defaultValue": 100.0
         },
         {
           "name": "cm",
@@ -452,7 +452,7 @@
           "min": 0.0,
           "max": 2000.0,
           "step": 0.1,
-          "defaultValue": 2000.0
+          "defaultValue": 50.0
         },
         {
           "name": "rrl",
@@ -461,7 +461,7 @@
           "min": -60.0,
           "max": 0.0,
           "step": 0.01,
-          "defaultValue": 0.0
+          "defaultValue": -6.0
         },
         {
           "name": "rt",
@@ -470,7 +470,7 @@
           "min": 0.0,
           "max": 5000.0,
           "step": 1.0,
-          "defaultValue": 5000.0
+          "defaultValue": 150.0
         },
         {
           "name": "hold",
@@ -479,7 +479,7 @@
           "min": 0.0,
           "max": 1000.0,
           "step": 10.0,
-          "defaultValue": 1000.0
+          "defaultValue": 100.0
         },
         {
           "name": "cr",
@@ -488,7 +488,7 @@
           "min": 1.0,
           "max": 100.0,
           "step": 0.1,
-          "defaultValue": 100.0
+          "defaultValue": 6.0
         },
         {
           "name": "kn",
@@ -497,16 +497,16 @@
           "min": -24.0,
           "max": 0.0,
           "step": 0.01,
-          "defaultValue": 0.0
+          "defaultValue": -12.0
         },
         {
           "name": "bth",
           "label": "Threshold (dB)",
           "type": "slider",
           "min": -120.0,
-          "max": -60.0,
+          "max": -1.0,
           "step": 0.01,
-          "defaultValue": -60.0
+          "defaultValue": -20.0
         },
         {
           "name": "bsa",
@@ -515,7 +515,7 @@
           "min": -72.0,
           "max": 72.0,
           "step": 0.01,
-          "defaultValue": 72.0
+          "defaultValue": 12.0
         },
         {
           "name": "mk",
@@ -524,7 +524,7 @@
           "min": -60.0,
           "max": 60.0,
           "step": 0.01,
-          "defaultValue": 60.0
+          "defaultValue": 0.0
         },
         {
           "name": "cdr",
@@ -533,7 +533,7 @@
           "min": -120,
           "max": 20.0,
           "step": 1.0,
-          "defaultValue": 20.0
+          "defaultValue": 5.0
         },
         {
           "name": "cwt",
@@ -542,7 +542,7 @@
           "min": -120,
           "max": 20.0,
           "step": 1.0,
-          "defaultValue": 20.0
+          "defaultValue": 0.0
         },
         {
           "name": "cdw",
@@ -551,7 +551,7 @@
           "min": 0.0,
           "max": 100.0,
           "step": 1.0,
-          "defaultValue": 100.0
+          "defaultValue": 80.0
         },
         {
           "name": "slv_l",
@@ -625,7 +625,7 @@
           "name": "bypass",
           "label": "Bypass",
           "type": "toggle",
-          "defaultValue": 1.0
+          "defaultValue": 0.0
         },
         {
           "name": "g_in",
@@ -634,7 +634,7 @@
           "min": -120.0,
           "max": 60.0,
           "step": 0.01,
-          "defaultValue": -30.02
+          "defaultValue": 0.0
         },
         {
           "name": "g_out",
@@ -643,7 +643,7 @@
           "min": -120.0,
           "max": 60.0,
           "step": 0.01,
-          "defaultValue": -30.02
+          "defaultValue": 0.0
         },
         {
           "name": "mode",
@@ -673,7 +673,7 @@
           "min": -120.0,
           "max": 40.0,
           "step": 0.01,
-          "defaultValue": -32.03
+          "defaultValue": -12.03
         },
         {
           "name": "zoom",
@@ -785,7 +785,7 @@
             { "label": "Bandpas",  "value": 0.9 },
             { "label": "Ladder-",  "value": 1.0 }
           ],
-          "defaultValue": 1.0
+          "defaultValue": 0.4
         },
         {
           "name": "fm_0",
@@ -800,7 +800,7 @@
             { "label": "LRX (MT)", "value": 0.9 },
             { "label": "APO (DR)", "value": 1.0 }
           ],
-          "defaultValue": 1.0
+          "defaultValue": 0.4
         },
         {
           "name": "s_0",
@@ -833,7 +833,7 @@
           "min": 10.0,
           "max": 24000.0,
           "step": 1.0,
-          "defaultValue": 24000.0
+          "defaultValue": 100.0
         },
         {
           "name": "w_0",
@@ -842,7 +842,7 @@
           "min": 0.0,
           "max": 12.0,
           "step": 0.1,
-          "defaultValue": 12.0
+          "defaultValue": 6.0
         },
         {
           "name": "g_0",
@@ -851,7 +851,7 @@
           "min": -36.0,
           "max": 36.0,
           "step": 0.01,
-          "defaultValue": 36.0
+          "defaultValue": 0.0
         },
         {
           "name": "q_0",
@@ -860,7 +860,7 @@
           "min": 0.0,
           "max": 100.0,
           "step": 0.1,
-          "defaultValue": 100.0
+          "defaultValue": 50.0
         },
         {
           "name": "hue_0",
@@ -888,7 +888,7 @@
             { "label": "Bandpas", "value": 0.9 },
             { "label": "Ladder-", "value": 1.0 }
           ],
-          "defaultValue": 0.0
+          "defaultValue": 0.5
         },
         {
           "name": "fm_1",
@@ -903,7 +903,7 @@
             { "label": "LRX (MT)", "value": 0.9 },
             { "label": "APO (DR)", "value": 1.0 }
           ],
-          "defaultValue": 1.0
+          "defaultValue": 0.0
         },
         {
           "name": "s_1",
@@ -936,7 +936,7 @@
           "min": 10.0,
           "max": 24000.0,
           "step": 1.0,
-          "defaultValue": 24000.0
+          "defaultValue": 300.0
         },
         {
           "name": "w_1",
@@ -945,7 +945,7 @@
           "min": 0.0,
           "max": 12.0,
           "step": 0.1,
-          "defaultValue": 12.0
+          "defaultValue": 4.0
         },
         {
           "name": "g_1",
@@ -954,7 +954,7 @@
           "min": -36.0,
           "max": 36.0,
           "step": 0.01,
-          "defaultValue": 36.0
+          "defaultValue": 0.0
         },
         {
           "name": "q_1",
@@ -963,7 +963,7 @@
           "min": 0.0,
           "max": 100.0,
           "step": 0.1,
-          "defaultValue": 100.0
+          "defaultValue": 50.0
         },
         {
           "name": "hue_1",
@@ -991,7 +991,7 @@
             { "label": "Bandpas",  "value": 0.9 },
             { "label": "Ladder-",  "value": 1.0 }
           ],
-          "defaultValue": 0.0
+          "defaultValue": 0.6
         },
         {
           "name": "fm_2",
@@ -1006,7 +1006,7 @@
             { "label": "LRX (MT)", "value": 0.9 },
             { "label": "APO (DR)", "value": 1.0 }
           ],
-          "defaultValue": 1.0
+          "defaultValue": 0.2
         },
         {
           "name": "s_2",
@@ -1039,7 +1039,7 @@
           "min": 10.0,
           "max": 24000.0,
           "step": 1.0,
-          "defaultValue": 24000.0
+          "defaultValue": 700.0
         },
         {
           "name": "w_2",
@@ -1048,7 +1048,7 @@
           "min": 0.0,
           "max": 12.0,
           "step": 0.1,
-          "defaultValue": 12.0
+          "defaultValue": 8.0
         },
         {
           "name": "g_2",
@@ -1057,7 +1057,7 @@
           "min": -36.0,
           "max": 36.0,
           "step": 0.01,
-          "defaultValue": 36.0
+          "defaultValue": 0.0
         },
         {
           "name": "q_2",
@@ -1066,7 +1066,7 @@
           "min": 0.0,
           "max": 100.0,
           "step": 0.1,
-          "defaultValue": 100.0
+          "defaultValue": 50.0
         },
         {
           "name": "hue_2",
@@ -1075,7 +1075,7 @@
           "min": 0.0,
           "max": 1.0,
           "step": 0.0001,
-          "defaultValue": 1.0
+          "defaultValue": 0.220
         },
         {
           "name": "ft_3",
@@ -1094,7 +1094,7 @@
             { "label": "Bandpas",  "value": 0.9 },
             { "label": "Ladder-",  "value": 1.0 }
           ],
-          "defaultValue": 0.0
+          "defaultValue": 0.1
         },
         {
           "name": "fm_3",
@@ -1109,7 +1109,7 @@
             { "label": "LRX (MT)", "value": 0.9 },
             { "label": "APO (DR)", "value": 1.0 }
           ],
-          "defaultValue": 1.0
+          "defaultValue": 0.7
         },
         {
           "name": "s_3",
@@ -1142,7 +1142,7 @@
           "min": 10.0,
           "max": 24000.0,
           "step": 1.0,
-          "defaultValue": 24000.0
+          "defaultValue": 1000.0
         },
         {
           "name": "w_3",
@@ -1151,7 +1151,7 @@
           "min": 0.0,
           "max": 12.0,
           "step": 0.1,
-          "defaultValue": 12.0
+          "defaultValue": 8.0
         },
         {
           "name": "g_3",
@@ -1160,7 +1160,7 @@
           "min": -36.0,
           "max": 36.0,
           "step": 0.01,
-          "defaultValue": 36.0
+          "defaultValue": 0.0
         },
         {
           "name": "q_3",
@@ -1169,7 +1169,7 @@
           "min": 0.0,
           "max": 100.0,
           "step": 0.1,
-          "defaultValue": 100.0
+          "defaultValue": 20.0
         },
         {
           "name": "hue_3",
@@ -1197,7 +1197,7 @@
             { "label": "Bandpas",  "value": 0.9 },
             { "label": "Ladder-",  "value": 1.0 }
           ],
-          "defaultValue": 0.0
+          "defaultValue": 0.1
         },
         {
           "name": "fm_4",
@@ -1212,7 +1212,7 @@
             { "label": "LRX (MT)", "value": 0.9 },
             { "label": "APO (DR)", "value": 1.0 }
           ],
-          "defaultValue": 1.0
+          "defaultValue": 0.4
         },
         {
           "name": "s_4",
@@ -1245,7 +1245,7 @@
           "min": 10.0,
           "max": 24000.0,
           "step": 1.0,
-          "defaultValue": 24000.0
+          "defaultValue": 2000.0
         },
         {
           "name": "w_4",
@@ -1263,7 +1263,7 @@
           "min": -36.0,
           "max": 36.0,
           "step": 0.01,
-          "defaultValue": 36.0
+          "defaultValue": 0.0
         },
         {
           "name": "q_4",
@@ -1272,7 +1272,7 @@
           "min": 0.0,
           "max": 100.0,
           "step": 0.1,
-          "defaultValue": 100.0
+          "defaultValue": 80.0
         },
         {
           "name": "hue_4",
@@ -1300,7 +1300,7 @@
             { "label": "Bandpas",  "value": 0.9 },
             { "label": "Ladder-",  "value": 1.0 }
           ],
-          "defaultValue": 0.0
+          "defaultValue": 0.6
         },
         {
           "name": "fm_5",
@@ -1315,7 +1315,7 @@
             { "label": "LRX (MT)", "value": 0.9 },
             { "label": "APO (DR)", "value": 1.0 }
           ],
-          "defaultValue": 1.0
+          "defaultValue": 0.9
         },
         {
           "name": "s_5",
@@ -1348,7 +1348,7 @@
           "min": 10.0,
           "max": 24000.0,
           "step": 1.0,
-          "defaultValue": 24000.0
+          "defaultValue": 4000.0
         },
         {
           "name": "w_5",
@@ -1357,7 +1357,7 @@
           "min": 0.0,
           "max": 12.0,
           "step": 0.1,
-          "defaultValue": 12.0
+          "defaultValue": 3.0
         },
         {
           "name": "g_5",
@@ -1366,7 +1366,7 @@
           "min": -36.0,
           "max": 36.0,
           "step": 0.01,
-          "defaultValue": 36.0
+          "defaultValue": 0.0
         },
         {
           "name": "q_5",
@@ -1375,7 +1375,7 @@
           "min": 0.0,
           "max": 100.0,
           "step": 0.1,
-          "defaultValue": 100.0
+          "defaultValue": 50.0
         },
         {
           "name": "hue_5",
@@ -1403,7 +1403,7 @@
             { "label": "Bandpas",  "value": 0.9 },
             { "label": "Ladder-",  "value": 1.0 }
           ],
-          "defaultValue": 0.0
+          "defaultValue": 0.3
         },
         {
           "name": "fm_6",
@@ -1451,7 +1451,7 @@
           "min": 10.0,
           "max": 24000.0,
           "step": 1.0,
-          "defaultValue": 24000.0
+          "defaultValue": 10000.0
         },
         {
           "name": "w_6",
@@ -1460,7 +1460,7 @@
           "min": 0.0,
           "max": 12.0,
           "step": 0.1,
-          "defaultValue": 12.0
+          "defaultValue": 8.0
         },
         {
           "name": "g_6",
@@ -1469,7 +1469,7 @@
           "min": -36.0,
           "max": 36.0,
           "step": 0.01,
-          "defaultValue": 36.0
+          "defaultValue": 0.0
         },
         {
           "name": "q_6",
@@ -1487,7 +1487,7 @@
           "min": 0.0,
           "max": 1.0,
           "step": 0.0001,
-          "defaultValue": 1.0
+          "defaultValue": 0.05
         },
         {
           "name": "ft_7",
@@ -1506,7 +1506,7 @@
             { "label": "Bandpas",  "value": 0.9 },
             { "label": "Ladder-",  "value": 1.0 }
           ],
-          "defaultValue": 0.0
+          "defaultValue": 0.2
         },
         {
           "name": "fm_7",
@@ -1521,7 +1521,7 @@
             { "label": "LRX (MT)", "value": 0.9 },
             { "label": "APO (DR)", "value": 1.0 }
           ],
-          "defaultValue": 1.0
+          "defaultValue": 0.9
         },
         {
           "name": "s_7",
@@ -1554,7 +1554,7 @@
           "min": 10.0,
           "max": 24000.0,
           "step": 1.0,
-          "defaultValue": 24000.0
+          "defaultValue": 12000.0
         },
         {
           "name": "w_7",
@@ -1563,7 +1563,7 @@
           "min": 0.0,
           "max": 12.0,
           "step": 0.1,
-          "defaultValue": 12.0
+          "defaultValue": 6.0
         },
         {
           "name": "g_7",
@@ -1572,7 +1572,7 @@
           "min": -36.0,
           "max": 36.0,
           "step": 0.01,
-          "defaultValue": 36.0
+          "defaultValue": 0.0
         },
         {
           "name": "q_7",
@@ -1608,7 +1608,7 @@
           "min": -12.0,
           "max": 12.0,
           "step": 0.01,
-          "defaultValue": 5.52
+          "defaultValue": 0
         },
         {
           "name": "Tab1-Sync",
@@ -1680,7 +1680,7 @@
           "min": 0.0,
           "max": 7.0,
           "step": 1.0,
-          "defaultValue": 7.0
+          "defaultValue": 5.0
         },
         {
           "name": "Tab1-EQ-Freq",
@@ -1689,7 +1689,7 @@
           "min": 20.0,
           "max": 20000.0,
           "step": 1.0,
-          "defaultValue": 20000.0
+          "defaultValue": 100.0
         },
         {
           "name": "Tab1-EQ-Q",
@@ -1698,7 +1698,7 @@
           "min": 0.3,
           "max": 10.0,
           "step": 0.1,
-          "defaultValue": 10.0
+          "defaultValue": 5.0
         },
         {
           "name": "Tab1-EQ-Gain",
@@ -1707,7 +1707,7 @@
           "min": -24.0,
           "max": 24.0,
           "step": 0.1,
-          "defaultValue": 24.0
+          "defaultValue": 0.0
         },
         {
           "name": "Tab1-Mode",
@@ -1750,7 +1750,7 @@
           "min": -12.0,
           "max": 12.0,
           "step": 0.01,
-          "defaultValue": 12.0
+          "defaultValue": 0.0
         },
         {
           "name": "Tab2-Sync",
@@ -1759,7 +1759,7 @@
           "min": 0.0,
           "max": 9.0,
           "step": 0.1,
-          "defaultValue": 9.0
+          "defaultValue": 5.0
         },
         {
           "name": "Tab2-PitchType",
@@ -1822,7 +1822,7 @@
           "min": 0.0,
           "max": 7.0,
           "step": 1.0,
-          "defaultValue": 7.0
+          "defaultValue": 3.0
         },
         {
           "name": "Tab2-EQ-Freq",
@@ -1831,7 +1831,7 @@
           "min": 20.0,
           "max": 20000.0,
           "step": 1.0,
-          "defaultValue": 20000.0
+          "defaultValue": 300.0
         },
         {
           "name": "Tab2-EQ-Q",
@@ -1840,7 +1840,7 @@
           "min": 0.3,
           "max": 10.0,
           "step": 0.1,
-          "defaultValue": 10.0
+          "defaultValue": 5.0
         },
         {
           "name": "Tab2-EQ-Gain",
@@ -1849,7 +1849,7 @@
           "min": -24.0,
           "max": 24.0,
           "step": 0.1,
-          "defaultValue": 24.0
+          "defaultValue": 0.0
         },
         {
           "name": "Tab2-Mode",
@@ -1876,7 +1876,7 @@
           "min": -100.0,
           "max": 100.0,
           "step": 1.0,
-          "defaultValue": 100.0
+          "defaultValue": 0.0
         },
         {
           "name": "Tab2-Enabled",
@@ -1892,7 +1892,7 @@
           "min": -12.0,
           "max": 12.0,
           "step": 0.01,
-          "defaultValue": 12.0
+          "defaultValue": 0.0
         },
         {
           "name": "Tab3-Sync",
@@ -1901,7 +1901,7 @@
           "min": 0.0,
           "max": 9.0,
           "step": 0.1,
-          "defaultValue": 9.0
+          "defaultValue": 2.0
         },
         {
           "name": "Tab3-PitchType",
@@ -1955,7 +1955,7 @@
           "min": 0.0,
           "max": 100.0,
           "step": 1.0,
-          "defaultValue": 100.0
+          "defaultValue": 20.0
         },
         {
           "name": "Tab3-EQ-Type",
@@ -1973,7 +1973,7 @@
           "min": 20.0,
           "max": 20000.0,
           "step": 1.0,
-          "defaultValue": 20000.0
+          "defaultValue": 2000.0
         },
         {
           "name": "Tab3-EQ-Q",
@@ -1991,7 +1991,7 @@
           "min": -24.0,
           "max": 24.0,
           "step": 0.1,
-          "defaultValue": 24.0
+          "defaultValue": 2.0
         },
         {
           "name": "Tab3-Mode",
@@ -2018,7 +2018,7 @@
           "min": -100.0,
           "max": 100.0,
           "step": 1.0,
-          "defaultValue": 100.0
+          "defaultValue": 10.0
         },
         {
           "name": "Tab3-Enabled",
@@ -2034,7 +2034,7 @@
           "min": -12.0,
           "max": 12.0,
           "step": 0.01,
-          "defaultValue": 12.0
+          "defaultValue": -6.0
         },
         {
           "name": "Tab4-Sync",
@@ -2043,7 +2043,7 @@
           "min": 0.0,
           "max": 9.0,
           "step": 0.1,
-          "defaultValue": 9.0
+          "defaultValue": 5.0
         },
         {
           "name": "Tab4-PitchType",
@@ -2097,7 +2097,7 @@
           "min": 0.0,
           "max": 100.0,
           "step": 1.0,
-          "defaultValue": 100.0
+          "defaultValue": 30.0
         },
         {
           "name": "Tab4-EQ-Type",
@@ -2115,7 +2115,7 @@
           "min": 20.0,
           "max": 20000.0,
           "step": 1.0,
-          "defaultValue": 20000.0
+          "defaultValue": 6000.0
         },
         {
           "name": "Tab4-EQ-Q",
@@ -2124,7 +2124,7 @@
           "min": 0.3,
           "max": 10.0,
           "step": 0.1,
-          "defaultValue": 10.0
+          "defaultValue": 2.0
         },
         {
           "name": "Tab4-EQ-Gain",
@@ -2133,7 +2133,7 @@
           "min": -24.0,
           "max": 24.0,
           "step": 0.1,
-          "defaultValue": 24.0
+          "defaultValue": 1.0
         },
         {
           "name": "Tab4-Mode",
@@ -2160,7 +2160,7 @@
           "min": -100.0,
           "max": 100.0,
           "step": 1.0,
-          "defaultValue": 100.0
+          "defaultValue": -20.0
         },
         {
           "name": "Tab4-Enabled",
@@ -2176,7 +2176,7 @@
           "min": -12.0,
           "max": 12.0,
           "step": 0.01,
-          "defaultValue": 12.0
+          "defaultValue": 2.0
         },
         {
           "name": "Tab5-Sync",
@@ -2185,7 +2185,7 @@
           "min": 0.0,
           "max": 9.0,
           "step": 0.1,
-          "defaultValue": 9.0
+          "defaultValue": 1.0
         },
         {
           "name": "Tab5-PitchType",
@@ -2239,7 +2239,7 @@
           "min": 0.0,
           "max": 100.0,
           "step": 1.0,
-          "defaultValue": 100.0
+          "defaultValue": 20.0
         },
         {
           "name": "Tab5-EQ-Type",
@@ -2257,7 +2257,7 @@
           "min": 20.0,
           "max": 20000.0,
           "step": 1.0,
-          "defaultValue": 20000.0
+          "defaultValue": 8000.0
         },
         {
           "name": "Tab5-EQ-Q",
@@ -2302,7 +2302,7 @@
           "min": -100.0,
           "max": 100.0,
           "step": 1.0,
-          "defaultValue": 100.0
+          "defaultValue": 30.0
         },
         {
           "name": "Tab5-Enabled",
