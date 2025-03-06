@@ -80,7 +80,7 @@
           "name": "bypass",
           "label": "Bypass Filter",
           "type": "toggle",
-          "defaultValue": 0.0
+          "defaultValue": 0.2
         },
         {
           "name": "g_in",
