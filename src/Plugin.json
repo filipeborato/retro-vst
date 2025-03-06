@@ -267,7 +267,7 @@
           "name": "bypass",
           "label": "Bypass",
           "type": "toggle",
-          "defaultValue": 0.0
+          "defaultValue": 0.2
         },
         {
           "name": "g_in",
@@ -625,7 +625,7 @@
           "name": "bypass",
           "label": "Bypass",
           "type": "toggle",
-          "defaultValue": 0.0
+          "defaultValue": 0.2
         },
         {
           "name": "g_in",
