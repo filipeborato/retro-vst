@@ -1,96 +1,101 @@
-// Importações necessárias para o React
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import Cookie from "js-cookie"; // Importa a biblioteca js-cookie
 import Navbar from "./components/Navbar";
 import PluginGrid from "./components/PluginGrid";
 import PluginModal from "./components/PluginModal";
+import LoginModal from "./components/LoginModal";
 import "./styles/App.css";
 import { SpeedInsights } from "@vercel/speed-insights/react";
-
-// Dados dos plugins
-const plugins = [
-  {
-    id: 1,
-    name: "TheFunction",
-    description: "Plugin de espacialidade avançada",
-    sliders: 7,
-    sliderNames: [
-      "Gain",
-      "Gain L",
-      "Gain R",
-      "Phase L",
-      "Phase R",
-      "Pan L",
-      "Pan R",
-    ],
-  },
-  {
-    id: 2,
-    name: "CompMaster",
-    description: "Controle dinâmico com compressão",
-    sliders: 6,
-    sliderNames: ["Threshold", "Ratio", "Attack", "Release", "Knee", "Gain"],
-  },
-  {
-    id: 3,
-    name: "DelayLine",
-    description: "Criação de ecos precisos e efeitos de atraso",
-    sliders: 6,
-    sliderNames: ["Delay Time", "Feedback", "Mix", "Width", "Tone", "Damping"],
-  },
-  {
-    id: 4,
-    name: "GraphicEQ",
-    description: "Equalizador gráfico com múltiplas bandas",
-    sliders: 6,
-    sliderNames: ["32Hz", "64Hz", "125Hz", "250Hz", "500Hz", "1kHz"],
-  },
-  {
-    id: 5,
-    name: "ChorusPlus",
-    description: "Adicione modulação e profundidade",
-    sliders: 6,
-    sliderNames: ["Rate", "Depth", "Mix", "Width", "Feedback", "Tone"],
-  },
-  {
-    id: 6,
-    name: "DistortPro",
-    description: "Adicione distorção com controle avançado",
-    sliders: 6,
-    sliderNames: ["Drive", "Tone", "Mix", "Level", "Bias", "Color"],
-  },
-];
+import plugins from "./Plugin.json";
 
 function App() {
   const [selectedPlugin, setSelectedPlugin] = useState(null);
-  const [sliderValues, setSliderValues] = useState([]); // Dinâmico com base no plugin
+  const [paramValues, setParamValues] = useState([]);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [profile, setProfile] = useState(null);
+
+  // Ao carregar a página, verifica se existe token no cookie
+  // Se existir, faz uma requisição para a rota /profile para obter os dados do usuário
+  useEffect(() => {
+    const token = Cookie.get("authToken");
+    if (token) {
+      const fetchProfile = async () => {
+        try {
+          // Alterado de "/profile" para "/api/profile"
+          const response = await fetch(
+            process.env.REACT_APP_API_GO_URL + "/api/profile",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+              }
+            }
+          );
+          if (response.ok) {
+            const profileData = await response.json();
+            setProfile(profileData);
+          } else {
+            console.error("Error fetching profile data", response.status);
+          }
+        } catch (error) {
+          console.error("Error fetching profile:", error);
+        }
+      };
+      fetchProfile();
+    }
+  }, []);
 
   const openModal = (plugin) => {
     setSelectedPlugin(plugin);
-    const sliderCount = plugin.sliders || 6; // Padrão de 6 sliders
-    setSliderValues(Array(sliderCount).fill(0.5)); // Inicializa sliders com valor 0.5
+    const initialValues = plugin.parameters.map((param) =>
+      param.defaultValue !== undefined ? param.defaultValue : 0.0
+    );
+    setParamValues(initialValues);
   };
 
   const closeModal = () => {
     setSelectedPlugin(null);
-    setSliderValues([]); // Limpa os sliders
+    setParamValues([]);
   };
 
-  const handleSliderChange = (index, value) => {
-    const newValues = [...sliderValues];
-    newValues[index] = parseFloat(value.toFixed(2)); // Garante valores entre 0.01 e 1 com 2 casas decimais
-    setSliderValues(newValues);
+  const handleParameterChange = (index, newValue) => {
+    const updated = [...paramValues];
+    if (
+      typeof plugins[selectedPlugin.id - 1].parameters[index].defaultValue ===
+      "boolean"
+    ) {
+      updated[index] = newValue;
+    } else {
+      updated[index] = parseFloat(newValue.toFixed(2));
+    }
+    setParamValues(updated);
+  };
+
+  const toggleLoginModal = () => {
+    setShowLoginModal((prev) => !prev);
+  };
+
+  // Ao fazer login ou signup, salva o token no cookie e recarrega a página
+  const handleLogin = ({ profile, token }) => {
+    Cookie.set("authToken", token);
+    // Recarrega a página para disparar a lógica de carregamento do profile
+    window.location.reload();
+  };
+
+  // Logout: remove o token do cookie e recarrega a página
+  const handleLogout = () => {
+    Cookie.remove("authToken");
+    window.location.reload();
   };
 
   return (
     <div className="app retro-theme full-height">
       <Navbar
-        user="John Doe"
-        credits={42.5}
-        notifications={[
-          "Bem-vindo ao Retro VST!",
-          "Atualização disponível para TheFunction",
-        ]}
+        profile={profile}
+        onLogout={handleLogout}
+        credits={profile ? profile.current_balance : 42.5}
+        onLoginClick={toggleLoginModal}
       />
       <div className="main-content">
         <SpeedInsights />
@@ -101,9 +106,13 @@ function App() {
           <PluginModal
             plugin={selectedPlugin}
             onClose={closeModal}
-            sliders={sliderValues}
-            onSliderChange={handleSliderChange}
+            paramValues={paramValues}
+            onParameterChange={handleParameterChange}
           />
+        )}
+
+        {showLoginModal && (
+          <LoginModal onClose={toggleLoginModal} onLogin={handleLogin} />
         )}
       </div>
     </div>

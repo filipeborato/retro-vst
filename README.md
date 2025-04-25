@@ -1,6 +1,31 @@
-# Getting Started with Create React App
+# Retro VST Effects – Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project started with [Create React App](https://github.com/facebook/create-react-app), but has evolved into a real-time audio effects platform, integrating login functionality, a secure backend, plugin and parameter handling.
+
+## General Project Structure
+
+- **src/**
+- **components/**
+  - **Navbar.js**: Navigation bar with username, credits and login/logout button.
+  - **PluginGrid.js**: Displays the list of available plugins.
+  - **PluginModal.js**: Modal to display and manipulate parameters of a specific plugin. Includes:
+    - Audio file upload.
+    - Parameters (sliders, toggles and selects) with labels for the user.
+    - Preview and Process buttons with loading state.
+    - Integration with backend to send file and parameters.
+  - **LoginModal.js**: Modal for login and signup, displaying authentication errors and using token for /profile route.
+  - **WaveformSelector.js** (optional): Display and selection of audio preview point.
+  - **Plugin.json**: Plugin configuration file. Each plugin has:
+    - **id**: identifier.
+    - **label**: display text (e.g. “Filter Stereo”, “The Function”).
+    - **name**: identifier for the backend (e.g. “filter-stereo”).
+    - **description**: descriptive text.
+    - **parameters**: array of parameters (sliders, toggles, selects) with fields { name, type, min, max, defaultValue, ... }. - **styles/**: CSS files for styling (Navbar.css, PluginModal.css, etc.).
+  - **App.js**: Main component.
+  - Manages global state (user profile, selected plugins, etc.).
+  - Calls LoginModal, PluginModal, etc.
+
+  - **public/**: Public folder with index.html.
 
 ## Available Scripts
 
@@ -8,63 +33,64 @@ In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Runs the application in development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view in the browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The page reloads when you make changes to the code.\
+You will also see lint errors in the console.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Starts the test runner in interactive observation mode.\
+See the [running tests](https://facebook.github.io/create-react-app/docs/running-tests) section for more information.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the application for production in the `build` folder.\
+Properly packages React in production mode and optimizes for better performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Files are minified and names include hashes.\
+Your application is ready to deploy!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+See the [deployment](https://facebook.github.io/create-react-app/docs/deployment) section for more information.
 
 ### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Warning: this is a one-way operation. Once you eject, you can’t go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+If you’re not happy with your build and tooling setup, you can run eject at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+After that, all configuration files and transitive dependencies (webpack, Babel, ESLint, etc.) will be copied directly into your project, giving you full control. At this point, you’re on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+You never need to use eject. The feature set provided by Create React App is good for small to medium deployments, and you shouldn’t feel obligated to use it. However, it’s there for when you need to customize your setup.
 
-## Learn More
+## Main Project Features
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. **Login/Signup with Token and /profile Route**:
+- When logging in or signing up, the user receives a token.\
+- The token is stored in cookies (or localStorage) for subsequent requests.\
+- Use of protected `/profile` route to retrieve user data (e.g. name and balance).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+2. **Dynamic Navbar**:
+- Displays user data (name, credits) and the logout button if the user is logged in.\
+- Displays "Guest" and the "Login / Signup" button if there is no profile loaded.
 
-### Code Splitting
+3. **PluginGrid**:
+- List of plugins (read from `Plugin.json`).\
+- Each plugin has `id`, `label` (for display), `name` (for the backend), `description` and a list of `parameters`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+4. **PluginModal**:
+- When clicking on a plugin in the grid, opens a modal.
+- Displays title (`plugin.label` field) and description (`plugin.description`).
+- Lists parameters:
+- **Sliders** with range (min, max, step).\
+- **Toggles** (ON/OFF).\
+- **Selects** with options.
+- Allows upload of an audio file (with extension and size validations).
+- When the user clicks **Preview** or **Process**:
+- Blocks the interface with `isLoading=true`.\
+- Normalizes slider values ​​(0..1) if necessary or sends directly.
+- Assembles query string using `encodeURIComponent(param.name)=value`.\
+- Sends the file to the backend.
+- Upon receiving the response (blob), starts downloading the resulting file.
+- Displays success or error alerts.

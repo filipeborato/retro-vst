@@ -1,11 +1,63 @@
+/* Navbar Cyberpunk Escuro */
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  background: #3d3b5e;
-  padding: 10px 20px;
-  color: white;
+  align-items: center;
+  background: linear-gradient(90deg, #2a1a4d, #1e1340);
+  padding: 15px 20px;
+  color: #c9a6ff;
+  border-bottom: 3px solid #7442c8;
+  z-index: 1000;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Estilo para as informações do perfil (nome e créditos) exibidas em duas linhas */
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.profile-name {
+  font-weight: bold;
   font-size: 1rem;
-  border-bottom: 2px solid #6c63ff;
+}
+
+.profile-credits {
+  font-size: 0.9rem;
+  color: #d1b3ff;
+}
+
+.navbar-center {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #d1b3ff;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 150px;
+  padding-right: 20px;
 }
 
 .navbar-user {
@@ -13,5 +65,23 @@
 }
 
 .navbar-credits {
-  color: #04d9ff;
+  font-weight: bold;
+}
+
+.login-btn {
+  background: #7442c8;
+  color: #fff;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 15px;
+  margin-right: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.login-btn:hover {
+  background: #5d2fa1;
+  transform: translateY(-2px);
 }

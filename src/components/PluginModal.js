@@ -1,56 +1,58 @@
-// components/PluginModal.js
 import React, { useState } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import "../styles/PluginModal.css";
 
-function PluginModal({ plugin, onClose }) {
-  const [knobValues, setKnobValues] = useState(Array(plugin.sliders).fill(0.5)); // Inicializa dinamicamente os sliders
-  const [file, setFile] = useState(null);
+import WaveformSelector from "./WaveformSelector"; // Componente para preview da waveform
 
-  const handleKnobChange = (index, value) => {
-    const updatedKnobs = [...knobValues];
-    updatedKnobs[index] = parseFloat(value.toFixed(2)); // Garante precisão de 2 casas decimais
-    setKnobValues(updatedKnobs);
-  };
+function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
+  const [file, setFile] = useState(null);
+  const [previewStartTime, setPreviewStartTime] = useState(0);
+  const [isLoading, setIsLoading] = useState(false); // Estado para loading
 
   const handleFileUpload = (event) => {
     const uploadedFile = event.target.files[0];
     const allowedExtensions = ["wav", "mp3", "ogg", "flac", "aiff"];
 
     if (!uploadedFile) {
-      alert("Nenhum arquivo selecionado!");
+      alert("No file selected!");
       return;
     }
 
     const fileExtension = uploadedFile.name.split(".").pop().toLowerCase();
     if (!allowedExtensions.includes(fileExtension)) {
-      alert(
-        "Formato de arquivo inválido. Por favor, envie um arquivo de áudio válido."
-      );
+      alert("Invalid file format. Please upload a valid audio file.");
       return;
     }
-    if (uploadedFile.size > 10 * 1024 * 1024) {
-      alert("O arquivo é muito grande. O limite é de 10MB.");
+    if (uploadedFile.size > 80 * 1024 * 1024) {
+      alert("The file is too large. The limit is 80MB.");
       return;
     }
 
     setFile(uploadedFile);
-    alert(`Arquivo '${uploadedFile.name}' carregado com sucesso!`);
+    alert(`File '${uploadedFile.name}' uploaded successfully!`);
   };
 
   const handleSend = async (preview = false) => {
     if (!file) {
-      alert("Por favor, faça o upload de um arquivo antes de enviar!");
+      alert("Please upload a file before sending!");
       return;
     }
 
-    const params = knobValues
-      .map((value, index) => `p${index}=${value}`)
-      .join("&");
-    const baseUrl =
-      process.env.REACT_APP_API_BASE_URL || "http://localhost:18080";
-    const url = `${baseUrl}/process?plugin=${plugin.name}&preview=${preview}&${params}`;
+    // Bloqueia os botões e ativa o loading
+    setIsLoading(true);
+
+    const normalizedParams = paramValues.map((val, i) => {
+      const param = plugin.parameters[i];
+      if (param.type === "slider") {
+        return ((val - param.min) / (param.max - param.min)).toFixed(6);
+      }
+      return val;
+    });
+
+    const params = normalizedParams.map((val, i) => `p${i}=${val}`).join("&");
+    const baseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:18080";
+    const url = `${baseUrl}/process?plugin=${plugin.name}&preview=${preview}&previewStartTime=${previewStartTime}&${params}`;
 
     const formData = new FormData();
     formData.append("audio_file", file);
@@ -63,22 +65,24 @@ function PluginModal({ plugin, onClose }) {
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error(`Erro do servidor: ${response.status} - ${errorText}`);
-        alert(`Erro ao processar o arquivo: ${response.status}`);
+        console.error(`Server error: ${response.status} - ${errorText}`);
+        alert(`Error processing the file: ${response.status}`);
+        setIsLoading(false);
         return;
       }
 
       const processedFile = await response.blob();
       if (processedFile.size === 0) {
-        console.error("Arquivo recebido está vazio.");
-        alert("Erro: O arquivo recebido está vazio.");
+        console.error("Received file is empty.");
+        alert("Error: The received file is empty.");
+        setIsLoading(false);
         return;
       }
 
+      // Cria URL de download e aciona o download
       const downloadUrl = URL.createObjectURL(processedFile);
       const link = document.createElement("a");
       link.href = downloadUrl;
-
       link.download = preview ? "preview_audio.wav" : "processed_audio.wav";
 
       document.body.appendChild(link);
@@ -87,12 +91,73 @@ function PluginModal({ plugin, onClose }) {
 
       alert(
         preview
-          ? "Pré-visualização baixada com sucesso!"
-          : "Arquivo processado e baixado com sucesso!"
+          ? "Preview downloaded successfully!"
+          : "File processed and downloaded successfully!"
       );
     } catch (error) {
-      console.error("Erro ao enviar o arquivo:", error);
-      alert("Erro ao processar o arquivo. Por favor, tente novamente.");
+      console.error("Error sending the file:", error);
+      alert("Error processing the file. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const renderParameterControl = (param, index) => {
+    const value = paramValues[index];
+    const displayLabel = param.label || param.name;
+    switch (param.type) {
+      case "slider":
+        return (
+          <div key={index} className="param-control slider-control">
+            <label className="param-label">{displayLabel}</label>
+            <Slider
+              min={param.min}
+              max={param.max}
+              step={param.step}
+              value={value}
+              onChange={(val) => onParameterChange(index, val)}
+              disabled={isLoading}  // Desabilita durante o loading
+            />
+            <span className="param-value">{Number(value).toFixed(2)}</span>
+          </div>
+        );
+      case "toggle":
+        return (
+          <div key={index} className="param-control toggle-control">
+            <label className="param-label">{displayLabel}</label>
+            <button
+              onClick={() => {
+                const toggledValue = value === 1.0 ? 0.0 : 1.0;
+                onParameterChange(index, toggledValue);
+              }}
+              className={value === 1.0 ? "toggle-on" : "toggle-off"}
+              disabled={isLoading}  // Desabilita durante o loading
+            >
+              {value === 1.0 ? "ON" : "OFF"}
+            </button>
+          </div>
+        );
+      case "select":
+        return (
+          <div key={index} className="param-control select-control">
+            <label className="param-label">{displayLabel}</label>
+            <select
+              value={value}
+              onChange={(e) =>
+                onParameterChange(index, parseFloat(e.target.value))
+              }
+              disabled={isLoading}  // Desabilita durante o loading
+            >
+              {param.options.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        );
+      default:
+        return null;
     }
   };
 
@@ -105,34 +170,69 @@ function PluginModal({ plugin, onClose }) {
         <button className="close-button" onClick={onClose}>
           ✖
         </button>
-        <h2>{plugin.name}</h2>
-        <p>{plugin.description}</p>
-        <div className="plugin-controls">
-          <div className="scrollable-section">
-            {knobValues.map((value, index) => (
-              <div key={index} className="plugin-slider">
-                <Slider
-                  min={0.01}
-                  max={1}
-                  step={0.01}
-                  value={value}
-                  onChange={(val) => handleKnobChange(index, val)}
-                />
-                <p>{`${plugin.sliderNames[index]}: ${value.toFixed(2)}`}</p>
-              </div>
-            ))}
+
+        <div className="modal-body">
+          <h2 className="modal-title">{plugin.label}</h2>
+          <p className="modal-desc">{plugin.description}</p>
+
+          {file && (
+            <div className="waveform-section">
+              <WaveformSelector
+                file={file}
+                previewStartTime={previewStartTime}
+                setPreviewStartTime={setPreviewStartTime}
+              />
+            </div>
+          )}
+
+          <div className="plugin-controls">
+            <h3 className="params-header">Parameters</h3>
+            <div className="scrollable-section">
+              {plugin.parameters.map((param, i) =>
+                renderParameterControl(param, i)
+              )}
+            </div>
+          </div>
+
+          <div className="file-upload">
+            <label className="file-label">
+              Select Audio File:
+              <input type="file" onChange={handleFileUpload} accept="audio/*" />
+            </label>
           </div>
         </div>
-        <div className="file-upload">
-          <input type="file" onChange={handleFileUpload} />
-        </div>
-        <div className="action-buttons">
-          <button className="preview-button" onClick={() => handleSend(true)}>
-            Preview
-          </button>
-          <button className="process-button" onClick={() => handleSend(false)}>
-            Process
-          </button>
+
+        {/* Área fixa para botões e explicação */}
+        <div className="modal-footer">
+          {isLoading ? (
+            <div className="loading-bar">Loading...</div>
+          ) : (
+            <>
+              <div className="button-info">
+                <p>
+                  Choose "Preview" to listen to a short preview starting at the
+                  selected time, or "Process" to apply the effect and download the
+                  processed file.
+                </p>
+              </div>
+              <div className="action-buttons">
+                <button
+                  className="preview-button"
+                  onClick={() => handleSend(true)}
+                  disabled={isLoading}
+                >
+                  Preview
+                </button>
+                <button
+                  className="process-button"
+                  onClick={() => handleSend(false)}
+                  disabled={isLoading}
+                >
+                  Process
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

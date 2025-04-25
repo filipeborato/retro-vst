@@ -1,12 +1,12 @@
 .modal {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 1000;
 }
@@ -15,72 +15,203 @@
   background-color: #2b2a44;
   border-radius: 10px;
   padding: 20px;
-  width: 60%; /* Ajuste de largura para maior equilíbrio */
-  max-width: 800px; /* Define um limite para telas maiores */
-  max-height: 90%; /* Garante que a modal não ultrapasse a tela */
-  overflow: hidden;
-  position: relative;
+  width: 60%;
+  max-width: 900px;
+  max-height: 90vh;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centraliza horizontalmente */
-  justify-content: center; /* Centraliza verticalmente */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sombra */
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  overflow: hidden; /* Evita scroll horizontal na estrutura geral */
 }
 
-.scrollable-section {
-  max-height: 300px;
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.modal-body {
+  flex: 1;
   overflow-y: auto;
+  padding-right: 10px; /* Espaço para evitar que o conteúdo fique escondido pelo scrollbar */
+}
+
+.modal-title {
+  margin: 10px 0 5px 0;
+  font-size: 1.8rem;
+  color: #c9a6ff;
+}
+
+.modal-desc {
+  margin: 0 0 15px 0;
+  font-size: 1rem;
+  color: #ffffff;
+  opacity: 0.9;
+  max-width: 90%;
+}
+
+/* Waveform section */
+.waveform-section {
   margin-bottom: 20px;
-  width: 90%; /* Garante que os sliders fiquem centralizados */
+  width: 100%;
+}
+
+/* Contêiner dos controles de parâmetros */
+.plugin-controls {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.params-header {
+  font-size: 1.2rem;
+  color: #c9a6ff;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Container rolável apenas verticalmente */
+.scrollable-section {
+  width: 100%;
+  max-height: 250px;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: 10px;
   box-sizing: border-box;
-  background-color: rgba(255, 255, 255, 0.05); /* Fundo leve para destaque */
+  background-color: rgba(255, 255, 255, 0.05);
   border-radius: 5px;
 }
 
-.plugin-controls {
+/* Cada controle de parâmetro */
+.param-control {
   display: flex;
-  flex-direction: column; /* Organiza sliders verticalmente */
-  align-items: center; /* Centraliza horizontalmente */
-  justify-content: center; /* Centraliza verticalmente */
-  gap: 15px; /* Espaçamento entre sliders */
-  width: 100%; /* Alinha com o tamanho da modal */
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.plugin-slider {
+.param-label {
+  flex: 1 1 40%;
+  font-size: 14px;
+  color: #fff;
+  text-align: left;
+  word-break: break-all;
+}
+
+.slider-control,
+.select-control {
+  flex: 1 1 55%;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Mantém espaço entre os textos */
-  width: 90%; /* Ajusta a largura para centralizar */
+  gap: 10px;
 }
 
-.rc-slider {
-  flex-grow: 1; /* O slider ocupa todo o espaço disponível */
-  margin: 0 10px; /* Espaçamento horizontal */
-  max-width: 400px; /* Limita o tamanho máximo */
-  height: 8px; /* Aumenta a altura do slider */
+.slider-control .rc-slider {
+  flex: 1;
 }
 
-.plugin-slider p {
-  flex-shrink: 0; /* Evita que o texto seja comprimido */
-  font-size: 16px; /* Tamanho maior para melhor legibilidade */
-  color: white;
-  text-align: left; /* Texto alinhado */
-  margin: 0;
+.param-value {
+  width: 50px;
+  text-align: right;
 }
 
+/* Toggle control */
+.toggle-control {
+  flex: 1 1 55%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toggle-on {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.toggle-off {
+  background-color: #a9a9a9;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Select control */
+.select-control {
+  flex: 1 1 55%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.select-control select {
+  flex: 1;
+  background-color: #4a4e69;
+  color: #fff;
+  border: none;
+  padding: 6px;
+  border-radius: 4px;
+}
+
+/* File upload */
 .file-upload {
   margin-bottom: 20px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
 }
 
+.file-label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  color: #fff;
+}
+
+.file-label input[type="file"] {
+  margin-top: 5px;
+  padding: 6px;
+  cursor: pointer;
+}
+
+/* Área fixa para botões e texto explicativo */
+.modal-footer {
+  flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  background-color: #2b2a44;
+  padding: 10px 0;
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.button-info {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #fff;
+  font-size: 0.95rem;
+  padding: 0 10px;
+}
+
+/* Container dos botões de ação */
 .action-buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 20px;
   width: 100%;
-  gap: 10px;
+  flex-wrap: wrap;
+  overflow-x: hidden;
 }
 
 .preview-button,
@@ -91,25 +222,46 @@
   cursor: pointer;
   font-size: 16px;
   flex: 1;
+  max-width: 150px;
+  min-width: 120px;
 }
 
 .preview-button {
   background-color: #ff9800;
-  color: white;
+  color: #fff;
+}
+
+.preview-button:hover {
+  background-color: #e58900;
 }
 
 .process-button {
   background-color: #4caf50;
-  color: white;
+  color: #fff;
 }
 
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 20px;
-  color: white;
-  cursor: pointer;
+.process-button:hover {
+  background-color: #43a047;
+}
+
+/* ... Outras regras já existentes ... */
+
+/* Loading bar */
+.loading-bar {
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+/* Modal-footer já está definido, garantindo que a área de botões fique fixa */
+.modal-footer {
+  flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  background-color: #2b2a44;
+  padding: 10px 0;
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
