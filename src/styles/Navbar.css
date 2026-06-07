@@ -1,87 +1,146 @@
-/* Navbar Cyberpunk Escuro */
+/* ============================================================
+   Navbar — brushed-metal control strip, fixed top
+   ============================================================ */
+
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(90deg, #2a1a4d, #1e1340);
-  padding: 15px 20px;
-  color: #c9a6ff;
-  border-bottom: 3px solid #7442c8;
-  z-index: 1000;
+  right: 0;
+  z-index: 40;
+  height: 58px;
+  border-bottom: 1px solid #000;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.05) inset,
+    0 6px 20px rgba(0, 0, 0, 0.55);
 }
-
-.navbar-left {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-/* Estilo para as informações do perfil (nome e créditos) exibidas em duas linhas */
-.profile-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.profile-name {
-  font-weight: bold;
-  font-size: 1rem;
-}
-
-.profile-credits {
-  font-size: 0.9rem;
-  color: #d1b3ff;
-}
-
-.navbar-center {
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #d1b3ff;
+/* glowing seam under the bar */
+.navbar::after {
+  content: "";
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: max-content;
+  left: 0; right: 0; bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent, rgba(255, 122, 24, 0.5) 30%, rgba(25, 182, 201, 0.5) 70%, transparent);
 }
 
+.navbar-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ---- Brand ---- */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand-mark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 0.12em;
+  color: var(--c-sodium-soft);
+  text-shadow: var(--txt-sodium);
+}
+.brand-mark span { color: var(--t-bright); }
+.brand-tag {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  color: var(--t-faint);
+  text-transform: uppercase;
+}
+
+/* ---- Right cluster ---- */
 .navbar-right {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  min-width: 150px;
-  padding-right: 20px;
+  gap: 12px;
 }
 
-.navbar-user {
-  font-weight: bold;
+.credits-readout {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  background: var(--c-void);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-sm);
+  padding: 3px 10px;
+  box-shadow: var(--shadow-inset);
+}
+.credits-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  color: var(--t-dim);
+}
+.credits-value {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--c-cyan-soft);
+  text-shadow: var(--txt-cyan);
 }
 
-.navbar-credits {
-  font-weight: bold;
+.profile-chip {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.profile-name {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--t-default);
+  letter-spacing: 0.04em;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.profile-chip.guest .profile-name { color: var(--t-dim); }
+
+/* ---- Hardware button ---- */
+.hw-btn {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--t-bright);
+  background: linear-gradient(180deg, #2a2e37, #16181d);
+  border: 1px solid #000;
+  border-radius: var(--r-sm);
+  padding: 7px 14px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 2px 4px rgba(0, 0, 0, 0.5);
+  transition: all var(--t-fast) var(--ease);
+}
+.hw-btn:hover {
+  color: var(--c-cyan-soft);
+  border-color: rgba(25, 182, 201, 0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 10px rgba(25, 182, 201, 0.3);
+}
+.hw-btn:active { transform: translateY(1px); }
+
+.hw-btn-amber:hover {
+  color: var(--c-sodium-soft);
+  border-color: rgba(255, 122, 24, 0.55);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 10px rgba(255, 122, 24, 0.35);
 }
 
-.login-btn {
-  background: #7442c8;
-  color: #fff;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 15px;
-  margin-right: 20px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s, transform 0.2s;
-}
-
-.login-btn:hover {
-  background: #5d2fa1;
-  transform: translateY(-2px);
+@media (max-width: 640px) {
+  .brand-tag, .profile-name { display: none; }
+  .navbar-inner { padding: 0 14px; }
 }

@@ -1,108 +1,149 @@
-/* LoginModal.css - Estilo Cyberpunk / 80s */
+/* ============================================================
+   LoginModal — neon-noir access terminal
+   ============================================================ */
 
 .login-modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(2px);
+  inset: 0;
+  z-index: 110;
   display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: center;
-  z-index: 2000;
+  padding: 24px;
+  background: rgba(4, 5, 7, 0.74);
+  backdrop-filter: blur(3px) saturate(0.8);
+  animation: modal-fade var(--t-med) var(--ease);
 }
 
-.login-modal-content {
-  /* Fundo gradiente neon roxo-azul para dar ar cyberpunk */
-  background: linear-gradient(135deg, #3a0088, #0abde3);
-  color: #fff;
-  width: 350px;
-  max-width: 95%;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(58, 0, 136, 0.7);
+.login-panel {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  font-family: 'Courier New', Courier, monospace;
-}
-
-.login-modal-content h2 {
-  margin: 0 0 15px;
-  font-size: 1.8rem;
-  text-shadow: 0 0 8px #ff00d4;
-}
-
-.login-modal-content form {
   width: 100%;
+  max-width: 380px;
+  padding: 26px 26px 22px;
+  background: linear-gradient(180deg, var(--c-surface) 0%, #0c0d12 100%);
+  border: 1px solid #000;
+  border-radius: var(--r-lg);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04) inset,
+    0 30px 80px rgba(0,0,0,0.75),
+    0 0 50px rgba(25,182,201,0.07);
+  animation: panel-rise var(--t-med) var(--ease);
+}
+
+.login-panel .panel-close {
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 28px; height: 28px;
+  display: grid;
+  place-items: center;
+  color: var(--t-dim);
+  background: linear-gradient(180deg, #2a2e37, #16181d);
+  border: 1px solid #000;
+  border-radius: var(--r-sm);
+  transition: all var(--t-fast) var(--ease);
+}
+.login-panel .panel-close:hover {
+  color: var(--c-blood-soft);
+  border-color: rgba(200,30,58,0.5);
+  box-shadow: 0 0 8px rgba(200,30,58,0.3);
+}
+
+.login-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.login-head .led { background: var(--c-cyan); box-shadow: var(--glow-cyan); }
+.login-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  color: var(--t-dim);
+}
+.login-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.8rem;
+  letter-spacing: 0.04em;
+  color: var(--c-cyan-soft);
+  text-shadow: var(--txt-cyan);
+  margin-bottom: 18px;
+}
+
+.login-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  margin: 10px 0;
+  gap: 13px;
 }
-
-.login-modal-content input {
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  border-radius: 8px;
-  padding: 10px;
-  color: #fff;
-  font-size: 1rem;
-  transition: background 0.3s;
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
-
-.login-modal-content input:focus {
+.field-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--t-dim);
+}
+.field input {
+  background: var(--c-void);
+  color: var(--t-bright);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-sm);
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow-inset);
+  transition: border-color var(--t-fast) var(--ease), box-shadow var(--t-fast);
+}
+.field input:focus {
   outline: none;
-  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(25,182,201,0.55);
+  box-shadow: var(--shadow-inset), 0 0 10px rgba(25,182,201,0.2);
 }
 
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+.error-msg {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--c-blood-soft);
+  text-shadow: 0 0 8px rgba(200,30,58,0.4);
+}
+
+.login-submit {
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--c-cyan-soft);
+  padding: 11px;
+  border: 1px solid #000;
+  border-radius: var(--r-sm);
+  background: linear-gradient(180deg, #14454d, #0a2a30);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 3px 6px rgba(0,0,0,0.5);
+  transition: all var(--t-fast) var(--ease);
+}
+.login-submit:hover:not(:disabled) {
+  border-color: rgba(25,182,201,0.6);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 0 16px rgba(25,182,201,0.4);
+  text-shadow: var(--txt-cyan);
+}
+.login-submit:active:not(:disabled) { transform: translateY(1px); }
+.login-submit:disabled { opacity: 0.5; cursor: progress; }
+
+.toggle-mode {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
   background: none;
   border: none;
-  font-size: 20px;
-  color: #fff;
-  cursor: pointer;
-  text-shadow: 0 0 5px #ff00d4;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--t-dim);
+  letter-spacing: 0.04em;
+  transition: color var(--t-fast) var(--ease);
 }
-
-.login-modal-content button[type="submit"] {
-  background: #f368e0;
-  color: #fff;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  padding: 10px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s, transform 0.2s;
-  box-shadow: 0 0 10px rgba(243, 104, 224, 0.6);
-}
-
-.login-modal-content button[type="submit"]:hover {
-  background: #ff00d4;
-  transform: translateY(-2px);
-}
-
-.toggle-mode-button {
-  background: #01a3a4;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 10px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
-  box-shadow: 0 0 10px rgba(1, 163, 164, 0.6);
-}
-
-.toggle-mode-button:hover {
-  background: #00d2d3;
-  transform: translateY(-2px);
-}
+.toggle-mode:hover { color: var(--c-sodium-soft); text-shadow: var(--txt-sodium); }

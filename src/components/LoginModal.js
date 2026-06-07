@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import "../styles/LoginModal.css";
+import { useToast } from "./Toast";
 
 function LoginModal({ onClose, onLogin }) {
+  const toast = useToast();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSignup, setIsSignup] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [busy, setBusy] = useState(false);
 
-  // Alterna entre Login e Signup e limpa mensagens de erro
   const handleToggleMode = () => {
     setIsSignup((prev) => !prev);
     setErrorMsg("");
@@ -16,22 +18,13 @@ function LoginModal({ onClose, onLogin }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const endpoint = isSignup ? "/signup" : "/login";
+    setErrorMsg("");
+    setBusy(true);
 
-    // Para o signup, envia as chaves em minúsculas conforme o esperado pela API
-    let requestBody;
-    if (isSignup) {
-      requestBody = {
-        name: fullName, // Alterado de "Name" para "name"
-        email: email,
-        password: password,
-      };
-    } else {
-      requestBody = {
-        email: email,
-        password: password,
-      };
-    }
+    const endpoint = isSignup ? "/signup" : "/login";
+    const requestBody = isSignup
+      ? { name: fullName, email, password }
+      : { email, password };
 
     try {
       const url = process.env.REACT_APP_API_GO_URL + endpoint;
@@ -44,59 +37,78 @@ function LoginModal({ onClose, onLogin }) {
       const data = await response.json();
 
       if (response.ok) {
-        const token = data.token;
-        // Exibe somente a mensagem, sem o token
-        alert(data.message);
-        onLogin({ profile: data.profile, token });
+        toast.ok(data.message || (isSignup ? "Account created." : "Welcome back."));
+        onLogin({ token: data.token });
         onClose();
       } else {
-        const errorMessage = data.error || data.message || "Unknown error";
-        setErrorMsg(errorMessage);
+        setErrorMsg(data.error || data.message || "Unknown error");
       }
     } catch (err) {
       console.error(err);
       setErrorMsg("Error connecting to the server.");
+    } finally {
+      setBusy(false);
     }
   };
 
   return (
-    <div className="login-modal">
-      <div className="login-modal-content">
-        <button className="close-button" onClick={onClose}>
-          ✖
+    <div
+      className="login-modal"
+      onClick={(e) => e.target.classList.contains("login-modal") && onClose()}
+    >
+      <div className="login-panel">
+        <button className="panel-close" onClick={onClose} aria-label="Close">
+          ✕
         </button>
-        <h2>{isSignup ? "Sign Up" : "Login"}</h2>
-        <form onSubmit={handleSubmit}>
+
+        <div className="login-head">
+          <span className="led" />
+          <span className="login-kicker">
+            {isSignup ? "// new credentials" : "// access terminal"}
+          </span>
+        </div>
+        <h2 className="login-title">{isSignup ? "Sign Up" : "Login"}</h2>
+
+        <form onSubmit={handleSubmit} className="login-form">
           {isSignup && (
+            <label className="field">
+              <span className="field-label">Full Name</span>
+              <input
+                type="text"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                required
+                autoFocus
+              />
+            </label>
+          )}
+          <label className="field">
+            <span className="field-label">Email</span>
             <input
-              type="text"
-              placeholder="Full Name"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
-          )}
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <button type="submit">{isSignup ? "Sign Up" : "Login"}</button>
+          </label>
+          <label className="field">
+            <span className="field-label">Password</span>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+
+          {errorMsg && <p className="error-msg">{errorMsg}</p>}
+
+          <button type="submit" className="login-submit" disabled={busy}>
+            {busy ? "···" : isSignup ? "Create account" : "Authenticate"}
+          </button>
         </form>
 
-        {/* Exibe a mensagem de erro, se houver */}
-        {errorMsg && <p className="error-msg">{errorMsg}</p>}
-
-        <button onClick={handleToggleMode} className="toggle-mode-button">
+        <button onClick={handleToggleMode} className="toggle-mode">
           {isSignup
             ? "Already have an account? Login"
             : "Don't have an account? Sign Up"}

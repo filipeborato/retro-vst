@@ -1,50 +1,54 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Cookie from "js-cookie"; // Importa a biblioteca js-cookie
 import Navbar from "./components/Navbar";
 import PluginGrid from "./components/PluginGrid";
 import PluginModal from "./components/PluginModal";
 import LoginModal from "./components/LoginModal";
+import { useToast } from "./components/Toast";
 import "./styles/App.css";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import plugins from "./Plugin.json";
 
 function App() {
+  const toast = useToast();
   const [selectedPlugin, setSelectedPlugin] = useState(null);
   const [paramValues, setParamValues] = useState([]);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [profile, setProfile] = useState(null);
 
-  // Ao carregar a página, verifica se existe token no cookie
-  // Se existir, faz uma requisição para a rota /profile para obter os dados do usuário
-  useEffect(() => {
+  // Busca o profile a partir do token; usada no boot e logo após o login,
+  // evitando o window.location.reload() que existia antes.
+  const fetchProfile = useCallback(async () => {
     const token = Cookie.get("authToken");
-    if (token) {
-      const fetchProfile = async () => {
-        try {
-          // Alterado de "/profile" para "/api/profile"
-          const response = await fetch(
-            process.env.REACT_APP_API_GO_URL + "/api/profile",
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-              }
-            }
-          );
-          if (response.ok) {
-            const profileData = await response.json();
-            setProfile(profileData);
-          } else {
-            console.error("Error fetching profile data", response.status);
-          }
-        } catch (error) {
-          console.error("Error fetching profile:", error);
+    if (!token) return;
+    try {
+      const response = await fetch(
+        process.env.REACT_APP_API_GO_URL + "/api/profile",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
-      };
-      fetchProfile();
+      );
+      if (response.ok) {
+        setProfile(await response.json());
+      } else if (response.status === 401) {
+        // token expirado/inválido — limpa silenciosamente
+        Cookie.remove("authToken");
+        setProfile(null);
+      } else {
+        console.error("Error fetching profile data", response.status);
+      }
+    } catch (error) {
+      console.error("Error fetching profile:", error);
     }
   }, []);
+
+  useEffect(() => {
+    fetchProfile();
+  }, [fetchProfile]);
 
   const openModal = (plugin) => {
     setSelectedPlugin(plugin);
@@ -72,34 +76,52 @@ function App() {
     setParamValues(updated);
   };
 
-  const toggleLoginModal = () => {
-    setShowLoginModal((prev) => !prev);
-  };
+  const openLoginModal = () => setShowLoginModal(true);
+  const closeLoginModal = () => setShowLoginModal(false);
 
-  // Ao fazer login ou signup, salva o token no cookie e recarrega a página
-  const handleLogin = ({ profile, token }) => {
+  // Ao fazer login/signup: salva o token e busca o profile sem reload.
+  // O fechamento da modal fica a cargo do onClose do LoginModal (evita
+  // dois setState concorrentes que reabriam a modal).
+  const handleLogin = ({ token }) => {
     Cookie.set("authToken", token);
-    // Recarrega a página para disparar a lógica de carregamento do profile
-    window.location.reload();
+    fetchProfile();
   };
 
-  // Logout: remove o token do cookie e recarrega a página
   const handleLogout = () => {
     Cookie.remove("authToken");
-    window.location.reload();
+    setProfile(null);
+    toast.info("Signed out.");
   };
 
   return (
-    <div className="app retro-theme full-height">
+    <div className="app">
+      {/* atmospheric layers (behind content) */}
+      <div className="atmosphere" aria-hidden="true" />
+      <div className="rain" aria-hidden="true" />
+
       <Navbar
         profile={profile}
         onLogout={handleLogout}
         credits={profile ? profile.current_balance : 42.5}
-        onLoginClick={toggleLoginModal}
+        onLoginClick={openLoginModal}
       />
-      <div className="main-content">
+
+      <main className="main-content">
         <SpeedInsights />
-        <h1 className="title">Retro VST Effects</h1>
+
+        <header className="hero">
+          <div className="hero-kicker">analog ghosts · vst host</div>
+          <h1 className="title" data-text="RETRO·VST">
+            RETRO<span className="accent">·</span>VST
+          </h1>
+          <p className="hero-sub">
+            Run your audio through legacy VST effects, hosted on the wire.
+            Rack them up. Dial them in. Hear the rain.
+          </p>
+        </header>
+
+        <div className="section-rule">{"// effects rack"}</div>
+
         <PluginGrid plugins={plugins} onPluginClick={openModal} />
 
         {selectedPlugin && (
@@ -112,9 +134,13 @@ function App() {
         )}
 
         {showLoginModal && (
-          <LoginModal onClose={toggleLoginModal} onLogin={handleLogin} />
+          <LoginModal onClose={closeLoginModal} onLogin={handleLogin} />
         )}
-      </div>
+      </main>
+
+      {/* foreground film/CRT layers (never block input) */}
+      <div className="grain" aria-hidden="true" />
+      <div className="crt-overlay" aria-hidden="true" />
     </div>
   );
 }

@@ -24,12 +24,14 @@ function WaveformSelector({ file, previewStartTime, setPreviewStartTime }) {
       // Cria a instância do WaveSurfer com o plugin de regiões
       wavesurfer.current = WaveSurfer.create({
         container: waveformRef.current,
-        waveColor: "#6c5ce7",
-        progressColor: "#d63031",
-        cursorColor: "#00cec9",
+        waveColor: "rgba(57, 255, 158, 0.45)",   // dim phosphor
+        progressColor: "#39ff9e",                  // bright phosphor
+        cursorColor: "#ff7a18",                    // sodium marker
+        cursorWidth: 1,
         barWidth: 2,
+        barGap: 1,
         responsive: true,
-        height: 80,
+        height: 96,
         backend: "WebAudio",
         plugins: [
           RegionsPlugin.create({
@@ -51,7 +53,7 @@ function WaveformSelector({ file, previewStartTime, setPreviewStartTime }) {
         const region = wavesurfer.current.addRegion({
           start: 0,
           end: effectiveWindow,
-          color: "rgba(0, 255, 0, 0.3)",
+          color: "rgba(255, 122, 24, 0.18)",
           drag: true,
           resize: false, // Desabilita o redimensionamento para manter a janela fixa
         });
@@ -96,12 +98,16 @@ function WaveformSelector({ file, previewStartTime, setPreviewStartTime }) {
   }, [file, setPreviewStartTime]);
 
   return (
-    <div className="waveform-container">
-      <div className="waveform" ref={waveformRef}></div>
-      <div className="region-info">
-        <p>
-          Preview Start Time: {Number(previewStartTime || 0).toFixed(2)}s | Window: {PREVIEW_WINDOW}s
-        </p>
+    <div className="scope">
+      <div className="scope-screen">
+        <div className="waveform" ref={waveformRef}></div>
+        <div className="scope-glass" aria-hidden="true" />
+      </div>
+      <div className="scope-readout">
+        <span className="led" />
+        <span>MARKER&nbsp;{Number(previewStartTime || 0).toFixed(2)}s</span>
+        <span className="scope-sep">·</span>
+        <span>WINDOW&nbsp;{PREVIEW_WINDOW}s</span>
       </div>
     </div>
   );
