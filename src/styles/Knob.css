@@ -1,0 +1,135 @@
+/* ============================================================
+   Knob — metal/bakelite analog control with amber LED arc
+   ============================================================ */
+
+.knob {
+  --knob-glow: var(--c-sodium);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+  width: 92px;
+}
+.knob-cyan  { --knob-glow: var(--c-cyan); }
+.knob-blood { --knob-glow: var(--c-blood); }
+
+.knob-label {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--t-dim);
+  text-align: center;
+  line-height: 1.25;
+  min-height: 1.6em;
+}
+
+.knob-dial {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  cursor: ns-resize;
+  touch-action: none;
+  outline: none;
+}
+.knob-dial:focus-visible {
+  filter: drop-shadow(0 0 4px var(--knob-glow));
+}
+
+/* LED arc ring */
+.knob-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.knob-ring-track,
+.knob-ring-lit {
+  fill: none;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+.knob-ring-track {
+  stroke: rgba(255, 255, 255, 0.06);
+}
+.knob-ring-lit {
+  stroke: var(--knob-glow);
+  filter: drop-shadow(0 0 3px var(--knob-glow))
+          drop-shadow(0 0 7px var(--knob-glow));
+  transition: stroke-dasharray 60ms linear;
+}
+
+/* the metal cap */
+.knob-cap {
+  position: absolute;
+  inset: 13px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 38% 30%, #4b505c 0%, #2a2d35 38%, #16181d 72%, #0c0d11 100%);
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.7),
+    inset 0 1px 1px rgba(255, 255, 255, 0.18),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.6);
+  transition: transform 60ms linear;
+}
+/* knurled edge */
+.knob-cap::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    from 0deg,
+    rgba(255,255,255,0.05) 0deg 2deg,
+    rgba(0,0,0,0.35) 2deg 4deg
+  );
+  -webkit-mask: radial-gradient(circle, transparent 60%, #000 62%, #000 100%);
+          mask: radial-gradient(circle, transparent 60%, #000 62%, #000 100%);
+  opacity: 0.8;
+}
+
+/* the pointer notch */
+.knob-pointer {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  width: 3px;
+  height: 13px;
+  margin-left: -1.5px;
+  border-radius: 2px;
+  background: var(--knob-glow);
+  box-shadow: 0 0 4px var(--knob-glow), 0 0 9px var(--knob-glow);
+}
+
+.knob-readout {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--t-bright);
+  background: var(--c-void);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-sm);
+  padding: 1px 8px;
+  min-width: 56px;
+  text-align: center;
+  box-shadow: var(--shadow-inset);
+  letter-spacing: 0.04em;
+}
+.knob-unit {
+  color: var(--t-dim);
+  margin-left: 2px;
+  font-size: 0.7em;
+}
+
+.knob.is-dragging .knob-cap { transition: none; }
+.knob.is-dragging .knob-readout {
+  color: var(--knob-glow);
+  border-color: var(--knob-glow);
+}
+.knob.is-disabled {
+  opacity: 0.4;
+  pointer-events: none;
+  filter: grayscale(0.5);
+}

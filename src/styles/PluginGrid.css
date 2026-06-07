@@ -1,38 +1,123 @@
+/* ============================================================
+   PluginGrid — analog rack units
+   ============================================================ */
+
 .plugin-grid {
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Aumenta o tamanho mínimo dos cards */
-  gap: 40px; /* Aumenta o espaçamento entre os cards */
-  padding: 20px;
-  max-width: 1400px; /* Aumenta o limite de largura geral */
-  margin: auto;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 20px;
 }
 
-.plugin-card {
-  background: linear-gradient(135deg, #3a0088, #0abde3);
-  padding: 30px; /* Aumenta o tamanho interno do card */
-  border-radius: 15px; /* Bordas mais suaves */
-  text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
+.rack-unit {
+  position: relative;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 20px 16px;
+  min-height: 184px;
+  color: var(--t-default);
+  background:
+    linear-gradient(180deg, var(--c-surface) 0%, var(--c-surface-2) 100%);
+  border: 1px solid var(--c-line);
+  border-top-color: #2c303b;
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-rack);
   cursor: pointer;
-  box-shadow: 0 0 20px rgba(58, 0, 136, 0.7);
-  color: white;
-  font-family: 'Courier New', Courier, monospace;
-  text-shadow: 0 0 5px #ff00d4;
-  font-size: 1.2rem; /* Aumenta o tamanho do texto */
-  min-height: 200px; /* Garante um tamanho fixo maior */
+  overflow: hidden;
+  transition: transform var(--t-med) var(--ease),
+              border-color var(--t-med) var(--ease),
+              box-shadow var(--t-med) var(--ease);
+}
+/* faint brushed sheen */
+.rack-unit::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent 30%);
+  pointer-events: none;
+}
+.rack-unit:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 122, 24, 0.4);
+  box-shadow:
+    var(--shadow-rack),
+    0 0 0 1px rgba(255, 122, 24, 0.15),
+    0 10px 34px rgba(255, 122, 24, 0.12);
+}
+.rack-unit:hover .led { box-shadow: var(--glow-sodium); }
+.rack-unit:hover .rack-engage { color: var(--c-sodium-soft); text-shadow: var(--txt-sodium); }
+.rack-unit:active { transform: translateY(-1px); }
+
+/* corner screws */
+.rack-unit .screw { position: absolute; }
+.screw-tl { top: 8px; left: 8px; }
+.screw-tr { top: 8px; right: 8px; }
+.screw-bl { bottom: 8px; left: 8px; }
+.screw-br { bottom: 8px; right: 8px; }
+
+.rack-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 6px;
+}
+.rack-head .led { box-shadow: none; background: #5a4326; transition: box-shadow var(--t-med); }
+.rack-id {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  color: var(--t-dim);
+}
+.rack-slug {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  color: var(--t-faint);
+  background: var(--c-void);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-sm);
+  padding: 1px 6px;
 }
 
-.plugin-card:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 30px rgba(255, 0, 212, 0.7);
+.rack-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.45rem;
+  letter-spacing: 0.02em;
+  color: var(--t-bright);
+  line-height: 1.05;
+  padding-left: 6px;
+}
+.rack-desc {
+  margin: 0;
+  padding-left: 6px;
+  font-size: 0.82rem;
+  color: var(--t-dim);
+  flex: 1;
 }
 
-.plugin-card h2 {
-  margin-bottom: 15px;
-  font-size: 1.8rem;
+.rack-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 6px 0;
+  border-top: 1px solid var(--c-line);
 }
-
-.plugin-card p {
-  font-size: 1.1rem;
-  opacity: 0.9;
+.rack-params {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--t-dim);
+}
+.rack-engage {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--t-default);
+  transition: color var(--t-med), text-shadow var(--t-med);
 }

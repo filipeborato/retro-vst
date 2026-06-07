@@ -1,0 +1,52 @@
+/* ============================================================
+   Toast — neon-noir notifications
+   ============================================================ */
+
+.toast-stack {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: min(380px, 90vw);
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 11px 14px;
+  background: linear-gradient(180deg, var(--c-surface) 0%, var(--c-surface-2) 100%);
+  border: 1px solid var(--c-line);
+  border-left-width: 3px;
+  border-radius: var(--r-md);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6);
+  color: var(--t-default);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  cursor: pointer;
+  animation: toast-in var(--t-med) var(--ease);
+}
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.toast-led {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+.toast-msg { flex: 1; line-height: 1.35; }
+.toast-x { color: var(--t-faint); font-size: 0.7rem; }
+
+.toast-ok   { border-left-color: var(--c-cyan); }
+.toast-ok   .toast-led { background: var(--c-cyan); box-shadow: var(--glow-cyan); }
+.toast-err  { border-left-color: var(--c-blood); }
+.toast-err  .toast-led { background: var(--c-blood); box-shadow: var(--glow-blood); }
+.toast-info { border-left-color: var(--c-sodium); }
+.toast-info .toast-led { background: var(--c-sodium); box-shadow: var(--glow-sodium); }

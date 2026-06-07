@@ -3,35 +3,45 @@ import "../styles/Navbar.css";
 
 function Navbar({ profile, onLogout, credits, onLoginClick }) {
   return (
-    <nav className="navbar">
-      {/* Lado esquerdo: exibe o nome e os créditos do usuário (em duas linhas) ou "Guest" se não estiver logado */}
-      <div className="navbar-left">
-        {profile ? (
-          <div className="profile-info">
-            <div className="profile-name">{profile.full_name}</div>
-            <div className="profile-credits">Credits: {profile.current_balance}</div>
-          </div>
-        ) : (
-          <div className="guest-info">
-            <span className="navbar-user">Guest</span>
-          </div>
-        )}
-      </div>
+    <nav className="navbar metal">
+      <div className="navbar-inner">
+        {/* Brand — small neon wordmark + power LED */}
+        <div className="navbar-brand">
+          <span className="led" />
+          <span className="brand-mark">RETRO<span>·</span>VST</span>
+          <span className="brand-tag">{"// vst host"}</span>
+        </div>
 
-      {/* Centro: Título da aplicação */}
-      <div className="navbar-center">Retro VST Effects</div>
-
-      {/* Lado direito: exibe o botão de logout se estiver logado; caso contrário, exibe o botão de Login/Signup */}
-      <div className="navbar-right">
-        {profile ? (
-          <button className="login-btn" onClick={onLogout}>
-            Logout
-          </button>
-        ) : (
-          <button className="login-btn" onClick={onLoginClick}>
-            Login / Signup
-          </button>
-        )}
+        {/* Right — credits readout + auth */}
+        <div className="navbar-right">
+          {profile ? (
+            <>
+              <div className="credits-readout" title="Account balance">
+                <span className="credits-label">CR</span>
+                <span className="credits-value">
+                  {Number(credits ?? 0).toFixed(2)}
+                </span>
+              </div>
+              <div className="profile-chip">
+                <span className="led cyan" />
+                <span className="profile-name">{profile.full_name}</span>
+              </div>
+              <button className="hw-btn" onClick={onLogout}>
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <div className="profile-chip guest">
+                <span className="led off" />
+                <span className="profile-name">Guest</span>
+              </div>
+              <button className="hw-btn hw-btn-amber" onClick={onLoginClick}>
+                Login / Signup
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </nav>
   );

@@ -1,46 +1,65 @@
-import React, { useState } from "react";
-import Slider from "rc-slider";
-import "rc-slider/assets/index.css";
+import React, { useEffect, useRef, useState } from "react";
 import "../styles/PluginModal.css";
 
-import WaveformSelector from "./WaveformSelector"; // Componente para preview da waveform
+import Knob from "./Knob";
+import WaveformSelector from "./WaveformSelector";
+import { useToast } from "./Toast";
+
+const ALLOWED = ["wav", "mp3", "ogg", "flac", "aiff"];
+const MAX_BYTES = 80 * 1024 * 1024;
 
 function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
+  const toast = useToast();
   const [file, setFile] = useState(null);
   const [previewStartTime, setPreviewStartTime] = useState(0);
-  const [isLoading, setIsLoading] = useState(false); // Estado para loading
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingKind, setLoadingKind] = useState(null); // "preview" | "process"
+  const [result, setResult] = useState(null); // { url, name, isPreview }
+
+  // close on Escape
+  useEffect(() => {
+    const onKey = (e) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  // revoke object URLs on unmount / when replaced
+  const resultRef = useRef(null);
+  useEffect(() => {
+    resultRef.current = result;
+  }, [result]);
+  useEffect(() => {
+    return () => {
+      if (resultRef.current?.url) URL.revokeObjectURL(resultRef.current.url);
+    };
+  }, []);
 
   const handleFileUpload = (event) => {
-    const uploadedFile = event.target.files[0];
-    const allowedExtensions = ["wav", "mp3", "ogg", "flac", "aiff"];
+    const uploaded = event.target.files[0];
+    if (!uploaded) return;
 
-    if (!uploadedFile) {
-      alert("No file selected!");
+    const ext = uploaded.name.split(".").pop().toLowerCase();
+    if (!ALLOWED.includes(ext)) {
+      toast.err(`Unsupported format ".${ext}". Use ${ALLOWED.join(", ")}.`);
       return;
     }
-
-    const fileExtension = uploadedFile.name.split(".").pop().toLowerCase();
-    if (!allowedExtensions.includes(fileExtension)) {
-      alert("Invalid file format. Please upload a valid audio file.");
+    if (uploaded.size > MAX_BYTES) {
+      toast.err("File too large — limit is 80 MB.");
       return;
     }
-    if (uploadedFile.size > 80 * 1024 * 1024) {
-      alert("The file is too large. The limit is 80MB.");
-      return;
-    }
-
-    setFile(uploadedFile);
-    alert(`File '${uploadedFile.name}' uploaded successfully!`);
+    setFile(uploaded);
+    setResult(null);
+    toast.ok(`Loaded "${uploaded.name}".`);
   };
 
   const handleSend = async (preview = false) => {
     if (!file) {
-      alert("Please upload a file before sending!");
+      toast.err("Load an audio file first.");
       return;
     }
 
-    // Bloqueia os botões e ativa o loading
     setIsLoading(true);
+    setLoadingKind(preview ? "preview" : "process");
 
     const normalizedParams = paramValues.map((val, i) => {
       const param = plugin.parameters[i];
@@ -51,102 +70,95 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
     });
 
     const params = normalizedParams.map((val, i) => `p${i}=${val}`).join("&");
-    const baseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:18080";
+    const baseUrl =
+      process.env.REACT_APP_API_BASE_URL || "http://localhost:18080";
     const url = `${baseUrl}/process?plugin=${plugin.name}&preview=${preview}&previewStartTime=${previewStartTime}&${params}`;
 
     const formData = new FormData();
     formData.append("audio_file", file);
 
     try {
-      const response = await fetch(url, {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(url, { method: "POST", body: formData });
 
       if (!response.ok) {
-        const errorText = await response.text();
+        const errorText = await response.text().catch(() => "");
         console.error(`Server error: ${response.status} - ${errorText}`);
-        alert(`Error processing the file: ${response.status}`);
-        setIsLoading(false);
+        toast.err(`Processing failed (${response.status}).`);
         return;
       }
 
-      const processedFile = await response.blob();
-      if (processedFile.size === 0) {
-        console.error("Received file is empty.");
-        alert("Error: The received file is empty.");
-        setIsLoading(false);
+      const blob = await response.blob();
+      if (blob.size === 0) {
+        toast.err("The server returned an empty file.");
         return;
       }
 
-      // Cria URL de download e aciona o download
-      const downloadUrl = URL.createObjectURL(processedFile);
-      const link = document.createElement("a");
-      link.href = downloadUrl;
-      link.download = preview ? "preview_audio.wav" : "processed_audio.wav";
-
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      alert(
-        preview
-          ? "Preview downloaded successfully!"
-          : "File processed and downloaded successfully!"
-      );
+      // replace previous result (revoke old url)
+      if (resultRef.current?.url) URL.revokeObjectURL(resultRef.current.url);
+      const objectUrl = URL.createObjectURL(blob);
+      setResult({
+        url: objectUrl,
+        name: preview ? "preview_audio.wav" : "processed_audio.wav",
+        isPreview: preview,
+      });
+      toast.ok(preview ? "Preview ready — press play." : "Processed — press play.");
     } catch (error) {
       console.error("Error sending the file:", error);
-      alert("Error processing the file. Please try again.");
+      toast.err("Network error. Please try again.");
     } finally {
       setIsLoading(false);
+      setLoadingKind(null);
     }
   };
 
-  const renderParameterControl = (param, index) => {
+  const renderControl = (param, index) => {
     const value = paramValues[index];
     const displayLabel = param.label || param.name;
+
     switch (param.type) {
       case "slider":
         return (
-          <div key={index} className="param-control slider-control">
-            <label className="param-label">{displayLabel}</label>
-            <Slider
-              min={param.min}
-              max={param.max}
-              step={param.step}
-              value={value}
-              onChange={(val) => onParameterChange(index, val)}
-              disabled={isLoading}  // Desabilita durante o loading
-            />
-            <span className="param-value">{Number(value).toFixed(2)}</span>
-          </div>
+          <Knob
+            key={index}
+            label={displayLabel}
+            value={value}
+            min={param.min}
+            max={param.max}
+            step={param.step}
+            defaultValue={param.defaultValue}
+            disabled={isLoading}
+            color={param.min < 0 ? "cyan" : "sodium"}
+            onChange={(v) => onParameterChange(index, v)}
+          />
         );
+
       case "toggle":
         return (
-          <div key={index} className="param-control toggle-control">
-            <label className="param-label">{displayLabel}</label>
+          <div key={index} className="hw-toggle">
+            <span className="hw-toggle-label">{displayLabel}</span>
             <button
-              onClick={() => {
-                const toggledValue = value === 1.0 ? 0.0 : 1.0;
-                onParameterChange(index, toggledValue);
-              }}
-              className={value === 1.0 ? "toggle-on" : "toggle-off"}
-              disabled={isLoading}  // Desabilita durante o loading
+              type="button"
+              className={`switch ${value === 1.0 ? "on" : "off"}`}
+              onClick={() => onParameterChange(index, value === 1.0 ? 0.0 : 1.0)}
+              disabled={isLoading}
+              aria-pressed={value === 1.0}
             >
-              {value === 1.0 ? "ON" : "OFF"}
+              <span className="switch-track">
+                <span className="switch-thumb" />
+              </span>
+              <span className="switch-state">{value === 1.0 ? "ON" : "OFF"}</span>
             </button>
           </div>
         );
+
       case "select":
         return (
-          <div key={index} className="param-control select-control">
-            <label className="param-label">{displayLabel}</label>
+          <div key={index} className="hw-select">
+            <span className="hw-select-label">{displayLabel}</span>
             <select
               value={value}
-              onChange={(e) =>
-                onParameterChange(index, parseFloat(e.target.value))
-              }
-              disabled={isLoading}  // Desabilita durante o loading
+              onChange={(e) => onParameterChange(index, parseFloat(e.target.value))}
+              disabled={isLoading}
             >
               {param.options.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -156,6 +168,7 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
             </select>
           </div>
         );
+
       default:
         return null;
     }
@@ -166,73 +179,90 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
       className="modal"
       onClick={(e) => e.target.classList.contains("modal") && onClose()}
     >
-      <div className="modal-content">
-        <button className="close-button" onClick={onClose}>
-          ✖
-        </button>
-
-        <div className="modal-body">
-          <h2 className="modal-title">{plugin.label}</h2>
-          <p className="modal-desc">{plugin.description}</p>
-
-          {file && (
-            <div className="waveform-section">
-              <WaveformSelector
-                file={file}
-                previewStartTime={previewStartTime}
-                setPreviewStartTime={setPreviewStartTime}
-              />
-            </div>
-          )}
-
-          <div className="plugin-controls">
-            <h3 className="params-header">Parameters</h3>
-            <div className="scrollable-section">
-              {plugin.parameters.map((param, i) =>
-                renderParameterControl(param, i)
-              )}
-            </div>
+      <div className="rack-panel">
+        {/* panel head */}
+        <div className="panel-head metal">
+          <span className="screw" />
+          <div className="panel-id">
+            <span className="led" />
+            <span className="panel-slug">{plugin.name}</span>
           </div>
-
-          <div className="file-upload">
-            <label className="file-label">
-              Select Audio File:
-              <input type="file" onChange={handleFileUpload} accept="audio/*" />
-            </label>
-          </div>
+          <h2 className="panel-title">{plugin.label}</h2>
+          <button className="panel-close" onClick={onClose} aria-label="Close">
+            ✕
+          </button>
+          <span className="screw" />
         </div>
 
-        {/* Área fixa para botões e explicação */}
-        <div className="modal-footer">
-          {isLoading ? (
-            <div className="loading-bar">Loading...</div>
-          ) : (
-            <>
-              <div className="button-info">
-                <p>
-                  Choose "Preview" to listen to a short preview starting at the
-                  selected time, or "Process" to apply the effect and download the
-                  processed file.
-                </p>
-              </div>
-              <div className="action-buttons">
-                <button
-                  className="preview-button"
-                  onClick={() => handleSend(true)}
-                  disabled={isLoading}
-                >
-                  Preview
-                </button>
-                <button
-                  className="process-button"
-                  onClick={() => handleSend(false)}
-                  disabled={isLoading}
-                >
-                  Process
-                </button>
-              </div>
-            </>
+        <div className="panel-body">
+          <p className="panel-desc">{plugin.description}</p>
+
+          {/* CRT scope when a file is loaded */}
+          {file && (
+            <WaveformSelector
+              file={file}
+              previewStartTime={previewStartTime}
+              setPreviewStartTime={setPreviewStartTime}
+            />
           )}
+
+          {/* control surface */}
+          <div className="control-surface">
+            <div className="surface-head">
+              <span>PARAMETERS</span>
+              <span className="surface-count">{plugin.parameters.length}</span>
+            </div>
+            <div className="knob-bank">
+              {plugin.parameters.map((param, i) => renderControl(param, i))}
+            </div>
+          </div>
+
+          {/* file slot */}
+          <label className="file-slot">
+            <input type="file" onChange={handleFileUpload} accept="audio/*" />
+            <span className="file-slot-icon">⊕</span>
+            <span className="file-slot-text">
+              {file ? file.name : "Insert audio file (wav · mp3 · ogg · flac · aiff)"}
+            </span>
+          </label>
+
+          {/* result player */}
+          {result && (
+            <div className={`result-bay ${result.isPreview ? "is-preview" : ""}`}>
+              <div className="result-head">
+                <span className="led cyan" />
+                <span>{result.isPreview ? "PREVIEW OUT" : "PROCESSED OUT"}</span>
+                <a className="result-dl" href={result.url} download={result.name}>
+                  ▽ download
+                </a>
+              </div>
+              <audio className="result-audio" src={result.url} controls autoPlay />
+            </div>
+          )}
+        </div>
+
+        {/* transport footer */}
+        <div className="panel-foot metal">
+          <p className="foot-hint">
+            <strong>Preview</strong> renders a short window from the marker ·{" "}
+            <strong>Process</strong> applies to the full file.
+          </p>
+          <div className="transport">
+            <button
+              className="xport-btn xport-preview"
+              onClick={() => handleSend(true)}
+              disabled={isLoading}
+            >
+              {loadingKind === "preview" ? "···" : "▸ Preview"}
+            </button>
+            <button
+              className="xport-btn xport-process"
+              onClick={() => handleSend(false)}
+              disabled={isLoading}
+            >
+              {loadingKind === "process" ? "···" : "● Process"}
+            </button>
+          </div>
         </div>
       </div>
     </div>

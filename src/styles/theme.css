@@ -1,0 +1,136 @@
+/* ============================================================
+   retro-vst — neon-noir design tokens
+   Rua-noir Blade Runner: mostly black, isolated pools of light,
+   warm sodium vs cold petrol cyan, blood-red accent. Restraint.
+   See memory: retro-vst-aesthetic
+   ============================================================ */
+
+:root {
+  /* --- Core palette --- */
+  --c-void:        #050507;  /* deepest black, true background floor */
+  --c-base:        #0a0b0f;  /* warm near-black, main surface (night + rain) */
+  --c-surface:     #101218;  /* raised surface (rack chassis) */
+  --c-surface-2:   #161922;  /* panel inset */
+  --c-line:        #20242f;  /* hairlines / seams */
+
+  /* metal — brushed gunmetal for rack hardware */
+  --c-metal-hi:    #3a3f4b;
+  --c-metal:       #23262e;
+  --c-metal-lo:    #14161b;
+  --c-screw:       #2c2f37;
+
+  /* --- Light sources (use sparingly, as glow not fill) --- */
+  --c-sodium:      #ff7a18;  /* warm sodium-vapor amber — primary signal */
+  --c-sodium-soft: #ffb066;
+  --c-cyan:        #19b6c9;  /* cold petrol cyan — secondary / cool data */
+  --c-cyan-soft:   #6fe3ef;
+  --c-blood:       #c81e3a;  /* blood red — danger / accent / WKW red */
+  --c-blood-soft:  #ff4d68;
+  --c-phosphor:    #39ff9e;  /* green CRT phosphor — oscilloscope only */
+
+  /* --- Text --- */
+  --t-bright:      #e8e6df;  /* warm off-white, never pure #fff */
+  --t-default:     #b9b8b0;
+  --t-dim:         #6f7178;
+  --t-faint:       #43454d;
+
+  /* --- Typography --- */
+  --font-display: 'Chakra Petch', 'Saira Condensed', system-ui, sans-serif;
+  --font-mono:    'IBM Plex Mono', 'Courier New', monospace;
+
+  /* --- Glows (neon seen through rain: soft, layered, never hard) --- */
+  --glow-sodium: 0 0 1px var(--c-sodium-soft),
+                 0 0 8px rgba(255, 122, 24, 0.55),
+                 0 0 22px rgba(255, 122, 24, 0.30);
+  --glow-cyan:   0 0 1px var(--c-cyan-soft),
+                 0 0 8px rgba(25, 182, 201, 0.50),
+                 0 0 22px rgba(25, 182, 201, 0.28);
+  --glow-blood:  0 0 1px var(--c-blood-soft),
+                 0 0 8px rgba(200, 30, 58, 0.55),
+                 0 0 22px rgba(200, 30, 58, 0.30);
+  --glow-phosphor: 0 0 4px rgba(57, 255, 158, 0.7),
+                   0 0 14px rgba(57, 255, 158, 0.35);
+
+  /* text-shadow flavors */
+  --txt-sodium: 0 0 6px rgba(255, 122, 24, 0.65), 0 0 18px rgba(255, 122, 24, 0.35);
+  --txt-cyan:   0 0 6px rgba(25, 182, 201, 0.6),  0 0 18px rgba(25, 182, 201, 0.3);
+  --txt-blood:  0 0 6px rgba(200, 30, 58, 0.6),   0 0 18px rgba(200, 30, 58, 0.3);
+
+  /* --- Depth --- */
+  --shadow-rack: 0 1px 0 rgba(255,255,255,0.04) inset,
+                 0 -1px 0 rgba(0,0,0,0.6) inset,
+                 0 12px 30px rgba(0,0,0,0.55);
+  --shadow-inset: inset 0 2px 8px rgba(0,0,0,0.8),
+                  inset 0 -1px 0 rgba(255,255,255,0.03);
+
+  /* --- Geometry --- */
+  --r-sm: 3px;
+  --r-md: 6px;
+  --r-lg: 10px;
+
+  /* --- Motion (slow, Vangelis tempo) --- */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --t-fast: 140ms;
+  --t-med: 320ms;
+  --t-slow: 700ms;
+}
+
+/* brushed-metal surface, reused for rack chassis/navbar */
+.metal {
+  background:
+    linear-gradient(180deg, var(--c-metal-hi) 0%, var(--c-metal) 18%, var(--c-metal-lo) 100%);
+  background-color: var(--c-metal);
+  position: relative;
+}
+/* fine vertical brushing */
+.metal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255,255,255,0.018) 0px,
+    rgba(255,255,255,0.018) 1px,
+    rgba(0,0,0,0.05) 2px,
+    rgba(0,0,0,0.05) 3px
+  );
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  opacity: 0.5;
+}
+
+/* a phillips screw for rack corners */
+.screw {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, #4a4e58 0%, var(--c-screw) 45%, #0c0d11 100%);
+  box-shadow: 0 1px 1px rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.15);
+  position: relative;
+  flex: 0 0 auto;
+}
+.screw::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 8px;
+  height: 1.5px;
+  background: rgba(0,0,0,0.65);
+  transform: rotate(35deg);
+  border-radius: 1px;
+}
+
+/* a small status LED (default amber) */
+.led {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c-sodium);
+  box-shadow: var(--glow-sodium);
+  flex: 0 0 auto;
+}
+.led.cyan  { background: var(--c-cyan);  box-shadow: var(--glow-cyan); }
+.led.blood { background: var(--c-blood); box-shadow: var(--glow-blood); }
+.led.off   { background: #2a2118; box-shadow: none; }
