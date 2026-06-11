@@ -488,7 +488,7 @@
           "min": 1.0,
           "max": 100.0,
           "step": 0.1,
-          "defaultValue": 6.0
+          "defaultValue": 30.8
         },
         {
           "name": "kn",
@@ -515,7 +515,7 @@
           "min": -72.0,
           "max": 72.0,
           "step": 0.01,
-          "defaultValue": 12.0
+          "defaultValue": 0.0
         },
         {
           "name": "mk",
@@ -533,7 +533,7 @@
           "min": -120,
           "max": 20.0,
           "step": 1.0,
-          "defaultValue": 5.0
+          "defaultValue": -120.0
         },
         {
           "name": "cwt",
@@ -542,7 +542,7 @@
           "min": -120,
           "max": 20.0,
           "step": 1.0,
-          "defaultValue": 0.0
+          "defaultValue": -8.0
         },
         {
           "name": "cdw",
@@ -1671,7 +1671,7 @@
           "min": 0.0,
           "max": 100.0,
           "step": 1.0,
-          "defaultValue": 100.0
+          "defaultValue": 30.0
         },
         {
           "name": "Tab1-EQ-Type",
@@ -1725,7 +1725,7 @@
           "min": -60.0,
           "max": 0.0,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": -6.0
         },
         {
           "name": "Tab1-Pan",
@@ -1813,7 +1813,7 @@
           "min": 0.0,
           "max": 100.0,
           "step": 1.0,
-          "defaultValue": 100.0
+          "defaultValue": 20.0
         },
         {
           "name": "Tab2-EQ-Type",
@@ -1867,7 +1867,7 @@
           "min": -60.0,
           "max": 0.0,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": -12.0
         },
         {
           "name": "Tab2-Pan",
@@ -1882,7 +1882,7 @@
           "name": "Tab2-Enabled",
           "label": "Tab 2 Enabled",
           "type": "toggle",
-          "defaultValue": 1.0
+          "defaultValue": 0.0
         },
     
         {
@@ -2009,7 +2009,7 @@
           "min": -60.0,
           "max": 0.0,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": -12.0
         },
         {
           "name": "Tab3-Pan",
@@ -2024,7 +2024,7 @@
           "name": "Tab3-Enabled",
           "label": "Tab 3 Enabled",
           "type": "toggle",
-          "defaultValue": 1.0
+          "defaultValue": 0.0
         },
     
         {
@@ -2151,7 +2151,7 @@
           "min": -60.0,
           "max": 0.0,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": -12.0
         },
         {
           "name": "Tab4-Pan",
@@ -2166,7 +2166,7 @@
           "name": "Tab4-Enabled",
           "label": "Tab 4 Enabled",
           "type": "toggle",
-          "defaultValue": 1.0
+          "defaultValue": 0.0
         },
     
         {
@@ -2293,7 +2293,7 @@
           "min": -60.0,
           "max": 0.0,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": -12.0
         },
         {
           "name": "Tab5-Pan",
@@ -2308,7 +2308,7 @@
           "name": "Tab5-Enabled",
           "label": "Tab 5 Enabled",
           "type": "toggle",
-          "defaultValue": 1.0
+          "defaultValue": 0.0
         },
     
         {
@@ -2318,7 +2318,7 @@
           "min": -100.0,
           "max": 0.0,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": -3.0
         },
         {
           "name": "MasterVolume",
@@ -2327,7 +2327,7 @@
           "min": -100.0,
           "max": 0.0,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": -3.0
         }
       ]
     },
