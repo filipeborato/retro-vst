@@ -1,5 +1,5 @@
 // components/WaveformSelector.js
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import WaveSurfer from "wavesurfer.js";
 import RegionsPlugin from "wavesurfer.js/dist/plugin/wavesurfer.regions.js";
 import "../styles/WaveformSelector.css";
@@ -7,6 +7,7 @@ import "../styles/WaveformSelector.css";
 function WaveformSelector({ file, previewStartTime, setPreviewStartTime }) {
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const PREVIEW_WINDOW = 10; // Janela fixa de 10 segundos
 
@@ -84,6 +85,10 @@ function WaveformSelector({ file, previewStartTime, setPreviewStartTime }) {
           setPreviewStartTime(newStart);
         });
       });
+
+      wavesurfer.current.on("play", () => setIsPlaying(true));
+      wavesurfer.current.on("pause", () => setIsPlaying(false));
+      wavesurfer.current.on("finish", () => setIsPlaying(false));
     };
 
     // Lê o arquivo como ArrayBuffer
@@ -94,8 +99,15 @@ function WaveformSelector({ file, previewStartTime, setPreviewStartTime }) {
       if (wavesurfer.current) {
         wavesurfer.current.destroy();
       }
+      setIsPlaying(false);
     };
   }, [file, setPreviewStartTime]);
+
+  const togglePlay = () => {
+    if (wavesurfer.current) {
+      wavesurfer.current.playPause();
+    }
+  };
 
   return (
     <div className="scope">
@@ -104,7 +116,15 @@ function WaveformSelector({ file, previewStartTime, setPreviewStartTime }) {
         <div className="scope-glass" aria-hidden="true" />
       </div>
       <div className="scope-readout">
-        <span className="led" />
+        <span className={`led ${isPlaying ? "phosphor" : "off"}`} />
+        <button
+          type="button"
+          className={`scope-play-btn ${isPlaying ? "playing" : ""}`}
+          onClick={togglePlay}
+        >
+          {isPlaying ? "‖ PAUSE INPUT" : "▸ PLAY INPUT"}
+        </button>
+        <span className="scope-sep">·</span>
         <span>MARKER&nbsp;{Number(previewStartTime || 0).toFixed(2)}s</span>
         <span className="scope-sep">·</span>
         <span>WINDOW&nbsp;{PREVIEW_WINDOW}s</span>
@@ -114,3 +134,4 @@ function WaveformSelector({ file, previewStartTime, setPreviewStartTime }) {
 }
 
 export default WaveformSelector;
+
