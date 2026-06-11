@@ -7,14 +7,33 @@ import LoginModal from "./components/LoginModal";
 import { useToast } from "./components/Toast";
 import "./styles/App.css";
 import { SpeedInsights } from "@vercel/speed-insights/react";
-import plugins from "./Plugin.json";
+import staticPlugins from "./Plugin.json";
 
 function App() {
   const toast = useToast();
+  const [loadedPlugins, setLoadedPlugins] = useState(staticPlugins);
   const [selectedPlugin, setSelectedPlugin] = useState(null);
   const [paramValues, setParamValues] = useState([]);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [profile, setProfile] = useState(null);
+
+  useEffect(() => {
+    const fetchPlugins = async () => {
+      const baseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:18080";
+      try {
+        const response = await fetch(`${baseUrl}/plugins`);
+        if (response.ok) {
+          const data = await response.json();
+          if (Array.isArray(data) && data.length > 0) {
+            setLoadedPlugins(data);
+          }
+        }
+      } catch (error) {
+        console.warn("Failed to fetch plugins from server, using local fallback:", error);
+      }
+    };
+    fetchPlugins();
+  }, []);
 
   // Busca o profile a partir do token; usada no boot e logo após o login,
   // evitando o window.location.reload() que existia antes.
@@ -65,9 +84,10 @@ function App() {
 
   const handleParameterChange = (index, newValue) => {
     const updated = [...paramValues];
+    const pluginMeta = loadedPlugins.find((p) => p.id === selectedPlugin.id);
     if (
-      typeof plugins[selectedPlugin.id - 1].parameters[index].defaultValue ===
-      "boolean"
+      pluginMeta &&
+      typeof pluginMeta.parameters[index].defaultValue === "boolean"
     ) {
       updated[index] = newValue;
     } else {
@@ -122,7 +142,7 @@ function App() {
 
         <div className="section-rule">{"// effects rack"}</div>
 
-        <PluginGrid plugins={plugins} onPluginClick={openModal} />
+        <PluginGrid plugins={loadedPlugins} onPluginClick={openModal} />
 
         {selectedPlugin && (
           <PluginModal
