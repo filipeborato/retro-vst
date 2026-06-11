@@ -12,7 +12,7 @@
           "min": 0.0,
           "max": 1.0,
           "step": 0.01,
-          "defaultValue": 0.5
+          "defaultValue": 1.0
         },
         {
           "name": "Gain L",
@@ -21,7 +21,7 @@
           "min": 0.0,
           "max": 1.0,
           "step": 0.01,
-          "defaultValue": 0.5
+          "defaultValue": 1.0
         },
         {
           "name": "Gain R",
@@ -30,7 +30,7 @@
           "min": 0.0,
           "max": 1.0,
           "step": 0.01,
-          "defaultValue": 0.5
+          "defaultValue": 1.0
         },
         {
           "name": "Phase L",
@@ -80,7 +80,7 @@
           "name": "bypass",
           "label": "Bypass Filter",
           "type": "toggle",
-          "defaultValue": 0.2
+          "defaultValue": 0.0
         },
         {
           "name": "g_in",
@@ -89,7 +89,7 @@
           "min": -70.05,
           "max": 20.00,
           "step": 0.1,
-          "defaultValue": -30.02
+          "defaultValue": 0.0
         },
         {
           "name": "g_out",
@@ -98,7 +98,7 @@
           "min": -70.05,
           "max": 20.00,
           "step": 0.1,
-          "defaultValue": -30.02
+          "defaultValue": 0.0
         },
         {
           "name": "mode",
@@ -188,7 +188,7 @@
             { "label": "Ladder", "value": 0.8 },
             { "label": "Allpass", "value": 1.0 }
           ],
-          "defaultValue": 1.0
+          "defaultValue": 0.0
         },
         {
           "name": "fm",
@@ -226,7 +226,7 @@
           "min": 10.0,
           "max": 24000.0,
           "step": 10.0,
-          "defaultValue": 50.0
+          "defaultValue": 1500.0
         },
         {
           "name": "w",
@@ -267,7 +267,7 @@
           "name": "bypass",
           "label": "Bypass",
           "type": "toggle",
-          "defaultValue": 0.2
+          "defaultValue": 0.0
         },
         {
           "name": "g_in",
@@ -276,7 +276,7 @@
           "min": -60.0,
           "max": 60.0,
           "step": 0.01,
-          "defaultValue": -10.03
+          "defaultValue": 0.0
         },
         {
           "name": "g_out",
@@ -285,7 +285,7 @@
           "min": -60.0,
           "max": 60.0,
           "step": 0.01,
-          "defaultValue": -10.03
+          "defaultValue": 0.0
         },
         {
           "name": "pause",
@@ -625,7 +625,7 @@
           "name": "bypass",
           "label": "Bypass",
           "type": "toggle",
-          "defaultValue": 0.2
+          "defaultValue": 0.0
         },
         {
           "name": "g_in",

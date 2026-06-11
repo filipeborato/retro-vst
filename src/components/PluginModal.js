@@ -3,6 +3,7 @@ import "../styles/PluginModal.css";
 
 import Knob from "./Knob";
 import WaveformSelector from "./WaveformSelector";
+import RetroAudioPlayer from "./RetroAudioPlayer";
 import { useToast } from "./Toast";
 
 const ALLOWED = ["wav", "mp3", "ogg", "flac", "aiff"];
@@ -230,13 +231,13 @@ function PluginModal({ plugin, onClose, paramValues, onParameterChange }) {
           {result && (
             <div className={`result-bay ${result.isPreview ? "is-preview" : ""}`}>
               <div className="result-head">
-                <span className="led cyan" />
+                <span className={`led ${result.isPreview ? "" : "cyan"}`} />
                 <span>{result.isPreview ? "PREVIEW OUT" : "PROCESSED OUT"}</span>
                 <a className="result-dl" href={result.url} download={result.name}>
                   ▽ download
                 </a>
               </div>
-              <audio className="result-audio" src={result.url} controls autoPlay />
+              <RetroAudioPlayer src={result.url} isPreview={result.isPreview} />
             </div>
           )}
         </div>

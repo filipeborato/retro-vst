@@ -1,0 +1,196 @@
+.retro-player {
+  --progress-color: var(--c-cyan);
+  --player-glow: var(--glow-cyan);
+  --player-txt-glow: var(--txt-cyan);
+  
+  width: 100%;
+  background: var(--c-void);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-md);
+  padding: 10px 14px;
+  box-shadow: var(--shadow-inset);
+  box-sizing: border-box;
+}
+
+.retro-player.is-preview {
+  --progress-color: var(--c-sodium);
+  --player-glow: var(--glow-sodium);
+  --player-txt-glow: var(--txt-sodium);
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+}
+
+.player-btn {
+  background: linear-gradient(180deg, #1f2228, #101216);
+  border: 1px solid var(--c-line);
+  color: var(--t-dim);
+  font-family: var(--font-mono);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--t-fast) var(--ease);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  outline: none;
+  flex-shrink: 0;
+}
+
+.play-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 0.72rem;
+  padding: 0;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.play-btn:hover {
+  color: #fff;
+  border-color: var(--progress-color);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 0 10px var(--progress-color);
+}
+
+.play-btn.playing {
+  color: #fff;
+  border-color: var(--progress-color);
+  background: linear-gradient(180deg, rgba(25, 182, 201, 0.15), rgba(25, 182, 201, 0.04));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 0 14px var(--progress-color);
+}
+
+.retro-player.is-preview .play-btn.playing {
+  background: linear-gradient(180deg, rgba(255, 122, 24, 0.15), rgba(255, 122, 24, 0.04));
+}
+
+.progress-container {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.time-readout {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.70rem;
+  letter-spacing: 0.06em;
+  color: var(--progress-color);
+  text-shadow: var(--player-txt-glow);
+  flex-shrink: 0;
+  min-width: 80px;
+  justify-content: center;
+}
+
+.time-sep {
+  color: var(--t-faint);
+  text-shadow: none;
+}
+
+.volume-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.volume-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--r-sm);
+  font-size: 0.8rem;
+  padding: 0;
+  background: transparent;
+  border: 1px solid transparent;
+  box-shadow: none;
+}
+
+.volume-btn:hover {
+  color: var(--progress-color);
+  text-shadow: var(--player-txt-glow);
+}
+
+.volume-slider {
+  width: 60px;
+}
+
+/* Range slider styling */
+.player-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  border: 1px solid #000;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.8);
+  transition: all var(--t-fast) var(--ease);
+}
+
+/* Webkit browser slider track/thumb */
+.player-slider::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 3px;
+}
+
+.player-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--t-bright);
+  border: 1.5px solid var(--progress-color);
+  box-shadow: 0 0 6px var(--progress-color);
+  margin-top: -3px; /* Align thumb vertically center */
+  transition: transform var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease);
+}
+
+.player-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+  background: #fff;
+  box-shadow: 0 0 10px var(--progress-color);
+}
+
+/* Firefox browser slider track/thumb */
+.player-slider::-moz-range-track {
+  height: 6px;
+  border-radius: 3px;
+  background: transparent;
+}
+
+.player-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--t-bright);
+  border: 1.5px solid var(--progress-color);
+  box-shadow: 0 0 6px var(--progress-color);
+  transition: transform var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease);
+}
+
+.player-slider::-moz-range-thumb:hover {
+  transform: scale(1.25);
+  background: #fff;
+  box-shadow: 0 0 10px var(--progress-color);
+}
+
+@media (max-width: 520px) {
+  .player-controls {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .progress-container {
+    width: 100%;
+    order: 3;
+    margin-top: 4px;
+  }
+  .volume-container {
+    margin-left: auto;
+  }
+}
