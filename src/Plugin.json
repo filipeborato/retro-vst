@@ -1644,7 +1644,8 @@
           "min": 0.0,
           "max": 4.0,
           "step": 0.1,
-          "defaultValue": 0.8
+          "defaultValue": 0.8,
+          "safe_clamp_max": 0.5
         },
         {
           "name": "Tab1-Pre-Volume",
@@ -1662,7 +1663,8 @@
           "min": 0.0,
           "max": 4.0,
           "step": 0.1,
-          "defaultValue": 4.0
+          "defaultValue": 4.0,
+          "safe_clamp_max": 0.5
         },
         {
           "name": "Tab1-Feedback",
@@ -1786,7 +1788,8 @@
           "min": 0.0,
           "max": 4.0,
           "step": 0.1,
-          "defaultValue": 4.0
+          "defaultValue": 4.0,
+          "safe_clamp_max": 0.5
         },
         {
           "name": "Tab2-Pre-Volume",
@@ -1795,7 +1798,7 @@
           "min": -60.0,
           "max": 0.0,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": -36.0
         },
         {
           "name": "Tab2-Delay",
@@ -1804,7 +1807,8 @@
           "min": 0.0,
           "max": 4.0,
           "step": 0.1,
-          "defaultValue": 4.0
+          "defaultValue": 4.0,
+          "safe_clamp_max": 0.5
         },
         {
           "name": "Tab2-Feedback",
@@ -1928,7 +1932,8 @@
           "min": 0.0,
           "max": 4.0,
           "step": 0.1,
-          "defaultValue": 4.0
+          "defaultValue": 4.0,
+          "safe_clamp_max": 0.5
         },
         {
           "name": "Tab3-Pre-Volume",
@@ -1937,7 +1942,7 @@
           "min": -60.0,
           "max": 0.0,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": -36.0
         },
         {
           "name": "Tab3-Delay",
@@ -1946,7 +1951,8 @@
           "min": 0.0,
           "max": 4.0,
           "step": 0.1,
-          "defaultValue": 4.0
+          "defaultValue": 4.0,
+          "safe_clamp_max": 0.5
         },
         {
           "name": "Tab3-Feedback",
@@ -1991,7 +1997,7 @@
           "min": -24.0,
           "max": 24.0,
           "step": 0.1,
-          "defaultValue": 2.0
+          "defaultValue": 0.0
         },
         {
           "name": "Tab3-Mode",
@@ -2070,7 +2076,8 @@
           "min": 0.0,
           "max": 4.0,
           "step": 0.1,
-          "defaultValue": 4.0
+          "defaultValue": 4.0,
+          "safe_clamp_max": 0.5
         },
         {
           "name": "Tab4-Pre-Volume",
@@ -2079,7 +2086,7 @@
           "min": -60.0,
           "max": 0.0,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": -36.0
         },
         {
           "name": "Tab4-Delay",
@@ -2088,7 +2095,8 @@
           "min": 0.0,
           "max": 4.0,
           "step": 0.1,
-          "defaultValue": 4.0
+          "defaultValue": 4.0,
+          "safe_clamp_max": 0.5
         },
         {
           "name": "Tab4-Feedback",
@@ -2133,7 +2141,7 @@
           "min": -24.0,
           "max": 24.0,
           "step": 0.1,
-          "defaultValue": 1.0
+          "defaultValue": 0.0
         },
         {
           "name": "Tab4-Mode",
@@ -2212,7 +2220,8 @@
           "min": 0.0,
           "max": 4.0,
           "step": 0.1,
-          "defaultValue": 4.0
+          "defaultValue": 4.0,
+          "safe_clamp_max": 0.5
         },
         {
           "name": "Tab5-Pre-Volume",
@@ -2221,7 +2230,7 @@
           "min": -60.0,
           "max": 0.0,
           "step": 0.1,
-          "defaultValue": 0.0
+          "defaultValue": -36.0
         },
         {
           "name": "Tab5-Delay",
@@ -2230,7 +2239,8 @@
           "min": 0.0,
           "max": 4.0,
           "step": 0.1,
-          "defaultValue": 4.0
+          "defaultValue": 4.0,
+          "safe_clamp_max": 0.5
         },
         {
           "name": "Tab5-Feedback",
@@ -2275,7 +2285,7 @@
           "min": -24.0,
           "max": 24.0,
           "step": 0.1,
-          "defaultValue": 24.0
+          "defaultValue": 0.0
         },
         {
           "name": "Tab5-Mode",
@@ -2318,7 +2328,8 @@
           "min": -100.0,
           "max": 0.0,
           "step": 0.1,
-          "defaultValue": -3.0
+          "defaultValue": -12.0,
+          "scale": "db_to_linear"
         },
         {
           "name": "MasterVolume",
@@ -2327,7 +2338,8 @@
           "min": -100.0,
           "max": 0.0,
           "step": 0.1,
-          "defaultValue": -3.0
+          "defaultValue": -12.0,
+          "scale": "db_to_linear"
         }
       ]
     },
